@@ -1,0 +1,87 @@
+.PSR_container {
+	margin: 0 0 20px;
+	line-height: normal;
+}
+.PSR_container * {
+	line-height: normal;
+	vertical-align: top;
+}
+.PSR_container span {
+	font-size: 13px;
+}
+.PSR_stars {
+	height: 15px;
+	padding: 0;
+	margin: 0;
+}
+* html .PSR_stars .star {
+	display: block;
+	position: absolute;
+	height: 0;
+	width: 0;
+}
+.PSR_stars input {
+	display: none;
+}
+.PSR_stars label {
+	cursor: pointer;
+}
+.PSR_no_star,
+.PSR_half_star,
+.PSR_full_star,
+.PSR_no_voting_star,
+.PSR_half_voting_star,
+.PSR_full_voting_star {
+	display: block;
+	width: 17px;
+	height: 15px;
+	text-indent: -9999px;
+	text-align: left;
+	background-repeat: no-repeat;
+	float: left;
+}
+.PSR_no_star {
+	background-image: url(../images/no_star.png);
+}
+.PSR_full_star {
+	background-image: url(../images/full_star.png);
+}
+.PSR_half_star {
+	background-image: url(../images/half_star.png);
+}
+.PSR_no_voting_star {
+	background-image: url(../images/no_star.png);
+}
+.PSR_full_voting_star {
+	background-image: url(../images/full_voting_star.png);
+}
+.PSR_half_voting_star {
+	background-image: url(../images/half_voting_star.png);
+}
+.PSR_votes,
+.PSR_tvote {
+	padding-left: 5px;
+}
+.PSR_tvotes {
+	padding-left: 5px;
+}
+.PSR_month_scores,
+.PSR_moment_scores {
+	padding: 0 0 0 25px;
+	margin: 0 0 20px;
+	list-style: decimal !important;
+}
+.PSR_month_scores li,
+.PSR_moment_scores li {
+	position: relative;
+	line-height: normal;
+}
+.PSR_month_scores li .PSR_container,
+.PSR_moment_scores li .PSR_container {
+	margin: 5px 0 15px;
+}
+.PSR_moment_scores li .trend {
+	width: 15px;
+	height: 15px;
+	margin: 0 3px 0 0;
+}

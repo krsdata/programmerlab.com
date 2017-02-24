@@ -1,0 +1,90 @@
+@CHARSET "UTF-8";
+
+.cincopa-gallery-block {
+	position: absolute;
+	top: -9999px;
+
+	background-color: #fff;
+	border-color: #dfdfdf;
+	-webkit-box-shadow: 2px 3px 6px rgba(0,0,0,0.4);
+	box-shadow: 2px 3px 6px rgba(0,0,0,0.4);
+
+	z-index: 1000;
+	
+	padding: 2px;
+	min-width: 100px;
+	min-height: 30px;
+
+	max-height: 300px;
+	overflow-y: scroll;
+}
+	.cincopa-gallery-block-visible {
+		top: 25px;
+		left: 175px;
+	}
+	
+.cincopa-gallery-item {
+	cursor: pointer;
+	padding: 0px 10px 0px 10px;
+}
+
+.cincopa-gallery-item:hover, .cincopa-gallery-item:focus {
+	background-color: #eaf2fa;
+	color: #333;
+}
+.cincopa-login {
+	padding: 10px;
+}
+
+#cincopa_button {
+	height: 24px;
+	box-sizing: border-box;
+	vertical-align: top;
+
+	border: 1px solid #bbb;
+	-webkit-border-radius: 3px;
+	-webkit-appearance: none;
+	border-radius: 3px;
+
+	background-color: #eee;
+	background-image: -webkit-gradient(linear,left bottom,left top,from(#e5e5e5),to(#fff));
+	background-image: -webkit-linear-gradient(bottom,#e5e5e5,#fff);
+	background-image: -moz-linear-gradient(bottom,#e5e5e5,#fff);
+	background-image: -o-linear-gradient(bottom,#e5e5e5,#fff);
+	background-image: linear-gradient(to top,#e5e5e5,#fff);
+
+	cursor: pointer;
+}
+#cincopa_button:hover {
+	border-color: rgb(153, 153, 153);
+}
+#cincopa_button.pressed {
+	border-color: #999 #ccc #ccc #999;
+	background: #eee;
+	background-image: -webkit-gradient(linear,left bottom,left top,from(#f6f6f6),to(#e3e3e3));
+	background-image: -webkit-linear-gradient(bottom,#f6f6f6,#e3e3e3);
+	background-image: -moz-linear-gradient(bottom,#f6f6f6,#e3e3e3);
+	background-image: -o-linear-gradient(bottom,#f6f6f6,#e3e3e3);
+	background-image: linear-gradient(to top,#f6f6f6,#e3e3e3);		
+}
+#cincopa_button, #cincopa_button .first, #cincopa_button .last, #cincopa_button a {
+	display: inline-block;
+}
+
+#cincopa_button div.first {
+	height: 22px;
+}
+#cincopa_button div.first img {
+	margin-top: 5px;
+	margin-left: 2px;
+}
+#cincopa_button div.last {
+	background-image: url("down_arrow.gif");
+	background-position: 1px 2px;
+	background-repeat: no-repeat;
+	border-left: 1px solid #bbb;
+	width: 12px;
+	height: 22px;
+	box-sizing: border-box;
+	vertical-align: top;
+}
