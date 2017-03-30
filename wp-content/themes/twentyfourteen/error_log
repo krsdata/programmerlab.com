@@ -1,0 +1,1 @@
+[04-Mar-2017 20:25:42 UTC] PHP Fatal error:  Call to undefined function get_header() in /home/programmerlab/public_html/wp-content/themes/twentyfourteen/404.php on line 10

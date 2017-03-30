@@ -1,0 +1,286 @@
+msgid ""
+msgstr "MIME-Version: 1.0\n"
+
+#. Name.
+msgid "Posts for Page"
+msgstr ""
+
+#. Short description.
+msgid "Include posts in a Page, by category, a selection of tags or by author with auto summary (read more) option. Supports pagination."
+msgstr ""
+
+#. Screenshot description.
+msgid "<code>/postsforpage/1.0/screenshot-1.jpg</code>"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Include posts in a Page, by category, a selection of tags or by author with an auto summary (read more) option. Supports pagination when number of posts per page is specified."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "For example if you want a Page (in the main header navigation) to show a list of all posts in a category or set of tags and summarise the posts then this plugin will do it. Add a simple shortcode to the page (in HTML view) and the page is generated from the matching posts."
+msgstr ""
+
+#. Found in installation list item.
+msgid "Upload <code>plugin-name.php</code> to the <code>/wp-content/plugins/</code> directory"
+msgstr ""
+
+#. Found in installation list item.
+msgid "Activate the plugin through the 'Plugins' menu in WordPress"
+msgstr ""
+
+#. Found in installation list item.
+msgid "Create (or edit) a page. Switch to HTML view."
+msgstr ""
+
+#. Found in installation list item.
+msgid "Insert the shortcode: [posts-for-page cat_slug='your-category-slug'] (to display all posts from this category)"
+msgstr ""
+
+#. Found in installation list item.
+msgid "Add any additional options, it will default to 50 words with the read-more link or set show_full_posts='true' to show full post content."
+msgstr ""
+
+#. Found in installation paragraph.
+msgid "Example Usage:"
+msgstr ""
+
+#. Found in installation paragraph.
+msgid "[posts-for-page cat_slug='asp-net-programming-2' hide_images='false' num='5' read_more='<br />Read More &raquo;' show_full_posts='false' use_wp_excerpt='true' strip_html='true' hide_post_content='false' show_meta='true']"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Release Version"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Update readme"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixed limit to number of posts which would be displayed"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixed header tag to be H2"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Removes all images and inserts first image (if found) at start of post using WP Thumbnail version"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "If images are a problem they can be hidden using: hide_images='true'"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Pagination added if number of posts is specifified (i.e. num='3')"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "\"Read More\" Text can be specified (i.e. read_more='<br />More Here')"
+msgstr ""
+
+#. Found in changelog list item, faq list item.
+msgid "Pagination link text can be specified using 'prev_text' and 'next_text'"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "show_full_posts='true' - will show the full post content."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Number of display issues resolved"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "new options added"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "use_wp_excerpt - set to 'true' to show the WP generated excerpt or the excerpt if defined for the post"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "strip_html - set to 'true' attempts to strip all HTML content (if not using use_wp_excerpt option)"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "hide_post_content - set to 'true' to only show the post titles"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "show_meta - set to 'true' to show post date and author name"
+msgstr ""
+
+#. Found in changelog list item, faq list item.
+msgid "hide_post_title : set to 'true' to hide the post title, e.g. if you just want to show one post using post_id"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "added create_para_tags "
+msgstr ""
+
+#. Found in changelog list item.
+msgid "fixed a bug with hide_read_more "
+msgstr ""
+
+#. Found in changelog list item.
+msgid "added order (ASC or DESC) for the order_by parameter"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "fixed bug with num param"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "fixed bug with attached images"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "fixed bug with use_wp_excerpt "
+msgstr ""
+
+#. Found in changelog list item.
+msgid "added - force_excerpt_image : set to 'true' to attempt to get an image from the post content even if no thumbnail is set for the excerpt"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "added - force_image_height and force_image_width : force the dimensions of the image used in the post excerpt"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Removed force_excerpt_image - Will always attempt to get an image unless set to hidden"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Changed name of function image_resize to avoid WP conflicts"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fix formatting issues especially for full posts"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Tested up to 4.3.1"
+msgstr ""
+
+#. Found in faq list item.
+msgid "The first image in a post will be place at the start using the WP thumbnail if it is available. If images are a problem they can be hidden using: hide_images='true'"
+msgstr ""
+
+#. Found in faq list item.
+msgid "Pagination is added if number of posts is specifified (i.e. num='3')"
+msgstr ""
+
+#. Found in faq list item.
+msgid "\"Read More\" Text can be specified (i.e. read_more='More Here')"
+msgstr ""
+
+#. Found in faq list item.
+msgid "Full Options:"
+msgstr ""
+
+#. Found in faq list item.
+msgid "cat_slug : Show all posts with this category slug"
+msgstr ""
+
+#. Found in faq list item.
+msgid "cat : Show all posts with a particular category ID"
+msgstr ""
+
+#. Found in faq list item.
+msgid "tag_slug : Show all posts with a specific tag (more than one can be entered, comma separated, i.e. tag_slug='html,css' (note: no spaces)"
+msgstr ""
+
+#. Found in faq list item.
+msgid "order_by : Order the posts by 'date' or 'title'"
+msgstr ""
+
+#. Found in faq list item.
+msgid "post_id : Show one post"
+msgstr ""
+
+#. Found in faq list item.
+msgid "author : Show posts by author"
+msgstr ""
+
+#. Found in faq list item.
+msgid "num : Limit the number of posts to show"
+msgstr ""
+
+#. Found in faq list item.
+msgid "hide_images (true/false) : If images are a problem they can be hidden using: hide_images='true'"
+msgstr ""
+
+#. Found in faq list item.
+msgid "Added in V1.5 (Pagination if number of posts is specified e.g. num='x')"
+msgstr ""
+
+#. Found in faq list item.
+msgid "read_more : Replace default read more text (i.e. read_more='Show me more...')"
+msgstr ""
+
+#. Found in faq list item.
+msgid "prev_text : Replace default Previous entry link text when specifying number of posts (i.e. prev_text='Newer')"
+msgstr ""
+
+#. Found in faq list item.
+msgid "next_text : Replace default Next entry link text when specifying number of posts (i.e. next_text='Older')"
+msgstr ""
+
+#. Found in faq list item.
+msgid "show_full_posts(true/false) : Show full post rather than excerpt (i.e. show_full_posts='true')"
+msgstr ""
+
+#. Found in faq list item.
+msgid "use_wp_excerpt - show the WP generated excerpt or the excerpt if defined for the post"
+msgstr ""
+
+#. Found in faq list item.
+msgid "strip_html : attempts to strip all HTML content (if not using use_wp_excerpt option)"
+msgstr ""
+
+#. Found in faq list item.
+msgid "hide_post_content : set to 'true' to only show the post titles"
+msgstr ""
+
+#. Found in faq list item.
+msgid "show_meta : set to 'true' to show post date and author name"
+msgstr ""
+
+#. Found in faq list item.
+msgid "hide_read_more : set to 'true' to hide the read more link"
+msgstr ""
+
+#. Found in faq list item.
+msgid "create_para_tags : set to 'true' to use the WP 'wpautop' function to create <p> tags and <br /> tags from line breaks</p>"
+msgstr ""
+
+#. Found in faq list item.
+msgid "order : set to 'ASC' or 'DESC' - Designates the ascending or descending order of the 'orderby' parameter. Defaults to 'DESC'."
+msgstr ""
+
+#. Found in faq list item.
+msgid "force_excerpt_image : set to 'true' to attempt to get an image from the post content even if no thumbnail is set for the excerpt"
+msgstr ""
+
+#. Found in faq list item.
+msgid "force_image_height : Provide a height for the image shown in the post excerpt (not active if using full post option) "
+msgstr ""
+
+#. Found in faq list item.
+msgid "force_image_width : Provide a width for the image shown in the post excerpt (not active if using full post option) "
+msgstr ""
+
+#. Found in faq list item.
+msgid "Each summary posts is contained in a div with  class=\"pfpItem\", so you can override styles by setting them in the WP stylesheet \"styles.css\". E.g \".div.pfpItem{font-size:20px;}\""
+msgstr ""
+
+#. Found in faq list item.
+msgid "Source code for extending can be found on github https://github.com/shibbard/posts-for-page"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "tags and <br /> tags from line breaks"
+msgstr ""

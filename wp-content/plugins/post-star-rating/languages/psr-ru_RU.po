@@ -1,0 +1,54 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Post Star Rating\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2014-10-14 10:19+0300\n"
+"Last-Translator: bestwebsoft.com <plugins@bestwebsoft.com>\n"
+"Language-Team: BestWebLayout <social@bestweblayout.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#@ psr
+#: post-star-rating.php:167
+#: post-star-rating.php:203
+msgid "vote"
+msgid_plural "votes"
+msgstr[0] "голос"
+msgstr[1] "голос(а/ов)"
+
+#@ psr
+#: post-star-rating.php:205
+msgid "Vote!"
+msgstr "Голосуйте!"
+
+#@ psr
+#: post-star-rating.php:208
+msgid "Vote"
+msgstr "Голосовать"
+
+#@ psr
+#: post-star-rating.php:320
+msgid "Down"
+msgstr "Опустился"
+
+#@ psr
+#: post-star-rating.php:320
+msgid "Up"
+msgstr "Поднялся"
+
+#@ psr
+#: post-star-rating.php:320
+msgid "Unchanged"
+msgstr "Без изменений"
+

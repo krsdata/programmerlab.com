@@ -1,0 +1,2 @@
+[18-Mar-2017 21:50:10 UTC] PHP Fatal error:  Call to undefined function get_header() in /home/programmerlab/public_html/wp-content/themes/biscayalite/404.php on line 6
+[24-Mar-2017 01:48:37 UTC] PHP Fatal error:  Call to undefined function get_header() in /home/programmerlab/public_html/wp-content/themes/biscayalite/404.php on line 6
