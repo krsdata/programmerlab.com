@@ -1,0 +1,774 @@
+# Translation of Plugins - User Submitted Posts - Development (trunk) in Greek
+# This file is distributed under the same license as the Plugins - User Submitted Posts - Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2018-04-26 12:07+0300\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.0.7\n"
+"Language: el_GR\n"
+"Project-Id-Version: Plugins - User Submitted Posts - Development (trunk)\n"
+"POT-Creation-Date: \n"
+"Last-Translator: Lena Stergatou <aqua6617@yahoo.com>\n"
+"Language-Team: \n"
+
+#. Tags of the plugin/theme
+msgid "submit, public, share, upload, images, posts, users, user-submit, community, front-end, submissions"
+msgstr "υποβoλή, δημόσια, μοιράζομαι, μεταφόρτωση, εικόνες, αναρτήσεις, χρήστες, ανάρτηση χρήστη, κοινότητα, frontend, υποβολές"
+
+#. Author URI of the plugin/theme
+msgid "http://monzilla.biz/"
+msgstr "http://monzilla.biz/ "
+
+#. Author of the plugin/theme
+msgid "Jeff Starr"
+msgstr "Jeff Starr "
+
+#. Description of the plugin/theme
+msgid "Enables your visitors to submit posts and images from anywhere on your site."
+msgstr "Επιτρέπει στους επισκέπτες σας να αναρτούν άρθρα και εικόνες από οπουδήποτε στο site σας."
+
+#. Plugin URI of the plugin/theme
+msgid "https://perishablepress.com/user-submitted-posts/"
+msgstr "https://perishablepress.com/user-submitted-posts/ "
+
+#: views/submission-form.php:162
+msgid "Submit Post"
+msgstr "Υποβολή άρθρου"
+
+#: views/submission-form.php:141
+msgid "Human verification: leave this field empty."
+msgstr "Επιβεβαίωση ανθρώπο:Αφήστε αυτό το πεδίο κενό"
+
+#: views/submission-form.php:120
+msgid "Add another image"
+msgstr "Προσθήκη νέας εικόνας"
+
+#: views/submission-form.php:112
+msgid "Upload an Image"
+msgstr "Ανέβασμα εικόνας"
+
+#: views/submission-form.php:70
+msgid "Please select a category.."
+msgstr "Παρακαλούμε επιλέξτε μία κατηγορία"
+
+#: views/submission-form.php:63
+msgid "Antispam Question"
+msgstr "Ερώτηση αντισπαμ"
+
+#: views/submission-form.php:44 views/submission-form.php:45
+msgid "Your Email"
+msgstr "Η ηλ. διεύθυνσή σας"
+
+#: views/submission-form.php:38 views/submission-form.php:39
+msgid "Your URL"
+msgstr "Ο ιστοτοπό σας"
+
+#: views/submission-form.php:32 views/submission-form.php:33
+msgid "Your Name"
+msgstr "Το ονομά σας"
+
+#: user-submitted-posts.php:1469
+msgid "Are you sure you want to restore all default options? (this action cannot be undone)"
+msgstr "Είστε σίγουροι ότι θέλετε να επαναφέρετε τις αρχικές ρυθμίσεις; (Η ενέργεια αυτή δεν αναστρέφεται)"
+
+#: user-submitted-posts.php:1463
+msgid "Save Preference"
+msgstr "Αποθήκευση προτιμήσεων"
+
+#: user-submitted-posts.php:1423
+msgid "Updates &amp; Info"
+msgstr "Ενημερώσεις,Πληροφορίες"
+
+#: user-submitted-posts.php:1416
+msgid "<strong>Tip:</strong> leave this option unchecked to remember your settings. Or, to go ahead and restore all default options, check the box, save your settings, and then deactivate/reactivate the plugin."
+msgstr "<strong>Συμβουλή:</strong> Αφήστε αυτη την επιλογή αμαρκάριστη για να θυμόσαστε τις ρυθμίσεις σας. Η συνεχίστε και επαναφέρετε τις εξ ορισμού ρυθμίσεις, τσεκάρετε τοι κουτί, και μετά απενεργοποιήστε/ενεργοποιήστε το πρόσθετο."
+
+#: user-submitted-posts.php:1412
+msgid "Restore default options upon plugin deactivation/reactivation."
+msgstr "Επαναφορά αρχικών ρυθμίσεων με την απενεργοποίηση/ενεργοποίηση του πρόσθετου"
+
+#: user-submitted-posts.php:1408
+msgid "Restore Default Options"
+msgstr "Επαναφορά αρχικών ρυθμίσεων"
+
+#: user-submitted-posts.php:1403
+msgid "Use this template tag to display the USP Form anywhere in your theme template:"
+msgstr "Χρησιμοποιήστε αυτό το πρότυπο για να εμφανιζεται η φόρμα του USP οπουδήποτε στο πρότυπο του θέματος"
+
+#: user-submitted-posts.php:1402
+msgid "Template tag"
+msgstr "Ετικέτα πρότυπου"
+
+#: user-submitted-posts.php:1399
+msgid "Use this shortcode to display the USP Form on any post or page:"
+msgstr "Χρησιμοποιήστε αυτόν τον σύντομο κώδικα για να εμφανίζεται η φόρμα USP σε κάθε ανάρτηση ή σελίδα"
+
+#: user-submitted-posts.php:1398
+msgid "Shortcode"
+msgstr "Σύντομος κώδικας"
+
+#: user-submitted-posts.php:1395
+msgid "Shortcode &amp; Template Tag"
+msgstr "Shortcode &amp; Template Tag"
+
+#: user-submitted-posts.php:1391 user-submitted-posts.php:1419
+msgid "Save Settings"
+msgstr "Αποθήκευση ρυθμίσεων"
+
+#: user-submitted-posts.php:1387
+msgid "Specify a <em>maximum height</em> (in pixels) for uploaded images."
+msgstr "Ορίστε <em>μέγιστο ύψος</em> (σε pixels) για τις εικόνες που ανεβάζετε."
+
+#: user-submitted-posts.php:1385
+msgid "Maximum image height"
+msgstr "Μέγιστο ύψος εικόνας"
+
+#: user-submitted-posts.php:1382
+msgid "Specify a <em>maximum width</em> (in pixels) for uploaded images."
+msgstr "Ορίστε <em>μέγιστο πλάτος</em> (σε pixels) για τις εικόνες που ανεβάζετε. "
+
+#: user-submitted-posts.php:1380
+msgid "Maximum image width"
+msgstr "Μέγιστο πλάτος εικόνας "
+
+#: user-submitted-posts.php:1377
+msgid "Specify a <em>minimum height</em> (in pixels) for uploaded images."
+msgstr "Καθορίστε ένα <em>ελάχιστο ύψοςt</em> (σε pixels) για τις ανεβασμένες εικόνες."
+
+#: user-submitted-posts.php:1375
+msgid "Minimum image height"
+msgstr "Ελάχιστο ύψος εικόνας"
+
+#: user-submitted-posts.php:1372
+msgid "Specify a <em>minimum width</em> (in pixels) for uploaded images."
+msgstr "καθορίστε το <em>ελάχιστο πλάτος</em> (σε pixels) για τις ανεβασμένες εικόνες."
+
+#: user-submitted-posts.php:1370
+msgid "Minimum image width"
+msgstr "Ελάχιστο πλάτος εικόνας"
+
+#: user-submitted-posts.php:1366
+msgid "Specify the <em>maximum</em> number of images."
+msgstr "Καθορίστε τον <em>μέγιστο</em> αριθμό εικόνων."
+
+#: user-submitted-posts.php:1363
+msgid "Maximum number of images"
+msgstr "Μέγιστος αριθμός εικόνων"
+
+#: user-submitted-posts.php:1359
+msgid "Specify the <em>minimum</em> number of images."
+msgstr "Καθορίστε τον <em>ελάχιστο</em> αριθμό εικόνων."
+
+#: user-submitted-posts.php:1356
+msgid "Minimum number of images"
+msgstr "Ελάχιστος αριθμός εικόνων."
+
+#: user-submitted-posts.php:1353
+msgid "Here you may specify your own custom markup for the &ldquo;Add another image&rdquo; link (leave blank to use the default markup)."
+msgstr "Εδώ μπορέιτε να καθορίσετε τον δικό σας καρκαπ κώδικα για το &ldquo. Προσθέστε έναν ακόμα σύνδεσμο image&rdquo (αφήστε κενό για χρήση του προεπιλεγμένου κώδικα)."
+
+#: user-submitted-posts.php:1351
+msgid "&ldquo;Add another image&rdquo; link"
+msgstr "&ldquo. Προσθήκε νέου σύνδεσμου εικόνας  image&rdquo."
+
+#: user-submitted-posts.php:1348
+msgid "This is the message that appears next to upload field. Useful to state your upload guidelines/rules/etc."
+msgstr "Αυτό το μήνυμα εμφανίζεται δίπλα στο πεδίο μεταφόρτωσης. Είναι χρήσιμο για να δηλώνει τις οδηγίες/κανόνες/κλπ της μεταφόρτωσης"
+
+#: user-submitted-posts.php:1346
+msgid "Upload Message"
+msgstr "Μήνυμα Μεταφόρτωσης"
+
+#: user-submitted-posts.php:1342
+msgid "Image Uploads"
+msgstr "Μεταφορτώσεις εικόνων"
+
+#: user-submitted-posts.php:1338
+msgid "Check this box if you want the challenge response to be case-sensitive."
+msgstr "Τσεκάρετε αυτό το κοτί αν θέλετε η ερώτηση να είναι ευαίσθητη κεφαλαίων γραμμάτων (case-sensitive)."
+
+#: user-submitted-posts.php:1336
+msgid "Case-sensitivity"
+msgstr "Διάκριση πεζών-κεφαλαίων"
+
+#: user-submitted-posts.php:1333
+msgid "Enter the <em>only</em> correct answer to the challenge question."
+msgstr "Εισάγετε <em>μόνο</em> τη σωστή απάντηση στην ερώτηση."
+
+#: user-submitted-posts.php:1331
+msgid "Challenge Response"
+msgstr "Απάντηση ερώτησης"
+
+#: user-submitted-posts.php:1328
+msgid "To prevent spam, enter a question that users must answer before submitting the form."
+msgstr "Για την εμπόδιση του σπαμ, πληκρολογείστε μία ερώτηση στην οποία οι χρήστες πρέπει να απαντούν πριν την υποβολή της φόρμας."
+
+#: user-submitted-posts.php:1326
+msgid "Challenge Question"
+msgstr "Ερώτηση"
+
+#: user-submitted-posts.php:1322
+msgid "Challenge Question (Captcha)"
+msgstr "Ερώτηση (Captcha)"
+
+#: user-submitted-posts.php:1318
+msgid "Specify a cateogry (ID) to use as the default category when using the &ldquo;hidden field&rdquo; option."
+msgstr "Καθορίστε μία κατηγορία (ID) για να την χρησημοποιήσετε ως προεπιλεγμένη κατηγορία όταν χρησιμποιείται η επιλογή του &ldquo;hidden field&rdquo"
+
+#: user-submitted-posts.php:1316
+msgid "Category ID for hidden field"
+msgstr "Κωδικός ID κατηγορίας για το κρυμμένο πεδίο"
+
+#: user-submitted-posts.php:1313
+msgid "Check this box if you want to use a hidden category field for the submitted category. Note: this may be used to specify a default category for submitted posts when the category field is hidden."
+msgstr "Επιλέξτε αυτό το πλαίσιο αν θέλετε να χρησιμοποιήσετε ένα κρυφό πεδίο της κατηγορίας για την υποβληθείσα κατηγορία. Σημείωση: αυτό μπορεί να χρησιμοποιηθεί για να καθορίσετε μια προεπιλεγμένη κατηγορία για τα υποβληθένατ άρθρα όταν το πεδίο της κατηγορίας είναι κρυμμένο."
+
+#: user-submitted-posts.php:1311
+msgid "Use a hidden field for submitted category?"
+msgstr "Θελετε να χρησιμοπιήσετε ένα κρυφό πεδίο της υποβληθείσας κατηγορίας;"
+
+#: user-submitted-posts.php:1308
+msgid "Check this box if you want to automatically use the registered user&rsquo;s specified URL as the submitted-post URL. Note: this really should only be used when requiring log-in for submissions."
+msgstr "Επιλέξτε αυτό το πλαίσιο αν θέλετε να χρησιμοποιήσετε αυτόματα την&rsquo;s καθορισμένη διεύθυνση URLπου έχει δώσει ο χρήστης  για το URL του υποβληθέντος άρθρου. Σημείωση: στην πράξη θα πρέπει να χρησιμοποιείται μόνο όταν χρειάζεται login για τις υποβολές."
+
+#: user-submitted-posts.php:1306
+msgid "Use registered URL for submitted URL?"
+msgstr "Χρήση του καταχωρημένου URL για τα υποβληθέντα URL;"
+
+#: user-submitted-posts.php:1303
+msgid "Check this box if you want to automatically use the registered username as the submitted-post author. Note: this really should only be used when requiring log-in for submissions."
+msgstr "Επιλέξτε αυτό το πλαίσιο αν θέλετε να χρησιμοποιήσετε αυτόματα το καταχωρημένο όνομα χρήστη ως συγγραφέας υποβληθέντων άρθρων Σημείωση: στην πράξη αυτό θα πρέπει να χρησιμοποιείται μόνο όταν χρειάζεται login για τις υποβολές."
+
+#: user-submitted-posts.php:1301
+msgid "Use registered username for author?"
+msgstr "Χρήση καταχωρημένου ονόματος χρήστη ως συγγραφέα;"
+
+#: user-submitted-posts.php:1297
+msgid "Registered User Info"
+msgstr "Πληροφορίες Καταχωρημένου Χρήστη"
+
+#: user-submitted-posts.php:1293
+msgid "Disable all required attributes on default form fields (useful for troubleshooting error messages)."
+msgstr "Απενεργοποιήστε όλα τα απαραίτητα χαρακτηριστικά για τα προεπιλεγμένα πεδία φόρμας (χρήσιμο για την αντιμετώπιση μηνυμάτων λάθους)."
+
+#: user-submitted-posts.php:1291
+msgid "Disable Required"
+msgstr "Απαιτείται Απενεργοποίηση"
+
+#: user-submitted-posts.php:1288
+msgid "Require submitted post titles to be unique (useful for preventing multiple/duplicate submitted posts)."
+msgstr "Πρέπει οι τίτλοι των αναρτημένων άρθρων να είναι μοναδικοί (χρήσιμο για να εμποδίζονται τα πολλαπλά/διπλότυπα άρθρα)."
+
+#: user-submitted-posts.php:1286
+msgid "Unique Titles"
+msgstr "Μοναδικοί Τίτλοι"
+
+#: user-submitted-posts.php:1283
+msgid "Here you may specify custom text/markup to be included before the submission form. Note: leave blank to disable."
+msgstr "Εδώ μπορείτε να καθορίσετε δικό σας κώδικα κειμένου/κείμενο ώστε να εμφανίζεται πριν τη φόρμα υποβολής. Σημείωση: αφήστε κενό για απενεργοποίηση."
+
+#: user-submitted-posts.php:1281
+msgid "Custom Content"
+msgstr "Περιεχόμενο ειδικό"
+
+#: user-submitted-posts.php:1278
+msgid "This is the error message that is displayed if post-submission fails."
+msgstr "Αυτό είναι μήνυμα σφάλματος που εμφανίζεται αν αποτύχει η ανάρτηση άρθρου"
+
+#: user-submitted-posts.php:1276
+msgid "Error Message"
+msgstr "Μήνμα Σφάλματος"
+
+#: user-submitted-posts.php:1273
+msgid "This is the success message that is displayed if post-submission is successful."
+msgstr "Αυτό είναι το μήνυμα επιτυχίας που εμφανιζεται αν η ανάρτηση άρθρου είναι επιτυχής."
+
+#: user-submitted-posts.php:1271
+msgid "Success Message"
+msgstr "Μήνυμα Επιτυχίας"
+
+#: user-submitted-posts.php:1268
+msgid "Specify a URL to redirect the user after post-submission. Note: leave blank to redirect back to current page."
+msgstr "Καθορίστε ένα URL για ανακατεύθυνση του χρήστη μετά την επιτυχή υποβολή άρθρου. Σημείωση: αφήστε το κενό για ανακατεύθυνση στην τρέχουσα σελίδα."
+
+#: user-submitted-posts.php:1266
+msgid "Redirect URL"
+msgstr "URL ανακατεύθυνσης"
+
+#: user-submitted-posts.php:1263
+msgid "Tip: multiple addresses may be included using a comma, like so:"
+msgstr "Συμβουλή: μπορούν να χρησιμοποιηθούν πολλές διευθύνσεις με την χ΄ρηση του κόμματος, ως εξής:"
+
+#: user-submitted-posts.php:1262
+msgid "If you checked the box to receive email alerts, indicate here the address(es) to which the emails should be sent."
+msgstr "Αν έχετε τσεκάρει το κουτί για να λαμβάνετε ειδοποιήσεις με ηλ. ταχυδρομείο, καθορίστε εδώ σε ποιά/ες ηλ διεύθυνση/σεις θέλετε να στέλνονται τα μηνυματα."
+
+#: user-submitted-posts.php:1260
+msgid "Email Address for Alerts"
+msgstr "Ηλ. Διεύθυνση για Ειδοποιήσεις"
+
+#: user-submitted-posts.php:1257
+msgid "to display Featured Images."
+msgstr "για την  εμφάνιση των εικόνων Featured."
+
+#: user-submitted-posts.php:1256
+msgid ""
+"Check this box if you want to set submitted images as Featured Images (aka Post Thumbnails) for posts. \n"
+"\t\t\t\t\t\t\t\t\t\t\tNote: your theme&rsquo;s single.php file must include"
+msgstr "Τσεκάρετε αυτό το κουτί αν θέλετε να κάνετε τις μεταφορτωμένες εικόνες ως Featured εικόνες (aka Post Thumbnails) για τις αναρτήσεις"
+
+#: user-submitted-posts.php:1254
+msgid "Set Uploaded Image as Featured Image"
+msgstr "Θέστε την μεταφορτωμένη Εικόνα ως Εικόνα Featured "
+
+#: user-submitted-posts.php:1251
+msgid "Check this box if you want to enable WP rich text editing for submitted posts."
+msgstr "Τσεκάρετε αυτό το κουτί αν θέλετε να ενεργοποιήσετε την λειτουργία επεξεργασίας εμπλουτισμένου κειμένου για τα υποβληθέντα άρθρα."
+
+#: user-submitted-posts.php:1249
+msgid "Enable Rich Text Editor"
+msgstr "Ενεργοποιήστε τον συντάκτη Εμπλουτισμένου Κειμένου"
+
+#: user-submitted-posts.php:1246
+msgid "Check this box if you want to be notified via email for new post submissions."
+msgstr "Τεκάρετε αυτό το κουτί αν θέλετε να ειδοποιείστε για κάθε νέα ανάρτηση μέσω ηλ. ταχυδρομείου."
+
+#: user-submitted-posts.php:1244
+msgid "Receive Email Alert"
+msgstr "Λάβετε Ειδοποιήσεις Ηλ. ταχυδρομείου"
+
+#: user-submitted-posts.php:1240
+msgid "For submitted posts, you can always moderate (recommended), publish immediately, or publish after any number of approved posts."
+msgstr "Τα υποβληθέντα άρθρα, μπορείτε πάντα να τα αλλάζετε (συνιστάται), να τα δημοσιεύετε αμέσως, ή να τα δημοσιεύσετε μετά από οποιοδήποτε αριθμό των εγκεκριμένων αναρτήσεων."
+
+#: user-submitted-posts.php:1235
+msgid "Always publish immediately"
+msgstr "Πάντα να δημοσιεύεται άμεσα"
+
+#: user-submitted-posts.php:1234
+msgid "Always moderate"
+msgstr "Να γίνεται πάντα έλεγχος"
+
+#: user-submitted-posts.php:1231
+msgid "Auto Publish?"
+msgstr "Αυτόματη δημοσίευση;"
+
+#: user-submitted-posts.php:1227
+msgid "Specify the user that should be assigned as author for user-submitted posts."
+msgstr "Επιλέξτε τον Χρήστη ο οποίος θα οριστεί ως συγγραφέας για τα user-submitted posts."
+
+#: user-submitted-posts.php:1217
+msgid "Assigned Author"
+msgstr "Ορισμένος Συγγραφέας"
+
+#: user-submitted-posts.php:1213
+msgid "Select which categories may be assigned to submitted posts."
+msgstr "Επιλέξτε σε ποιές κατηγορίες μπορούν να ανήκουν τα αναρτημένα άρθρα"
+
+#: user-submitted-posts.php:1200
+msgid "Categories"
+msgstr "Κατηγορίες"
+
+#: user-submitted-posts.php:1197
+msgid "When enabled, external CSS &amp; JavaScript files are loaded on every page. Here you may specify the URL of the USP form to load resources only on that page. Note: leave blank to load on all pages."
+msgstr "Οταν είναι ενεργό το εξωτερικό CSS &amp; φορτώνοντα αρχεία τύπου JavaScript σε κάθε σελίδα. Εδώ μπορείτε να καθορίσετε το URL της φόρμας USP για να φορτώνεται μόνο σε αυτη την σελίδα. Αφήστε κενό για φόρτωση σε όλες τις σελίδες."
+
+#: user-submitted-posts.php:1195
+msgid "Targeted Loading"
+msgstr "Στοχευμένη φόρτωση"
+
+#: user-submitted-posts.php:1192
+msgid "Check this box if you want to include the external JavaScript files (recommended)."
+msgstr "Τσεκάρετ αυτό το κουτί αν θέλετε να συμπεριλάβετε εξωτερικά αρχεία JavaScript (συνιστάται)."
+
+#: user-submitted-posts.php:1190
+msgid "Include JavaScript?"
+msgstr "Να συμπεριληφθεί JavaScript;"
+
+#: user-submitted-posts.php:1185
+msgid "CSS selectors for User Submitted Posts"
+msgstr "CSS selectors για User Submitted Posts"
+
+#: user-submitted-posts.php:1185
+msgid "Note: list of CSS selectors available at "
+msgstr "Σημείωση: Η λίστα CSS selectors είναι διαθέσιμη στο"
+
+#: user-submitted-posts.php:1183
+msgid "* If &ldquo;Custom&rdquo; is selected, you must upload your own template files,"
+msgstr "* Αν το &ldquo;Custom&rdquo; είναι επιλεγμένο, πρέπει να ανεβάσετε τα δικά σας αρχεία του πρότυπου,"
+
+#: user-submitted-posts.php:1165
+msgid "Form style"
+msgstr "Συλ φόρμας"
+
+#: user-submitted-posts.php:1161
+msgid "General Form Options"
+msgstr "Γενικές Επιλογές Φόρμας"
+
+#: user-submitted-posts.php:1158
+msgid "Challenge question (Captcha)"
+msgstr "Ερώτηση (Captcha)"
+
+#: user-submitted-posts.php:1152
+msgid "Post Images"
+msgstr "Εικόνες άρθρου"
+
+#: user-submitted-posts.php:1146 views/submission-form.php:103
+#: views/submission-form.php:104
+msgid "Post Content"
+msgstr "Περιεχόμενο άρθρου"
+
+#: user-submitted-posts.php:1140 views/submission-form.php:68
+msgid "Post Category"
+msgstr "Κατηγορία Άρθρου"
+
+#: user-submitted-posts.php:1134 views/submission-form.php:56
+#: views/submission-form.php:57
+msgid "Post Tags"
+msgstr "Ετικέτες Άρθρου"
+
+#: user-submitted-posts.php:1128 views/submission-form.php:50
+#: views/submission-form.php:51
+msgid "Post Title"
+msgstr "Τίτλος Άρθρου"
+
+#: user-submitted-posts.php:1122
+msgid "Post URL"
+msgstr "URL Άρθρου"
+
+#: user-submitted-posts.php:1116
+msgid "User Email"
+msgstr "Ηλ. διεύθυνση χρήστη"
+
+#: user-submitted-posts.php:1110
+msgid "User Name"
+msgstr "Όνομα Χρηστη"
+
+#: user-submitted-posts.php:1109 user-submitted-posts.php:1115
+#: user-submitted-posts.php:1121 user-submitted-posts.php:1127
+#: user-submitted-posts.php:1133 user-submitted-posts.php:1139
+#: user-submitted-posts.php:1145 user-submitted-posts.php:1151
+#: user-submitted-posts.php:1157
+msgid "Hide"
+msgstr "Απόκρυψη"
+
+#: user-submitted-posts.php:1108 user-submitted-posts.php:1114
+#: user-submitted-posts.php:1120 user-submitted-posts.php:1126
+#: user-submitted-posts.php:1132 user-submitted-posts.php:1138
+#: user-submitted-posts.php:1144 user-submitted-posts.php:1150
+#: user-submitted-posts.php:1156
+msgid "Show"
+msgstr "Εμφάνιση"
+
+#: user-submitted-posts.php:1104
+msgid "Show/Hide Form Fields"
+msgstr "Εμφάνιση/Απόκρυψη πεδίων φόρμας"
+
+#: user-submitted-posts.php:1103
+msgid "Here you may configure options for USP. See the <code>readme.txt</code> for more information."
+msgstr "Εδώ μπορείτε να κάνετε ρυθμίσεις του USP. Δείτε το <code>readme.txt</code> για περισσότερες πληροφορίες."
+
+#: user-submitted-posts.php:1101
+msgid "Options"
+msgstr "Επιλογές"
+
+#: user-submitted-posts.php:1089
+msgid "rate it at WordPress.org"
+msgstr "βαθμολογείστε το στο Wordpress.org"
+
+#: user-submitted-posts.php:1088
+msgid "Rate and review this plugin at the WP Plugin Directory"
+msgstr "Βαθμολογείστε και σχολιάστε αυτό το πρότυπο στον φάκελο WP του πρότυπου"
+
+#: user-submitted-posts.php:1087
+msgid "If you like USP, please"
+msgstr "Αν σας αρέσει το USP, παρακαλούμε"
+
+#: user-submitted-posts.php:1085
+msgid "homepage"
+msgstr "Αρχική"
+
+#: user-submitted-posts.php:1085 user-submitted-posts.php:1184
+msgid "and"
+msgstr "και"
+
+#: user-submitted-posts.php:1084
+msgid "More info:"
+msgstr "Περισσότερες πληροφορίες:"
+
+#: user-submitted-posts.php:1082
+msgid "Get the shortcode &amp; template tag"
+msgstr "Πάρτε το shortcode &amp; template tag"
+
+#: user-submitted-posts.php:1081
+msgid "Configure settings"
+msgstr "Κάντε ρυμίσεις"
+
+#: user-submitted-posts.php:1077
+msgid "&mdash; the ultimate solution for unlimited front-end forms."
+msgstr "&mdash. Η απόλυτη λύση για απεριόριστες front-end φόρμες."
+
+#: user-submitted-posts.php:1076
+msgid "For more functionality check out"
+msgstr "Για περισσότερη λειτουργικότητα ελέγξτε"
+
+#: user-submitted-posts.php:1075
+msgid "To implement, configure the plugin settings and include the USP form in any post or page via shortcode or anywhere in your theme via template tag."
+msgstr "Για την εφαρμογή, αλλάξτε τις ρυθμίσεις του πρόσθετου και βάλτε τη φόρμα USP σε οποιαδήποτε θέση ή σελίδα μέσω του σύντομου κώδικα ή οπουδήποτε στο θέμα σας μέσω της ετικέτας του πρότυπου."
+
+#: user-submitted-posts.php:1074
+msgid "(USP) enables your visitors to submit posts and upload images from anywhere on your site."
+msgstr "Το (USP) επιτρέπει στους επισκέπτες σας να υποβάλλουν άρθρα και να ανεβάζουν εικόνες από οπουδήποτε στον ιστοτοπό σας."
+
+#: user-submitted-posts.php:1070
+msgid "Overview"
+msgstr "Περιγραφή"
+
+#: user-submitted-posts.php:1062
+msgid "Check this box if you have shown support"
+msgstr "Τσεκάρετε αυτό το κουτί αν έχετε υποστήριξη"
+
+#: user-submitted-posts.php:1057
+msgid "Your generous support enables continued development of this free plugin. Thank you!"
+msgstr "Η γεναιόδωρη υποστηριξή σας επιτρέπει την συνεχή ανάπτυξη αυτού του πρότυπου. Σας ευχαριστούμε!"
+
+#: user-submitted-posts.php:1053
+msgid "give it a 5-star rating"
+msgstr "Δώστε αξιολόγηση 5 αστέρων"
+
+#: user-submitted-posts.php:1052
+msgid "Rate and review at the Plugin Directory"
+msgstr "Αξιολογείστε και σχολιάστε στον φάκελο του πρότυπου"
+
+#: user-submitted-posts.php:1051
+msgid "and/or"
+msgstr "και/ή"
+
+#: user-submitted-posts.php:1051
+msgid "make a donation"
+msgstr "κάντε μια δωρεά"
+
+#: user-submitted-posts.php:1051
+msgid "Make a donation via PayPal"
+msgstr "Κάντε μια δωρεά μέσω του PayPal"
+
+#: user-submitted-posts.php:1051
+msgid "Please"
+msgstr "Παρακαλούμε"
+
+#: user-submitted-posts.php:1047
+msgid "User Submitted Posts needs your support!"
+msgstr "Το User Submitted Posts χρειάζεται την υποσ!τηριξή σας!"
+
+#: user-submitted-posts.php:1038
+msgid "Toggle all panels"
+msgstr "Εναλλαγή των πανελς"
+
+#: user-submitted-posts.php:835
+msgid "Disable stylesheet"
+msgstr "Απενεργοποίηση stylesheet"
+
+#: user-submitted-posts.php:831
+msgid "Custom form + CSS (<small><em>You must provide the template for this option*</em></small>)"
+msgstr "Ειδικής κατασκευής φόρμα + CSS (<small><em>Πρέπει να ορίσετε το πρότυπο για αυτή την επιλογή*</em></small>)"
+
+#: user-submitted-posts.php:827
+msgid "HTML5 form + CSS (<small><em>Recommended</em></small>)"
+msgstr "HTML5 form + CSS (<small><em>Συνιστάται</em></small>)"
+
+#: user-submitted-posts.php:802
+msgid "Success! Thank you for your submission."
+msgstr "Επιτυχία! Ευχαριστούμε για την υποβολή."
+
+#: user-submitted-posts.php:795
+msgid "Please select your image(s) to upload."
+msgstr "Παρακαλούμε επιλέξτε την/τις εικόνα/ες για μεταφόρτωση."
+
+#: user-submitted-posts.php:790 user-submitted-posts.php:794
+msgid "hide"
+msgstr "απόκρυψη"
+
+#: user-submitted-posts.php:788 user-submitted-posts.php:789
+#: user-submitted-posts.php:791 user-submitted-posts.php:792
+#: user-submitted-posts.php:793 user-submitted-posts.php:800
+#: user-submitted-posts.php:801
+msgid "show"
+msgstr "εμφάνιση"
+
+#: user-submitted-posts.php:781
+msgid "There was an error. Please ensure that you have added a title, some content, and that you have uploaded only images."
+msgstr "Υπήρξε λάθος. Παρακαλούμε βεβαιωθείτε ότι έχετε προσθέσει τίτλο, κάποιο περιεχόμενο και ότι έχετε μεταφορτώσει μόνο εικόνες."
+
+#: user-submitted-posts.php:742
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+#: user-submitted-posts.php:729
+msgid "Error: "
+msgstr "Σφάλμα:"
+
+#: user-submitted-posts.php:723
+msgid "Duplicate post title. Please try again."
+msgstr "Διπλότυπος τίτλος άρθρου. Παρακαλούμε δοκιμάστε ξανά."
+
+#: user-submitted-posts.php:722
+msgid "Post not created. Please contact the site administrator for help."
+msgstr "Το αρθρο δεν δημιουργήθηκε. Παρακαλούμε επικοινωνείστε με τον διαχειριστή του ιστότοπου για βοήθεια."
+
+#: user-submitted-posts.php:719
+msgid "The file(s) could not be uploaded"
+msgstr "Το/τα αρχείο/α δεν μπορούσαν να μεταφορτωθούν"
+
+#: user-submitted-posts.php:718
+msgid "The selected files could not be uploaded to the server"
+msgstr "Τα επιλεγμένα αρχεία δεν μπόρεσαν να μεταφορτωθούν στον σέρβερ"
+
+#: user-submitted-posts.php:717
+msgid "File type not allowed (please upload images only)"
+msgstr "Μη επιτρεπτός τύπος αρχείου (παρακαλούμε ανεβάστε μόνο εικόνες)"
+
+#: user-submitted-posts.php:716
+msgid "Image height exceeds maximum"
+msgstr "Το ύψος της εικόνας ξεπερνάει το μέγιστο επιτρεπόμενο"
+
+#: user-submitted-posts.php:715
+msgid "Minimum image height not met"
+msgstr "Το ελάχιστο ύψος εικόνας δεν είναι το σωστό"
+
+#: user-submitted-posts.php:714
+msgid "Image width exceeds maximum"
+msgstr "Το πλάτος της εικόνας ξεπερνάει το μέγιστο επιτρεπόμενο"
+
+#: user-submitted-posts.php:713
+msgid "Minimum image width not met"
+msgstr "Το ελάχιστο πλάτος εικόνας δεν είναι το σωστό "
+
+#: user-submitted-posts.php:712
+msgid "Maximum number of images exceeded "
+msgstr "Υπέρβαση ορίου μέγιστου αριθμού εικόνων"
+
+#: user-submitted-posts.php:711
+msgid "Minimum number of images not met"
+msgstr "Ο ελάχιστος αριθμός εικόνων δεν είναι ο σωστός"
+
+#: user-submitted-posts.php:710
+msgid "Non-empty value for hidden field"
+msgstr "Μη κενή τιμή για το κρυμμένο πεδίο"
+
+#: user-submitted-posts.php:709
+msgid "User email required"
+msgstr "Απαιτείται η ηλ διεύθυνση του χρήστη"
+
+#: user-submitted-posts.php:708
+msgid "Correct captcha required"
+msgstr "Απαιτείται το σωστό captcha"
+
+#: user-submitted-posts.php:707
+msgid "Post content required"
+msgstr "Απαιτείται περιεχόμενο"
+
+#: user-submitted-posts.php:706
+msgid "Post category required"
+msgstr "Απαιτείται κατηγορία"
+
+#: user-submitted-posts.php:705
+msgid "Post tags required"
+msgstr "Απαιτούνται ετικέτες"
+
+#: user-submitted-posts.php:704
+msgid "Post url required"
+msgstr "Απαιτείται το URL"
+
+#: user-submitted-posts.php:703
+msgid "Post title required"
+msgstr "Απαιτείται τίτλος"
+
+#: user-submitted-posts.php:702
+msgid "User name required"
+msgstr "Απαιτείται όνομα χρήστη"
+
+#: user-submitted-posts.php:701
+msgid "User login required"
+msgstr "Απαιτείται σύνδεση του χρήστη"
+
+#: user-submitted-posts.php:694
+msgid "An error occurred. Please go back and try again."
+msgstr "Σφάλμα. Παρακαλούμε επιστρέψτε και δοκιμάστε ξανά."
+
+#: user-submitted-posts.php:688 user-submitted-posts.php:689
+#: user-submitted-posts.php:690 user-submitted-posts.php:691
+msgid " pixels"
+msgstr " pixels"
+
+#: user-submitted-posts.php:686
+msgid " file"
+msgstr " αρχείο"
+
+#: user-submitted-posts.php:685
+msgid " files"
+msgstr " αρχεία"
+
+#: user-submitted-posts.php:683
+msgid " file required"
+msgstr " απαιτείται αρχείο"
+
+#: user-submitted-posts.php:682
+msgid " files required"
+msgstr " απαιτούνται αρχεία"
+
+#: user-submitted-posts.php:332
+msgid "USP"
+msgstr "USP"
+
+#: user-submitted-posts.php:199
+msgid "Submitter IP: "
+msgstr "IP του υποβάλλοντος:"
+
+#: user-submitted-posts.php:198
+msgid "Submitter URL: "
+msgstr "URL του υποβάλλοντος: "
+
+#: user-submitted-posts.php:197
+msgid "Submitter Email: "
+msgstr "ηλ. ταχυδρομείο του του υποβάλλοντος: "
+
+#: user-submitted-posts.php:196
+msgid "Submitter Name: "
+msgstr "Ονομα του υποβάλλοντος: "
+
+#: user-submitted-posts.php:179
+msgid "User Submitted Post Info"
+msgstr "Πληροφορίες του υποβάλλοντος: "
+
+#: user-submitted-posts.php:66
+msgid "Submitted"
+msgstr "Υποβλήθηκε"
+
+#: user-submitted-posts.php:54
+msgid "to upgrade WordPress and try again."
+msgstr "αναβαθμίστε το Wordpress και δοκιμάστε ξανά."
+
+#: user-submitted-posts.php:54
+msgid "WordPress Admin area"
+msgstr "Περιοχή διαχειριστή του Wordpress"
+
+#: user-submitted-posts.php:54
+msgid "Please return to the "
+msgstr "Παρακαλούμε επιστρέψστε στο"
+
+#: user-submitted-posts.php:53
+msgid " or higher, and has been deactivated!"
+msgstr "ή νεότερο  και έχει ενεργοποιηθεί!"
+
+#: user-submitted-posts.php:53
+msgid "requires WordPress "
+msgstr "απαιτεί το Wordpress"
+
+#. #-#-#-#-#  tmp-user-submitted-posts.pot (User Submitted Posts 20150808)
+#. Plugin Name of the plugin/theme
+#: user-submitted-posts.php:24 user-submitted-posts.php:66
+msgid "User Submitted Posts"
+msgstr "Αναρτήσεις δημοσιευμένες απότον Χρήστη"
