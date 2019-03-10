@@ -36,6 +36,7 @@
     window.wpuf_forms_mixin_builder_stage = {
         data: function () {
             return {
+                label_type: 'left',
                 post_form_settings: {
                     submit_text: '',
                     draft_post: false,
@@ -52,6 +53,12 @@
             $('[name="wpuf_settings[submit_text]"]').on('change', function () {
                 self.post_form_settings.submit_text = $(this).val();
             });
+
+            $('[name="wpuf_settings[label_position]"]').on('change', function () {
+                self.label_type = $(this).val();
+            });
+
+            $('[name="wpuf_settings[label_position]"]').trigger('change');
 
             // draft post text
             this.post_form_settings.draft_post = $('[type="checkbox"][name="wpuf_settings[draft_post]"]').is(':checked') ? true : false;

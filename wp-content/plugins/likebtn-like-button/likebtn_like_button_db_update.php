@@ -362,7 +362,6 @@ function likebtn_db_update_14() {
     update_option('likebtn_ipvi_hash', LIKEBTN_IP_VOTE_INTERVAL);
 }
 
-
 // database update function
 function likebtn_db_update_15() {
     global $wpdb;
@@ -385,4 +384,22 @@ function likebtn_db_update_16() {
         $sql = "ALTER TABLE {$table_name} ADD country varchar(2) DEFAULT NULL;";
         $wpdb->query($sql);
     }
+}
+
+// New options
+function likebtn_db_update_17() {
+    update_option('likebtn_notify_to', get_option('admin_email'));
+    update_option('likebtn_notify_from', likebtn_default_notify_from());
+    update_option('likebtn_notify_subject', '♥ '.__('New {vote_type} on {domain}', LIKEBTN_I18N_DOMAIN));
+    update_option('likebtn_notify_text', likebtn_default_notify_text());
+}
+
+// New options
+function likebtn_db_update_18() {
+    update_option('likebtn_gdpr', '1');
+}
+
+// New options
+function likebtn_db_update_19() {
+    update_option('likebtn_bp_filter', '1');
 }

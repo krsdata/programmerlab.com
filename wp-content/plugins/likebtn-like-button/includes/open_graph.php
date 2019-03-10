@@ -86,7 +86,10 @@ function _likebtn_og_get_description()
 	} else if (function_exists('wpseo_get_value')) {
 		$description = wpseo_get_value('metadesc', get_the_ID());
 	}
-	return empty($description) ? strip_tags(get_the_excerpt()) : $description;
+	if (empty($description) && get_the_ID()) {
+		$description = strip_tags(get_the_excerpt());
+	}
+	return $description;
 }
 
 function _likebtn_og_add_image()

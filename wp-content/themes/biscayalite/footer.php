@@ -2,9 +2,6 @@
 /**
  * The template used for displaying Footer
  */
-
-// Gets all the scripts included by wordpress, wordpress plugins or functions.php
-
 ?>
 <!-- FOOTER BEGIN
 	================================================== -->
@@ -18,39 +15,22 @@
 				<div class="row">
 					<?php if ( is_active_sidebar( 'footerwidgets' ) ) : ?>
 					<?php dynamic_sidebar( 'footerwidgets' ); ?>
-					<?php else : ?>
-					<!-- This content shows up if there are no widgets defined in the backend. -->
-					<div class="col-md-4">
-					<!-- This content shows up if there are no widgets defined in the backend. -->
-					<div class="help">
-						<p>
-							<?php _e("Hello, activate some Widgets!", "biscayalite"); ?>
-							<?php if(current_user_can('edit_theme_options')) : ?>
-							<a href="<?php echo admin_url('widgets.php')?>" class="add-widget"><?php _e("Add Widget", "biscayalite"); ?></a>
-							<?php endif ?>
-						</p>
-					</div>
-					</div>
 					<?php endif; ?>
 				</div>
 			</div>
 		</div>
-
-
-
 		<div class="footerbottom">
 			<div class="container">
 				<div class="row">
 					<!-- left -->
 					<div class="col-md-6">
-         <?php
-          if( get_theme_mod( 'wow_copyright' ) == '') { ?>
-          <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a> |
-          <a href="<?php echo esc_url( 'http://www.wowthemes.net/'); ?>"><?php printf( __( 'Designed by WowThemes.net', 'biscayalite' ), 'WordPress' ); ?></a>
-          <?php }
-          else { echo wp_kses_post( get_theme_mod( 'wow_copyright' ) ); } ?>
-
-          </div>
+                     <?php
+                      if( get_theme_mod( 'wow_copyright' ) == '') { ?>
+                      <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a> |
+                      <a target="_blank" href="<?php echo esc_url( 'https://www.wowthemes.net/themes/biscaya-wp/'); ?>"><?php printf( __( 'Theme by WowThemes.net', 'biscayalite' ), 'WordPress' ); ?></a>
+                      <?php }
+                      else { echo wp_kses_post( get_theme_mod( 'wow_copyright' ) ); } ?>
+                    </div>
 					<!-- right -->
 					<div class="col-md-6 smallspacetop">
 						<div class="pull-right smaller">

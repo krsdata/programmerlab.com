@@ -61,7 +61,7 @@ if ( post_password_required() )
     $comments_args = array(
         'fields' => $fields,
         'title_reply' => __( 'Add Comment', 'biscayalite' ),
-		'label_submit' => __( 'Post a Question', 'biscayalite' ),
+		'label_submit' => __( 'Publish Comment', 'biscayalite' ),
 		'title_reply_to' => __( 'Leave a Reply to %s', 'biscayalite' ),
 		'cancel_reply_link' => __( 'Cancel Reply', 'biscayalite' ),
 		'comment_field' => '<div class="comment-form-comment"><label for="comment">' . __( 'Comment', 'biscayalite' ) . '</label><textarea id="comment" name="comment" rows="5" aria-required="true"></textarea></div>',

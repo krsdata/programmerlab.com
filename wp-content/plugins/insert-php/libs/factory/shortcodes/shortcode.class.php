@@ -14,14 +14,14 @@
 		exit;
 	}
 	
-	if( !class_exists('Wbcr_FactoryShortcodes324_Shortcode') ) {
+	if( !class_exists('Wbcr_FactoryShortcodes325_Shortcode') ) {
 		
 		/**
 		 * The base class for all shortcodes.
 		 *
 		 * @since 1.0.0
 		 */
-		abstract class Wbcr_FactoryShortcodes324_Shortcode {
+		abstract class Wbcr_FactoryShortcodes325_Shortcode {
 			
 			private static $meta_key_shorcode_assets_for_posts = 'factory_shortcodes_assets';
 			
@@ -44,7 +44,7 @@
 			/**
 			 * A manager that created and track this shortcode.
 			 * @since 1.0.0
-			 * @var Wbcr_FactoryShortcodes324_ShortcodeManager
+			 * @var Wbcr_FactoryShortcodes325_ShortcodeManager
 			 */
 			private $manager;
 			
@@ -52,7 +52,7 @@
 			 * Scripts to include on the same page.
 			 *
 			 * @since 1.0.0
-			 * @var Wbcr_Factory404_ScriptList
+			 * @var Wbcr_Factory410_ScriptList
 			 */
 			public $scripts;
 			
@@ -60,7 +60,7 @@
 			 * Styles to include on the same page.
 			 *
 			 * @since 1.0.0
-			 * @var Wbcr_Factory404_StyleList
+			 * @var Wbcr_Factory410_StyleList
 			 */
 			public $styles;
 			
@@ -87,7 +87,7 @@
 			 * Creates a new instance of a shortcode objects.
 			 *
 			 * @since 1.0.0
-			 * @param Wbcr_Factory404_Plugin $plugin
+			 * @param Wbcr_Factory410_Plugin $plugin
 			 */
 			public function __construct($plugin)
 			{

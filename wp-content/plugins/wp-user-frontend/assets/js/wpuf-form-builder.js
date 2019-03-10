@@ -39,6 +39,7 @@
             form_fields: wpuf_form_builder.form_fields,
             panel_sections: wpuf_form_builder.panel_sections,
             field_settings: wpuf_form_builder.field_settings,
+            notifications: wpuf_form_builder.notifications,
             current_panel: 'form-fields',
             editing_field_id: 0, // editing form field id
         },
@@ -134,8 +135,9 @@
                 var clone = $.extend(true, {}, field),
                     index = parseInt(payload.index) + 1;
 
-                clone.id   = payload.new_id;
-                clone.name = clone.name + '_copy';
+                clone.id     = payload.new_id;
+                clone.name   = clone.name + '_copy';
+                clone.is_new = true;
 
                 state.form_fields.splice(index, 0, clone);
             },
@@ -153,6 +155,31 @@
                 });
 
                 section.fields = payload.fields;
+            },
+
+            // notifications
+            addNotification: function(state, payload) {
+                state.notifications.push(payload);
+            },
+
+            deleteNotification: function(state, index) {
+                state.notifications.splice(index, 1);
+            },
+
+            cloneNotification: function(state, index) {
+                var clone = $.extend(true, {}, state.notifications[index]);
+
+                index = parseInt(index) + 1;
+                state.notifications.splice(index, 0, clone);
+            },
+
+            // update by it's property
+            updateNotificationProperty: function(state, payload) {
+                state.notifications[payload.index][payload.property] = payload.value;
+            },
+
+            updateNotification: function(state, payload) {
+                state.notifications[payload.index] = payload.value;
             }
         }
     });
@@ -172,6 +199,7 @@
             is_form_saved: false,
             is_form_switcher: false,
             post_title_editing: false,
+            isDirty: false
         },
 
         computed: {
@@ -189,6 +217,19 @@
 
             form_fields: function () {
                 return this.$store.state.form_fields;
+            },
+
+            notifications: function() {
+                return this.$store.state.notifications;
+            }
+        },
+
+        watch: {
+            form_fields: {
+                handler: function() {
+                    this.isDirty = true;
+                },
+                deep: true
             }
         },
 
@@ -236,7 +277,7 @@
             });
 
             window.onbeforeunload = function () {
-                if (!self.is_form_saved) {
+                if ( self.isDirty ) {
                     return self.i18n.unsaved_changes;
                 }
             };
@@ -288,7 +329,8 @@
                 wp.ajax.send('wpuf_form_builder_save_form', {
                     data: {
                         form_data: $('#wpuf-form-builder').serialize(),
-                        form_fields: JSON.stringify(self.form_fields)
+                        form_fields: JSON.stringify(self.form_fields),
+                        notifications: JSON.stringify(self.notifications)
                     },
 
                     success: function (response) {
@@ -298,6 +340,10 @@
 
                         self.is_form_saving = false;
                         self.is_form_saved = true;
+
+                        setTimeout(function(){
+                            self.isDirty = false;
+                        }, 500);
 
                         toastr.success(self.i18n.saved_form_data);
                     },
@@ -313,6 +359,7 @@
     var SettingsTab = {
         init: function() {
             $(function() {
+                $('.datepicker').datetimepicker();
                 $('.wpuf-ms-color').wpColorPicker();
             });
 
@@ -321,18 +368,46 @@
             $('select[name="wpuf_settings[redirect_to]"]').change();
             $('select[name="wpuf_settings[edit_redirect_to]"]').change();
 
+            // Form settings: Payment
+            $('#wpuf-metabox-settings-payment').on('change', 'input[type=checkbox][name="wpuf_settings[payment_options]"]', this.settingsPayment);
+            $('input[type=checkbox][name="wpuf_settings[payment_options]"]').trigger('change');
+
+            // pay per post
+            $('#wpuf-metabox-settings-payment').on('change', 'input[type=checkbox][name="wpuf_settings[enable_pay_per_post]"]', this.settingsPayPerPost);
+            $('input[type=checkbox][name="wpuf_settings[enable_pay_per_post]"]').trigger('change');
+
+            // force pack purchase
+            $('#wpuf-metabox-settings-payment').on('change', 'input[type=checkbox][name="wpuf_settings[force_pack_purchase]"]', this.settingsForcePack);
+            $('input[type=checkbox][name="wpuf_settings[force_pack_purchase]"]').trigger('change');
+
+            // Form settings: Submission Restriction
+
             // Form settings: Guest post
-            $('#wpuf-metabox-settings').on('change', 'input[type=checkbox][name="wpuf_settings[guest_post]"]', this.settingsGuest);
+            $('#wpuf-metabox-submission-restriction').on('change', 'input[type=checkbox][name="wpuf_settings[guest_post]"]', this.settingsGuest);
             $('input[type=checkbox][name="wpuf_settings[guest_post]"]').trigger('change');
+            $('#wpuf-metabox-submission-restriction').on('change', 'input[type=checkbox][name="wpuf_settings[role_base]"]', this.settingsRoles);
+            $('input[type=checkbox][name="wpuf_settings[role_base]"]').trigger('change');
 
             // From settings: User details
-            $('#wpuf-metabox-settings').on('change', 'input[type=checkbox][name="wpuf_settings[guest_details]"]', this.settingsGuestDetails);
+            $('#wpuf-metabox-submission-restriction').on('change', 'input[type=checkbox][name="wpuf_settings[guest_details]"]', this.settingsGuestDetails);
+
+            // From settings: schedule form
+            $('#wpuf-metabox-submission-restriction').on('change', 'input[type=checkbox][name="wpuf_settings[schedule_form]"]', this.settingsRestriction);
+            $('input[type=checkbox][name="wpuf_settings[schedule_form]"]').trigger('change');
+
+            // From settings: limit entries
+            $('#wpuf-metabox-submission-restriction').on('change', 'input[type=checkbox][name="wpuf_settings[limit_entries]"]', this.settingsLimit);
+            $('input[type=checkbox][name="wpuf_settings[limit_entries]"]').trigger('change');
 
             this.changeMultistepVisibility($('.wpuf_enable_multistep_section :input[type="checkbox"]'));
             var self = this;
             $('.wpuf_enable_multistep_section :input[type="checkbox"]').click(function() {
                 self.changeMultistepVisibility($(this));
             });
+
+            this.showRegFormNotificationFields();
+            this.integrationsCondFieldsVisibility();
+
         },
 
         settingsGuest: function (e) {
@@ -352,6 +427,18 @@
             }
         },
 
+        settingsRoles: function (e) {
+            e.preventDefault();
+
+            var table = $(this).closest('table');
+
+            if ( $(this).is(':checked') ) {
+                table.find('tr.show-if-roles').show();
+            } else {
+                table.find('tr.show-if-roles').hide();
+            }
+        },
+
         settingsGuestDetails: function (e) {
             e.preventDefault();
 
@@ -361,6 +448,75 @@
                 table.find('tr.show-if-details').show();
             } else {
                 table.find('tr.show-if-details').hide();
+            }
+        },
+
+        settingsPayment: function (e) {
+            e.preventDefault();
+
+            var table = $(this).closest('table');
+
+            if ( $(this).is(':checked') ) {
+                table.find('tr.show-if-payment').show();
+                table.find('tr.show-if-force-pack').hide();
+
+            } else {
+                table.find('tr.show-if-payment').hide();
+
+            }
+        },
+
+        settingsPayPerPost: function (e) {
+            e.preventDefault();
+
+            var table = $(this).closest('table');
+
+            if ( $(this).is(':checked') ) {
+                table.find('tr.show-if-pay-per-post').show();
+
+            } else {
+                table.find('tr.show-if-pay-per-post').hide();
+
+            }
+        },
+
+        settingsForcePack: function (e) {
+            e.preventDefault();
+
+            var table = $(this).closest('table');
+
+            if ( $(this).is(':checked') ) {
+                table.find('tr.show-if-force-pack').show();
+
+            } else {
+                table.find('tr.show-if-force-pack').hide();
+
+            }
+        },
+
+        settingsRestriction: function (e) {
+            e.preventDefault();
+
+            var table = $(this).closest('table');
+
+            if ( $(this).is(':checked') ) {
+                table.find('tr.show-if-schedule').show();
+            } else {
+                table.find('tr.show-if-schedule').hide();
+
+            }
+        },
+
+        settingsLimit: function (e) {
+            e.preventDefault();
+
+            var table = $(this).closest('table');
+
+            if ( $(this).is(':checked') ) {
+                table.find('tr.show-if-limit-entries').show();
+            } else {
+                table.find('tr.show-if-limit-entries').hide();
+
             }
         },
 
@@ -402,6 +558,99 @@
             } else {
                 $('.wpuf_multistep_content').hide();
             }
+        },
+
+        showRegFormNotificationFields: function() {
+            var newUserStatus                 = $( "input#wpuf_new_user_status" ),
+                emailVerification             = $( "input#notification_type_verification" ),
+                welcomeEmail                  = $( "#notification_type_welcome_email" );
+
+            if ( newUserStatus.is(':checked') ) {
+                $('#wpuf_pending_user_admin_notification').show();
+                $('#wpuf_approved_user_admin_notification').hide();
+            } else{
+                $('#wpuf_pending_user_admin_notification').hide();
+                $('#wpuf_approved_user_admin_notification').show();
+            }
+
+            $( newUserStatus ).on( "click", function() {
+                $('#wpuf_pending_user_admin_notification').hide();
+                $('#wpuf_approved_user_admin_notification').show();
+
+                if ( newUserStatus.is(':checked') ) {
+                    $('#wpuf_pending_user_admin_notification').show();
+                    $('#wpuf_approved_user_admin_notification').hide();
+                }
+            });
+
+            if ( emailVerification.is(':checked') ) {
+                $('.wpuf-email-verification-settings-fields').show();
+                $('.wpuf-welcome-email-settings-fields').hide();
+            }
+
+            if ( welcomeEmail.is(':checked') ) {
+                $('.wpuf-welcome-email-settings-fields').show();
+                $('.wpuf-email-verification-settings-fields').hide();
+            }
+
+            $( emailVerification ).on( "click", function() {
+                $('.wpuf-email-verification-settings-fields').show();
+                $('.wpuf-welcome-email-settings-fields').hide();
+            });
+
+            $( welcomeEmail ).on( "click", function() {
+                $('.wpuf-welcome-email-settings-fields').show();
+                $('.wpuf-email-verification-settings-fields').hide();
+            });
+        },
+
+        integrationsCondFieldsVisibility: function() {
+            var conditional_logic      = $( '.wpuf-integrations-conditional-logic' ),
+                cond_fields_container  = $( '.wpuf-integrations-conditional-logic-container' ),
+                cond_fields            = $( '.wpuf_available_conditional_fields' ),
+                cond_field_options     = $( '.wpuf_selected_conditional_field_options' );
+
+            $( conditional_logic ).on( "click", function(e) {
+                $( cond_fields_container ).hide();
+
+                if ( e.target.value === 'yes' ) {
+                    $( cond_fields_container ).show();
+                }
+            });
+
+            $( cond_fields ).on('focus', function(e) {
+                var form_fields = wpuf_form_builder.form_fields,
+                    options     = '';
+                    options     += '<option value="-1">- select -</option>';
+
+                form_fields.forEach(function(field) {
+                  if ( field.template === 'radio_field' || field.template === 'checkbox_field' || field.template === 'dropdown_field' ) {
+                    options += '<option value="'+field.name+'">'+field.label+'</option>';
+                  }
+                });
+                e.target.innerHTML = options;
+            });
+
+            $( cond_fields ).on('change', function(e){
+                var form_fields = wpuf_form_builder.form_fields,
+                    field_name = e.target.value,
+                    field_options  = '';
+                    field_options += '<option value="-1">- select -</option>';
+
+                form_fields.forEach(function(field) {
+                    if ( field.name === field_name ) {
+                        var options = field.options;
+
+                        for (var key in options) {
+                            if (options.hasOwnProperty(key)) {
+                                field_options += '<option value="'+key+'">'+options[key]+'</option>';
+                            }
+                        }
+                    }
+                });
+
+                cond_field_options[0].innerHTML = field_options;
+            });
         }
     };
 
@@ -422,6 +671,13 @@
         }
 
         SettingsTab.init();
+    });
+
+    // Mobile view menu toggle
+    $('#wpuf-form-builder').on('click', '#wpuf-toggle-field-options, #wpuf-toggle-show-form, .control-buttons .fa-pencil, .ui-draggable-handle', function() {
+        $('#wpuf-toggle-field-options').toggleClass('hide');
+        $('#wpuf-toggle-show-form').toggleClass('show');
+        $('#builder-form-fields').toggleClass('show');
     });
 
 })(jQuery);

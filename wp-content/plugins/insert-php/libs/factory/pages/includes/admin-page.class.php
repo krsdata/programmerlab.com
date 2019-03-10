@@ -14,9 +14,9 @@
 		exit;
 	}
 	
-	if( !class_exists('Wbcr_FactoryPages405_AdminPage') ) {
+	if( !class_exists('Wbcr_FactoryPages411_AdminPage') ) {
 		
-		class Wbcr_FactoryPages405_AdminPage extends Wbcr_FactoryPages405_Page {
+		class Wbcr_FactoryPages411_AdminPage extends Wbcr_FactoryPages411_Page {
 			
 			/**
 			 * Visible page title.
@@ -86,6 +86,12 @@
 			 * @var bool
 			 */
 			public $internal = false;
+
+			/**
+			 * If true, the page is for network
+			 * @var bool
+			 */
+			public $network = false;
 			
 			/**
 			 * If true, the page will not be cretaed.
@@ -109,22 +115,29 @@
 			 */
 			public $add_link_to_plugin_actions = false;
 			
-			public function __construct(Wbcr_Factory404_Plugin $plugin)
+			public function __construct(Wbcr_Factory410_Plugin $plugin)
 			{
 				parent::__construct($plugin);
 				$this->configure();
 				
-				$this->id = empty($this->id)
-					? str_replace('adminpage', '', strtolower(get_class($this)))
-					: $this->id;
+				$this->id = empty($this->id) ? str_replace('adminpage', '', strtolower(get_class($this))) : $this->id;
 				
 				if( $this->add_link_to_plugin_actions ) {
 					$plugin_path_info = $this->plugin->getPluginPathInfo();
-					// plugin settings link
-					add_filter("plugin_action_links_" . $plugin_path_info->relative_path, array(
-						$this,
-						'addLinkToPluginActions'
-					));
+
+					if( $plugin->isNetworkActive() ) {
+						// plugin settings link
+						add_filter("network_admin_plugin_action_links_" . $plugin_path_info->relative_path, array(
+							$this,
+							'addLinkToPluginActions'
+						));
+					} else {
+						// plugin settings link
+						add_filter("plugin_action_links_" . $plugin_path_info->relative_path, array(
+							$this,
+							'addLinkToPluginActions'
+						));
+					}
 				}
 			}
 			
@@ -158,6 +171,42 @@
 				$this->scripts->connect();
 				$this->styles->connect();
 			}
+
+			/**
+			 * @return string
+			 */
+			public function getMenuScope()
+			{
+				return $this->plugin->getPluginName();
+			}
+
+
+			/**
+			 * @return string
+			 */
+			public function getMenuTitle()
+			{
+				$menu_title = !$this->menu_title ? $this->page_title : $this->menu_title;
+
+				/**
+				 * @since 4.0.9 - добавлен
+				 */
+				return apply_filters('wbcr/factory/pages/impressive/menu_title', $menu_title, $this->plugin->getPluginName(), $this->id);
+			}
+
+			/**
+			 * @return string
+			 */
+			public function getPageTitle()
+			{
+
+				$page_title = !$this->page_title ? $this->getMenuTitle() : $this->page_title;
+
+				/**
+				 * @since 4.0.9 - добавлен
+				 */
+				return apply_filters('wbcr/factory/pages/impressive/page_title', $page_title, $this->plugin->getPluginName(), $this->id);
+			}
 			
 			/**
 			 * @param null $id
@@ -165,12 +214,10 @@
 			 */
 			public function getResultId($id = null)
 			{
-				$id = !empty($id)
-					? $id
-					: $this->id;
+				$id = !empty($id) ? $id : $this->id;
 				
 				if( $this->plugin ) {
-					return $id . '-' . $this->plugin->getPluginName();
+					return $id . '-' . $this->getMenuScope();
 				}
 				
 				return $id;
@@ -183,13 +230,13 @@
 			{
 				$result_id = $this->getResultId();
 				
-				$this->hidden = apply_filters('wbcr_factory_404_page_is_hidden_' . $result_id, $this->hidden);
+				$this->hidden = apply_filters('wbcr_factory_410_page_is_hidden_' . $result_id, $this->hidden);
 
 				if( $this->hidden ) {
 					return;
 				}
 				
-				$this->internal = apply_filters('wbcr_factory_404_page_is_internal_' . $result_id, $this->internal);
+				$this->internal = apply_filters('wbcr_factory_410_page_is_internal_' . $result_id, $this->internal);
 
 				if( $this->internal ) {
 					$this->menu_target = null;
@@ -228,7 +275,7 @@
 					$this->assets($this->scripts, $this->styles);
 					
 					if( !$this->scripts->isEmpty('bootstrap') || !$this->styles->isEmpty('bootstrap') ) {
-						add_action('wbcr_factory_404_bootstrap_enqueue_scripts_' . $this->plugin->getPluginName(), array(
+						add_action('wbcr_factory_410_bootstrap_enqueue_scripts_' . $this->plugin->getPluginName(), array(
 							$this,
 							'actionAdminBootstrapScripts'
 						));
@@ -253,29 +300,16 @@
 				if( empty($this->capabilitiy) ) {
 					$this->capabilitiy = 'manage_options';
 				}
-				
-				$this->page_title = !$this->page_title
-					? $this->menu_title
-					: $this->page_title;
-				
-				$this->menu_title = !$this->menu_title
-					? $this->page_title
-					: $this->menu_title;
-				
-				$this->page_title = apply_filters('wbcr_factory_page_title_' . $result_id, $this->page_title);
-				$this->menu_title = apply_filters('wbcr_factory_menu_title_' . $result_id, $this->menu_title);
-				
+
 				// submenu
 				if( $this->menu_target ) {
-					
-					add_submenu_page($this->menu_target, $this->page_title, $this->menu_title, $this->capabilitiy, $result_id, array(
+					add_submenu_page($this->menu_target, $this->getPageTitle(), $this->getMenuTitle(), $this->capabilitiy, $result_id, array(
 						$this,
 						'show'
 					));
 					// global menu
 				} else {
-					
-					add_menu_page($this->page_title, $this->menu_title, $this->capabilitiy, $result_id, array(
+					add_menu_page($this->getPageTitle(), $this->getMenuTitle(), $this->capabilitiy, $result_id, array(
 						$this,
 						'show'
 					), null, $this->menu_position);
@@ -339,31 +373,30 @@
 			 */
 			public function getActionUrl($action = null, $query_args = array())
 			{
-				$baseUrl = $this->getBaseUrl();
-				
+				$url = $this->getBaseUrl(null, $query_args);
+
 				if( !empty($action) ) {
-					$query_args['action'] = $action;
+					$url = add_query_arg('action', $action, $url);
 				}
-				$url = add_query_arg($query_args, $baseUrl);
-				
+
 				return $url;
 			}
-			
+
 			/**
 			 * @return string
 			 */
-			protected function getBaseUrl()
+			public function getBaseUrl($id = null, $query_args = array())
 			{
-				$result_id = $this->getResultId();
-				
+				$result_id = $this->getResultId($id);
+
 				if( $this->menu_target ) {
-					if( $this->custom_target ) {
-						return admin_url('admin.php') . '?page=' . $result_id;
-					}
-					
-					return $this->menu_target . '&page=' . $result_id;
+					$url = $this->network ? network_admin_url($this->menu_target) : admin_url($this->menu_target);
+
+					return add_query_arg(array_merge(array('page' => $result_id), $query_args), $url);
 				} else {
-					return 'admin.php?&page=' . $result_id;
+					$url = $this->network ? network_admin_url('admin.php') : admin_url('admin.php');
+
+					return add_query_arg(array_merge(array('page' => $result_id, $query_args)), $url);
 				}
 			}
 			
@@ -438,9 +471,7 @@
 			 */
 			function addLinkToPluginActions($links)
 			{
-				$link_title = !empty($this->title_plugin_action_link)
-					? $this->title_plugin_action_link
-					: $this->menu_title;
+				$link_title = !empty($this->title_plugin_action_link) ? $this->title_plugin_action_link : $this->getMenuTitle();
 				
 				$settings_link = '<a href="' . $this->getBaseUrl() . '">' . $link_title . '</a>';
 				array_unshift($links, $settings_link);

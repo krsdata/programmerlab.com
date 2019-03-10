@@ -14,9 +14,9 @@
 		exit;
 	}
 
-	if( !class_exists('Wbcr_FactoryPages405_Page') ) {
+	if( !class_exists('Wbcr_FactoryPages411_Page') ) {
 
-		class Wbcr_FactoryPages405_Page {
+		class Wbcr_FactoryPages411_Page {
 
 			/**
 			 * Page id used to call.
@@ -26,7 +26,7 @@
 
 			/**
 			 * Current Factory Plugin.
-			 * @var Wbcr_Factory404_Plugin
+			 * @var Wbcr_Factory410_Plugin
 			 */
 			public $plugin;
 
@@ -35,12 +35,13 @@
 			 */
 			public $result;
 
+			//private $default_actions = array();
 
 			/**
-			 * @param Wbcr_Factory404_Plugin $plugin
+			 * @param Wbcr_Factory410_Plugin $plugin
 			 * @throws Exception
 			 */
-			public function __construct(Wbcr_Factory404_Plugin $plugin)
+			public function __construct(Wbcr_Factory410_Plugin $plugin)
 			{
 				$this->plugin = $plugin;
 
@@ -50,6 +51,15 @@
 					$this->request = $plugin->request;
 				}
 			}
+
+			/*public function __call($name, $arguments) {
+
+
+				if(!empty($custom_action)) {
+
+				}
+
+			}*/
 
 			public function assets($scripts, $styles)
 			{
@@ -64,9 +74,7 @@
 				if( $this->result ) {
 					echo $this->result;
 				} else {
-					$action = isset($_GET['action'])
-						? $_GET['action']
-						: 'index';
+					$action = isset($_GET['action']) ? $_GET['action'] : 'index';
 					$this->executeByName($action);
 				}
 			}
@@ -77,6 +85,8 @@
 			 */
 			public function executeByName($action)
 			{
+				$raw_action_name = $action;
+
 				if( preg_match('/[-_]+/', $action) ) {
 					$action = $this->dashesToCamelCase($action, false);
 				}
@@ -89,7 +99,16 @@
 				}
 
 				if( !method_exists($this, $actionFunction) ) {
+					// todo: продумать и доработать выполнение произвольных и глобальных дейтсвия для всех страниц
+					/*$custom_actions = apply_filters('wbcr/factory_pages_411/custom_actions', array(), $raw_action_name);
+
+					if(isset($custom_actions[$raw_action_name])) {
+						$custom_actions[$raw_action_name]();
+						$this->OnActionExected($action);
+						return;
+					} else {*/
 					$actionFunction = 'indexAction';
+					//}
 				}
 
 				call_user_func_array(array($this, $actionFunction), array());

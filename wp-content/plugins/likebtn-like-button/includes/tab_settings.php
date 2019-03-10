@@ -50,6 +50,42 @@ function likebtn_admin_settings() {
         }
     }
 
+    // Save initial likes if changed
+    $init_l_from = (int)get_option('likebtn_init_l_from');
+    $init_l_to = (int)get_option('likebtn_init_l_to');
+
+    if (_likebtn_is_stat_enabled()) {
+        if ($init_l_from != (int)get_option('likebtn_init_l_from_prev') ||
+            $init_l_to != (int)get_option('likebtn_init_l_to_prev'))
+        {
+            require_once(dirname(__FILE__) . '/../likebtn_like_button.class.php');
+            $likebtn = new LikeBtnLikeButton();
+            $init_l_result = $likebtn->setInitL($init_l_from, $init_l_to);
+
+            if ($init_l_result['result'] == 'success') {
+                if (isset($init_l_result['response']['init_l_from'])) {
+                    $init_l_from = (int)$init_l_result['response']['init_l_from'];
+                }
+                if (isset($init_l_result['response']['init_l_to'])) {
+                    $init_l_to = (int)$init_l_result['response']['init_l_to'];
+                }
+                update_option('likebtn_init_l_from', $init_l_from);
+                update_option('likebtn_init_l_to', $init_l_to);
+
+                update_option('likebtn_init_l_from_prev', $init_l_from);
+                update_option('likebtn_init_l_to_prev', $init_l_to);
+            } else {
+                update_option('likebtn_init_l_from', get_option('likebtn_init_l_from_prev'));
+                update_option('likebtn_init_l_to', get_option('likebtn_init_l_to_prev'));
+
+                _likebtn_add_notice(array(
+                    'msg' => __('Error occured saving initial number of likes:'.' '.$init_l_result['message'], LIKEBTN_I18N_DOMAIN),
+                    'class' => 'error'
+                ));
+            }
+        }
+    }
+
     $export_config = likebtn_get_config();
 
     likebtn_admin_header();
@@ -290,6 +326,129 @@ function likebtn_admin_settings() {
             </div>
 
             <p>
+                <input class="button-primary" id="gdpr" type="submit" name="Save" value="<?php _e('Save All Changes', LIKEBTN_I18N_DOMAIN); ?>" />
+            </p>
+            <br/>
+
+            <div class="postbox likebtn_postbox" id="initial_likes">
+                <h3><?php _e('Initial number of likes on buttons', LIKEBTN_I18N_DOMAIN); ?> <i class="premium_feature" title="ULTRA"></i></h3>
+                <div class="inside">
+                    <table class="form-table">
+                        <tr valign="top">
+                            <th scope="row"><label><?php _e('Randomize likes', LIKEBTN_I18N_DOMAIN); ?></label>
+                            </th>
+                            <td>
+                                <?php _e('From', LIKEBTN_I18N_DOMAIN); ?>:
+                                <input type="number" value="<?php echo (int)get_option('likebtn_init_l_from'); ?>" name="likebtn_init_l_from" min="0" max="9999999" <?php if (!likebtn_check_plan(LIKEBTN_PLAN_ULTRA) || !_likebtn_is_stat_enabled()): ?>disabled="disabled"<?php endif ?>/>
+                                &nbsp;
+                                <?php _e('To', LIKEBTN_I18N_DOMAIN); ?>:
+                                <input type="number" value="<?php echo (int)get_option('likebtn_init_l_to'); ?>" name="likebtn_init_l_to" min="0" max="9999999" <?php if (!likebtn_check_plan(LIKEBTN_PLAN_ULTRA) || !_likebtn_is_stat_enabled()): ?>disabled="disabled"<?php endif ?>/>
+                            </td>
+                        </tr>
+                     
+                        <tr>
+                            <td colspan="2">
+                                <p class="notice update-nag">
+                                    <?php _e('It is not recommended to use this feature if you need to sort posts by likes, as sorting will not work properly.', LIKEBTN_I18N_DOMAIN) ?>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <p>
+                <input class="button-primary" type="submit" name="Save" value="<?php _e('Save All Changes', LIKEBTN_I18N_DOMAIN); ?>" />
+            </p>
+            <br/>
+
+            <div class="postbox likebtn_postbox">
+                <h3><?php _e('GDPR Compliance', LIKEBTN_I18N_DOMAIN); ?></h3>
+                <div class="inside">
+                    <p class="description">
+                        <?php _e("To be GDPR compliant plugin stores IP addresses in a hashed anonymized form. If you don't need to be GDPR compliant and want to see actual IP addresses, just uncheck this checkbox.", LIKEBTN_I18N_DOMAIN); ?>
+                    </p>
+                    <table class="form-table">
+                        <tr valign="top">
+                            <th scope="row"><label><?php _e('Be GDPR compliant', LIKEBTN_I18N_DOMAIN); ?></label>
+                            </th>
+                            <td>
+                                <p class="description">
+                                    <input type="checkbox" name="likebtn_gdpr" value="1" <?php checked('1', get_option('likebtn_gdpr')); ?> />
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <p>
+                <input class="button-primary" type="submit" name="Save" value="<?php _e('Save All Changes', LIKEBTN_I18N_DOMAIN); ?>" />
+            </p>
+            <br/>
+
+            <div class="postbox likebtn_postbox">
+                <h3><?php _e('Notify Admin by Email on New Votes', LIKEBTN_I18N_DOMAIN); ?> <i class="premium_feature" title="PRO"></i></h3>
+                <div class="inside">
+                    <table class="form-table">
+                        <tr valign="top">
+                            <th scope="row"><label><?php _e('Enabled', LIKEBTN_I18N_DOMAIN); ?></label>
+                            </th>
+                            <td>
+                                <p class="description">
+                                    <input type="checkbox" name="likebtn_notify_enabled" value="1" <?php checked('1', get_option('likebtn_notify_enabled')); ?> <?php if (!likebtn_check_plan(LIKEBTN_PLAN_PRO) || !_likebtn_is_stat_enabled()): ?>class="disabled"<?php endif ?> <?php if (likebtn_check_plan(LIKEBTN_PLAN_PRO) && _likebtn_is_stat_enabled()): ?>onclick="jQuery('#notify_container').toggleClass('hidden')"<?php else: ?>onclick="return false;"<?php endif ?>/> 
+                                    <?php _e('Send email notification every time there is a new vote', LIKEBTN_I18N_DOMAIN); ?>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <?php if (!_likebtn_is_stat_enabled()): ?>
+                        <p class="likebtn_error"><?php _e('Configure Synchronization in order to use this feature', LIKEBTN_I18N_DOMAIN); ?></p>
+                    <?php endif ?>
+
+                    <table class="form-table <?php if (!likebtn_check_plan(LIKEBTN_PLAN_PRO) || get_option('likebtn_notify_enabled') != '1' || !_likebtn_is_stat_enabled()): ?>hidden<?php endif ?>" id="notify_container">
+                        <tr valign="top">
+                            <th scope="row"><label><?php _e('Send email to', LIKEBTN_I18N_DOMAIN); ?></label>
+                            </th>
+                            <td>
+                                <input name="likebtn_notify_to" class="likebtn_input" value="<?php echo htmlspecialchars(get_option('likebtn_notify_to')); ?>" />
+                                <p class="description">
+                                    <?php _e('Comma separated emails to send notifications to.', LIKEBTN_I18N_DOMAIN); ?>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><label><?php _e('Email from', LIKEBTN_I18N_DOMAIN); ?></label>
+                            </th>
+                            <td>
+                                <input name="likebtn_notify_from" class="likebtn_input" value="<?php echo htmlspecialchars(get_option('likebtn_notify_from')); ?>" />
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><label><?php _e('Email subject', LIKEBTN_I18N_DOMAIN); ?></label>
+                            </th>
+                            <td>
+                                <input name="likebtn_notify_subject" class="likebtn_input" value="<?php echo htmlspecialchars(get_option('likebtn_notify_subject')); ?>" />
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><label><?php _e('Notification text', LIKEBTN_I18N_DOMAIN); ?></label>
+                            </th>
+                            <td>
+                                <textarea name="likebtn_notify_text" class="likebtn_input" rows="5"><?php echo htmlspecialchars(get_option('likebtn_notify_text')); ?></textarea>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row">&nbsp;</th>
+                            <td class="likebtn_mid_row">
+                                <input class="button-secondary" type="button" value="<?php _e('Send Test Notification', LIKEBTN_I18N_DOMAIN); ?>" onclick="sendTestVoteNotification('<?php echo _likebtn_get_public_url() ?>img/ajax_loader.gif')" />&nbsp; <strong class="likebtn_vn_message"></strong>
+                                    <div class="likebtn_vn_container margin-top"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <p>
                 <input class="button-primary" type="submit" name="Save" value="<?php _e('Save All Changes', LIKEBTN_I18N_DOMAIN); ?>" />
             </p>
             <br/>
@@ -338,7 +497,7 @@ function likebtn_admin_settings() {
                 <h3><?php _e('Miscellaneous', LIKEBTN_I18N_DOMAIN); ?></h3>
                 <div class="inside">
                     <table class="form-table">
-                        <tr valign="top">
+                        <?php /*<tr valign="top">
                             <th scope="row"><label><?php _e('CloudFlare enabled', LIKEBTN_I18N_DOMAIN); ?></label>
                             </th>
                             <td>
@@ -347,7 +506,7 @@ function likebtn_admin_settings() {
                                     <?php _e('Check if your website is powered by CloudFlare.com for proper visitors\' IP detection.', LIKEBTN_I18N_DOMAIN); ?>
                                 </p>
                             </td>
-                        </tr>
+                        </tr>*/ ?>
                         <tr valign="top">
                             <th scope="row"><label><?php _e('Custom CSS', LIKEBTN_I18N_DOMAIN); ?></label>
                             </th>
@@ -452,6 +611,11 @@ function likebtn_admin_settings() {
                                 <input type="hidden" name="likebtn_full_reset" value="" />
                                 <input type="button" class="button-secondary likebtn_ttip" onclick="likebtnFullReset('<?php _e("Votes and stats will be removed permanently and can not be restored. If you want to continue please enter RESET:", LIKEBTN_I18N_DOMAIN) ?>')" value="<?php _e('Reset Votes & Stats', LIKEBTN_I18N_DOMAIN); ?>" title="<?php _e('Remove ALL votes and stats', LIKEBTN_I18N_DOMAIN); ?>">
                             </form>
+                            <?php if (is_multisite()): ?>
+                                <p class="notice update-nag"> 
+                                    <?php _e('ATTENTION: Resetting will reset votes on all the websites of the multisite network.', LIKEBTN_I18N_DOMAIN); ?>
+                                </p>
+                            <?php endif ?>
                         </td>
                     </tr>
                 </table>

@@ -3,10 +3,26 @@
  * @author Webcraftic <wordpress.webraftic@gmail.com>
  * @copyright Webcraftic 28.05.2018
  */
+//cm-matchhighlight
+
+.wbcr-inp-snippet-type-php .CodeMirror-sizer:before {
+  content: "<?php";
+  color: #bbb;
+  padding: 4px 5px 0;
+}
 
 .CodeMirror {
   height: auto !important;
-  border: 1px solid #dad8d8;
+  border: 0 !important;
+
+  .cm-winp-matchhighlight {
+    background-color: rgba(255, 143, 26, 0.21);
+    border: 0 !important;
+  }
+
+  .CodeMirror-selection-highlight-scrollbar {
+    background-color: rgba(255, 143, 26, 0.61)
+  }
 }
 
 .CodeMirror-scroll {
@@ -23,17 +39,23 @@
 
 #WINP_BaseOptionsMetaBox, #WINP_InfoMetaBox, #tagsdiv-wbcr-snippet-tags, #submitdiv {
   display: block;
+
+  &.hide-if-js {
+    display: none;
+  }
 }
 
 #WINP_InfoMetaBox {
-  background: #2a2428;
-  color: #989898;
+  //background: #2a2428;
+  color: #222;
 
   h2 {
-    font-size: 16px;
-    color: rgb(255, 226, 2);
+    display: none;
+    font-size: 12px;
+    color: #353535;
     text-transform: uppercase;
   }
+
   h4 {
     margin: 0;
     text-align: center;
@@ -41,26 +63,111 @@
 
   .inside {
     padding: 0;
+    margin: 0;
   }
 
   .wbcr-inp-metabox-banner {
-    padding: 15px;
+    //padding: 15px;
 
     .wbcr-inp-big-text {
-      color: #fff;
+      display: block;
+      color: #9ca096;
       font-size: 15px;
+      padding: 15px;
+      text-align: center;
     }
+
+    .wbcr-inp-image {
+      img {
+        width: 100%;
+      }
+
+      //background: #f3f3f3;
+      padding: 20px 0;
+    }
+
+    .wbcr-inp-title {
+      padding: 15px;
+      margin: 0;
+      font-size: 15px;
+      text-align: center;
+      color: #ca4a1f;
+      background: #fff5f4;
+
+      span {
+        font-size: 12px;
+      }
+    }
+
     .wbcr-inp-button {
       display: block;
-      font-size: 18px;
+      font-size: 16px;
+      text-align: center;
       letter-spacing: 0;
-      margin-top: 10px;
       text-decoration: none;
-      color: #2a2428;
-      background-color: #f9e100;
-      padding: 15px 50px 15px 50px;
-      box-shadow: 0 5px 0 0 #af9800;
+      color: #828282;
+      font-weight: 600;
+      background-color: #f7f7f7;
+      padding: 15px 30px 15px 30px;
+      box-shadow: 0 1px 3px #b9b9b9;
+      border-bottom: 1px solid #e8e8e8;
+      margin: 10px;
     }
   }
 
+}
+
+.winp-enable-php-wrapper {
+  margin: 15px 0 auto;
+
+  .winp-enable-php-btn i {
+    font-size: 1.2em;
+    line-height: inherit;
+    height: auto;
+  }
+}
+
+.winp-editor-container {
+  visibility: hidden;
+  height: 0;
+}
+
+.winp-snippet-enabled .winp-editor-container {
+  margin-top: 20px;
+  visibility: visible;
+  height: auto;
+}
+
+.winp-snippet-enabled .composer-switch,
+.winp-snippet-enabled .fl-builder-admin,
+.winp-snippet-enabled #postdivrich,
+.winp-snippet-enabled #elementor-switch-mode,
+.winp-snippet-enabled.elementor-editor-active #elementor-editor,
+.winp-snippet-enabled #elementor-editor {
+  display: none;
+}
+
+.winp-snippet-enabled #wpb_visual_composer {
+  display: none !important;
+}
+
+.winp-php-content {
+  height: 300px;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: auto;
+  position: relative;
+  -webkit-transition: none;
+  transition: none;
+  background: transparent !important;
+}
+
+#winp-export-action {
+  float: left;
+  line-height: 28px;
+  padding-right: 10px;
+}
+
+.winp-import-radio-container label {
+  font-weight: normal;
 }

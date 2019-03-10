@@ -14,21 +14,21 @@
 		exit;
 	}
 
-	if( !class_exists('Wbcr_Factory404_Update') ) {
+	if( !class_exists('Wbcr_Factory410_Update') ) {
 		/**
 		 * Plugin Activator
 		 *
 		 * @since 1.0.0
 		 */
-		abstract class Wbcr_Factory404_Update {
+		abstract class Wbcr_Factory410_Update {
 
 			/**
 			 * Current plugin
-			 * @var Factory404_Plugin
+			 * @var Wbcr_Factory410_Plugin
 			 */
 			var $plugin;
 
-			public function __construct(Wbcr_Factory404_Plugin $plugin)
+			public function __construct(Wbcr_Factory410_Plugin $plugin)
 			{
 				$this->plugin = $plugin;
 			}

@@ -44,7 +44,7 @@ class LikeBtnLikeButton {
         if (!$last_sync_time) {
             update_option('likebtn_last_sync_time', $now);
             self::$synchronized = true;
-            return true;
+            return false;
         } else {
 
             if ($last_sync_time + $sync_period > $now) {
@@ -334,7 +334,7 @@ class LikeBtnLikeButton {
                         WHERE id = {$entity_id}
                     ");
 
-                    if (!empty($bp_activity)) {
+                    if (!empty($bp_activity) && function_exists('bp_activity_get_meta')) {
                         if ($likes != -1) {
                             if (count(bp_activity_get_meta($entity_id, LIKEBTN_META_KEY_LIKES)) > 1) {
                                 bp_activity_delete_meta($entity_id, LIKEBTN_META_KEY_LIKES);
@@ -387,30 +387,25 @@ class LikeBtnLikeButton {
 
                     // check if post exists and is not revision
                     if (!empty($post) && !empty($post->post_type) && $post->post_type != 'revision') {
-                        if ($likes != -1) {
-                            if (count(get_post_meta($entity_id, LIKEBTN_META_KEY_LIKES)) > 1) {
-                                delete_post_meta($entity_id, LIKEBTN_META_KEY_LIKES);
-                                add_post_meta($entity_id, LIKEBTN_META_KEY_LIKES, $likes, true);
-                            } else {
-                                update_post_meta($entity_id, LIKEBTN_META_KEY_LIKES, $likes);
+                        
+                        likebtn_set_post_votes($entity_id, $likes, $dislikes, $likes_minus_dislikes);
+
+                        // WPML
+                        if (($entity_name == LIKEBTN_ENTITY_POST || $entity_name == LIKEBTN_ENTITY_PAGE) && likebtn_is_wpml_active()) {
+                            global $sitepress;
+                            $trid = $sitepress->get_element_trid($entity_id, 'post_'.$entity_name);
+                            //$translations = $sitepress->get_element_translations($trid,'post_'.$entity_name);
+                            $translations = $wpdb->get_results("
+                                SELECT element_id
+                                FROM {$wpdb->prefix}icl_translations
+                                WHERE trid = {$trid} 
+                                AND element_type = 'post_{$entity_name}' 
+                            ");
+                            foreach ($translations as $langkey => $translation) {
+                                likebtn_set_post_votes($translation->element_id, $likes, $dislikes, $likes_minus_dislikes);
                             }
                         }
-                        if ($dislikes != -1) {
-                            if (count(get_post_meta($entity_id, LIKEBTN_META_KEY_DISLIKES)) > 1) {
-                                delete_post_meta($entity_id, LIKEBTN_META_KEY_DISLIKES);
-                                add_post_meta($entity_id, LIKEBTN_META_KEY_DISLIKES, $dislikes, true);
-                            } else {
-                                update_post_meta($entity_id, LIKEBTN_META_KEY_DISLIKES, $dislikes);
-                            }
-                        }
-                        if ($likes_minus_dislikes !== null) {
-                            if (count(get_post_meta($entity_id, LIKEBTN_META_KEY_LIKES_MINUS_DISLIKES)) > 1) {
-                                delete_post_meta($entity_id, LIKEBTN_META_KEY_LIKES_MINUS_DISLIKES);
-                                add_post_meta($entity_id, LIKEBTN_META_KEY_LIKES_MINUS_DISLIKES, $likes_minus_dislikes, true);
-                            } else {
-                                update_post_meta($entity_id, LIKEBTN_META_KEY_LIKES_MINUS_DISLIKES, $likes_minus_dislikes);
-                            }
-                        }
+
                         $entity_updated = true;
                     }
                     break;
@@ -767,6 +762,25 @@ class LikeBtnLikeButton {
     public function setIpvi($value) {
         $url = "value=".(int)$value;
         $response = $this->apiRequest('ipvi', $url);
+
+        return $response;
+    }
+
+    /**
+     * Get site
+     */
+    // public function getSite() {
+    //     $response = $this->apiRequest('site');
+
+    //     return $response;
+    // }
+
+    /**
+     * Set IP vote interval
+     */
+    public function setInitL($from, $to) {
+        $url = "init_l_from=".(int)$from.'&init_l_to='.$to;
+        $response = $this->apiRequest('init_l', $url);
 
         return $response;
     }

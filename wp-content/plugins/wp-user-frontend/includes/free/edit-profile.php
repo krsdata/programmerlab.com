@@ -18,13 +18,18 @@ class WPUF_Edit_Profile {
      * @author Tareq Hasan
      */
     function shortcode() {
-
+        // wpuf()->plugin_scripts();
+        ?>
+        <style>
+            <?php //echo $custom_css = wpuf_get_option( 'custom_css', 'wpuf_general' ); ?>
+        </style>
+        <?php
         ob_start();
 
         if ( is_user_logged_in() ) {
             $this->show_form();
         } else {
-            printf( __( "This page is restricted. Please %s to view this page.", 'wpuf' ), wp_loginout( '', false ) );
+            printf( __( "This page is restricted. Please %s to view this page.", 'wp-user-frontend' ), wp_loginout( '', false ) );
         }
 
         $content = ob_get_contents();
@@ -63,7 +68,7 @@ class WPUF_Edit_Profile {
                 $message = $errors->get_error_message();
                 $style = 'error';
             } else {
-                $message = __( '<strong>Success</strong>: Profile updated', 'wpuf' );
+                $message = __( '<strong>Success</strong>: Profile updated', 'wp-user-frontend' );
                 $style = 'success';
                 do_action( 'personal_options_update', $user_id );
             }
@@ -89,30 +94,30 @@ class WPUF_Edit_Profile {
                 <?php do_action( 'profile_personal_options', $profileuser ); ?>
 
                 <fieldset>
-                    <legend><?php _e( 'Name', 'wpuf' ) ?></legend>
+                    <legend><?php _e( 'Name', 'wp-user-frontend' ) ?></legend>
 
                     <table class="wpuf-table">
                         <tr>
-                            <th><label for="user_login1"><?php _e( 'Username', 'wpuf' ); ?></label></th>
-                            <td><input type="text" name="user_login" id="user_login1" value="<?php echo esc_attr( $profileuser->user_login ); ?>" disabled="disabled" class="regular-text" /><br /><em><span class="description"><?php _e( 'Usernames cannot be changed.', 'wpuf' ); ?></span></em></td>
+                            <th><label for="user_login1"><?php _e( 'Username', 'wp-user-frontend' ); ?></label></th>
+                            <td><input type="text" name="user_login" id="user_login1" value="<?php echo esc_attr( $profileuser->user_login ); ?>" disabled="disabled" class="regular-text" /><br /><em><span class="description"><?php _e( 'Usernames cannot be changed.', 'wp-user-frontend' ); ?></span></em></td>
                         </tr>
                         <tr>
-                            <th><label for="first_name"><?php _e( 'First Name', 'wpuf' ) ?></label></th>
+                            <th><label for="first_name"><?php _e( 'First Name', 'wp-user-frontend' ) ?></label></th>
                             <td><input type="text" name="first_name" id="first_name" value="<?php echo esc_attr( $profileuser->first_name ) ?>" class="regular-text" /></td>
                         </tr>
 
                         <tr>
-                            <th><label for="last_name"><?php _e( 'Last Name', 'wpuf' ) ?></label></th>
+                            <th><label for="last_name"><?php _e( 'Last Name', 'wp-user-frontend' ) ?></label></th>
                             <td><input type="text" name="last_name" id="last_name" value="<?php echo esc_attr( $profileuser->last_name ) ?>" class="regular-text" /></td>
                         </tr>
 
                         <tr>
-                            <th><label for="nickname"><?php _e( 'Nickname', 'wpuf' ); ?> <span class="description"><?php _e( '(required)', 'wpuf' ); ?></span></label></th>
+                            <th><label for="nickname"><?php _e( 'Nickname', 'wp-user-frontend' ); ?> <span class="description"><?php _e( '(required)', 'wp-user-frontend' ); ?></span></label></th>
                             <td><input type="text" name="nickname" id="nickname" value="<?php echo esc_attr( $profileuser->nickname ) ?>" class="regular-text" /></td>
                         </tr>
 
                         <tr>
-                            <th><label for="display_name"><?php _e( 'Display to Public as', 'wpuf' ) ?></label></th>
+                            <th><label for="display_name"><?php _e( 'Display to Public as', 'wp-user-frontend' ) ?></label></th>
                             <td>
                                 <select name="display_name" id="display_name">
                                     <?php
@@ -144,16 +149,16 @@ class WPUF_Edit_Profile {
                 </fieldset>
 
                 <fieldset>
-                    <legend><?php _e( 'Contact Info', 'wpuf' ) ?></legend>
+                    <legend><?php _e( 'Contact Info', 'wp-user-frontend' ) ?></legend>
 
                     <table class="wpuf-table">
                         <tr>
-                            <th><label for="email"><?php _e( 'E-mail', 'wpuf' ); ?> <span class="description"><?php _e( '(required)', 'wpuf' ); ?></span></label></th>
+                            <th><label for="email"><?php _e( 'E-mail', 'wp-user-frontend' ); ?> <span class="description"><?php _e( '(required)', 'wp-user-frontend' ); ?></span></label></th>
                             <td><input type="text" name="email" id="email" value="<?php echo esc_attr( $profileuser->user_email ) ?>" class="regular-text" /> </td>
                         </tr>
 
                         <tr>
-                            <th><label for="url"><?php _e( 'Website', 'wpuf' ) ?></label></th>
+                            <th><label for="url"><?php _e( 'Website', 'wp-user-frontend' ) ?></label></th>
                             <td><input type="text" name="url" id="url" value="<?php echo esc_attr( $profileuser->user_url ) ?>" class="regular-text code" /></td>
                         </tr>
 
@@ -171,31 +176,31 @@ class WPUF_Edit_Profile {
                 </fieldset>
 
                 <fieldset>
-                    <legend><?php _e( 'About Yourself', 'wpuf' ); ?></legend>
+                    <legend><?php _e( 'About Yourself', 'wp-user-frontend' ); ?></legend>
 
                     <table class="wpuf-table">
                         <tr>
-                            <th><label for="description"><?php _e( 'Biographical Info', 'wpuf' ); ?></label></th>
+                            <th><label for="description"><?php _e( 'Biographical Info', 'wp-user-frontend' ); ?></label></th>
                             <td><textarea name="description" id="description" rows="5" cols="30"><?php echo esc_html( $profileuser->description ); ?></textarea><br />
-                                <span class="description"><?php _e( 'Share a little biographical information to fill out your profile. This may be shown publicly.', 'wpuf' ); ?></span></td>
+                                <span class="description"><?php _e( 'Share a little biographical information to fill out your profile. This may be shown publicly.', 'wp-user-frontend' ); ?></span></td>
                         </tr>
                         <tr id="password">
-                            <th><label for="pass1"><?php _e( 'New Password', 'wpuf' ); ?></label></th>
+                            <th><label for="pass1"><?php _e( 'New Password', 'wp-user-frontend' ); ?></label></th>
                             <td>
                                 <input type="password" name="pass1" id="pass1" size="16" value="" autocomplete="off" /><br /><br />
                             </td>
                         </tr>
                         <tr>
-                            <th><label><?php _e( 'Confirm Password', 'wpuf' ); ?></label></th>
+                            <th><label><?php _e( 'Confirm Password', 'wp-user-frontend' ); ?></label></th>
                             <td>
-                                <input type="password" name="pass2" id="pass2" size="16" value="" autocomplete="off" />&nbsp;<em><span class="description"><?php _e( "Type your new password again." ); ?></span></em>
+                                <input type="password" name="pass2" id="pass2" size="16" value="" autocomplete="off" />&nbsp;<em><span class="description"><?php _e( "Type your new password again.", 'wp-user-frontend' ); ?></span></em>
                             </td>
                         </tr>
                         <tr>
 
-                            <th><label><?php _e( 'Password Strength', 'wpuf' ); ?></label></th>
+                            <th><label><?php _e( 'Password Strength', 'wp-user-frontend' ); ?></label></th>
                             <td>
-                                <div id="pass-strength-result"><?php _e( 'Strength indicator', 'wpuf' ); ?></div>
+                                <div id="pass-strength-result"><?php _e( 'Strength indicator', 'wp-user-frontend' ); ?></div>
                                 <script src="<?php echo site_url(); ?>/wp-includes/js/zxcvbn.min.js"></script>
                                 <script src="<?php echo admin_url(); ?>/js/password-strength-meter.js"></script>
                                 <script type="text/javascript">
@@ -219,7 +224,7 @@ class WPUF_Edit_Profile {
                 <p class="submit">
                     <input type="hidden" name="action" value="update" />
                     <input type="hidden" name="user_id" id="user_id" value="<?php echo esc_attr( $user_id ); ?>" />
-                    <input type="submit" class="wpuf-submit" value="<?php _e( 'Update Profile', 'wpuf' ); ?>" name="submit" />
+                    <input type="submit" class="wpuf-submit" value="<?php _e( 'Update Profile', 'wp-user-frontend' ); ?>" name="submit" />
                 </p>
             </form>
         </div>
@@ -232,71 +237,55 @@ class WPUF_Edit_Profile {
      * @param object $profileuser
      */
     function post_lock_form( $profileuser ) {
-        global $wpuf_subscription;
+        $current_user      = new WPUF_User( $profileuser );
+        $wpuf_subscription = $current_user->subscription();
+        $post_locked       = $current_user->post_locked();
+        $lock_reason       = $current_user->lock_reason();
+        $edit_post_locked  = $current_user->edit_post_locked();
+        $edit_lock_reason  = $current_user->edit_post_lock_reason();
 
         if ( is_admin() && current_user_can( 'edit_users' ) ) {
-            $select = ( $profileuser->wpuf_postlock == 'yes' ) ? 'yes' : 'no';
+            $select           = ( $post_locked == true ) ? 'yes' : 'no';
+            $edit_post_select = ( $edit_post_locked == true ) ? 'yes' : 'no';
             ?>
-
-            <h3><?php _e( 'WPUF Post Lock', 'wpuf' ); ?></h3>
-            <table class="form-table">
-                <tr>
-                    <th><label for="post-lock"><?php _e( 'Lock Post:', 'wpuf' ); ?> </label></th>
-                    <td>
-                        <select name="wpuf_postlock" id="post-lock">
-                            <option value="no"<?php selected( $select, 'no' ); ?>>No</option>
-                            <option value="yes"<?php selected( $select, 'yes' ); ?>>Yes</option>
-                        </select>
-                        <span class="description"><?php _e( 'Lock user from creating new post.', 'wpuf' ); ?></span></em>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th><label for="post-lock"><?php _e( 'Lock Reason:', 'wpuf' ); ?> </label></th>
-                    <td>
-                        <input type="text" name="wpuf_lock_cause" id="wpuf_lock_cause" class="regular-text" value="<?php echo esc_attr( $profileuser->wpuf_lock_cause ); ?>" />
-                    </td>
-                </tr>
-            </table>
-
-            <?php
-            if ( wpuf_get_option( 'charge_posting', 'wpuf_payment', 'no' ) == 'yes' ) {
-                $validity = (isset( $profileuser->wpuf_sub_validity )) ? $profileuser->wpuf_sub_validity : date( 'Y-m-d G:i:s', time() );
-                $count = ( isset( $profileuser->wpuf_sub_pcount ) ) ? $profileuser->wpuf_sub_pcount : 0;
-
-                if ( isset( $profileuser->wpuf_sub_pack ) ) {
-                    $pack = $wpuf_subscription->get_subscription( $profileuser->wpuf_sub_pack );
-                    $pack = $pack->name;
-                } else {
-                    $pack = 'Free';
-                }
-                ?>
-
-                <h3><?php _e( 'WPUF Subscription', 'wpuf' ); ?></h3>
-
+            <div class="wpuf-user-post-lock">
+                <h3><?php _e( 'WPUF Post Lock', 'wp-user-frontend' ); ?></h3>
                 <table class="form-table">
                     <tr>
-                        <th><label for="post-lock"><?php _e( 'Pack:', 'wpuf' ); ?> </label></th>
+                        <th><label for="post-lock"><?php _e( 'Lock Post:', 'wp-user-frontend' ); ?> </label></th>
                         <td>
-                            <input type="text" disabled="disabled" name="wpuf_sub_pack" id="wpuf_sub_pack" class="regular-text" value="<?php echo $pack; ?>" />
+                            <select name="wpuf_postlock" id="post-lock">
+                                <option value="no"<?php selected( $select, 'no' ); ?>>No</option>
+                                <option value="yes"<?php selected( $select, 'yes' ); ?>>Yes</option>
+                            </select>
+                            <span class="description"><?php _e( 'Lock user from creating new post.', 'wp-user-frontend' ); ?></span></em>
                         </td>
                     </tr>
                     <tr>
-                        <th><label for="post-lock"><?php _e( 'Post Count:', 'wpuf' ); ?> </label></th>
+                        <th><label for="post-lock"><?php _e( 'Lock Reason:', 'wp-user-frontend' ); ?> </label></th>
                         <td>
-                            <input type="text" name="wpuf_sub_pcount" id="wpuf_sub_pcount" class="regular-text" value="<?php echo $count; ?>" />
+                            <input type="text" name="wpuf_lock_cause" id="wpuf_lock_cause" class="regular-text" value="<?php echo esc_attr( $lock_reason ); ?>" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th><label for="post-lock"><?php _e( 'Lock Edit Post:', 'wp-user-frontend' ); ?> </label></th>
+                        <td>
+                            <select name="wpuf_edit_postlock" id="edit-post-lock">
+                                <option value="no"<?php selected( $edit_post_select, 'no' ); ?>>No</option>
+                                <option value="yes"<?php selected( $edit_post_select, 'yes' ); ?>>Yes</option>
+                            </select>
+                            <span class="description"><?php _e( 'Lock user from editing post.', 'wp-user-frontend' ); ?></span></em>
                         </td>
                     </tr>
                     <tr>
-                        <th><label for="post-lock"><?php _e( 'Validity:', 'wpuf' ); ?> </label></th>
+                        <th><label for="post-lock"><?php _e( 'Edit Post Lock Reason:', 'wp-user-frontend' ); ?> </label></th>
                         <td>
-                            <input type="text" name="wpuf_sub_validity" id="wpuf_sub_validity" class="regular-text" value="<?php echo $validity; ?>" />
+                            <input type="text" name="wpuf_edit_post_lock_cause" id="wpuf_edit_post_lock_cause" class="regular-text" value="<?php echo esc_attr( $edit_lock_reason ); ?>" />
                         </td>
                     </tr>
                 </table>
-
-            <?php } ?>
-
+            </div>
             <?php
         }
     }
@@ -310,8 +299,8 @@ class WPUF_Edit_Profile {
         if ( is_admin() && current_user_can( 'edit_users' ) ) {
             update_user_meta( $user_id, 'wpuf_postlock', $_POST['wpuf_postlock'] );
             update_user_meta( $user_id, 'wpuf_lock_cause', $_POST['wpuf_lock_cause'] );
-            update_user_meta( $user_id, 'wpuf_sub_validity', $_POST['wpuf_sub_validity'] );
-            update_user_meta( $user_id, 'wpuf_sub_pcount', $_POST['wpuf_sub_pcount'] );
+            update_user_meta( $user_id, 'wpuf_edit_postlock', $_POST['wpuf_edit_postlock'] );
+            update_user_meta( $user_id, 'wpuf_edit_post_lock_cause', $_POST['wpuf_edit_post_lock_cause'] );
         }
     }
 

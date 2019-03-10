@@ -152,7 +152,7 @@ function dwqa_the_author( $display_name ) {
 	if ( 'dwqa-answer' == $post->post_type || 'dwqa-question' == $post->post_type) {
 		if ( dwqa_is_anonymous( $post->ID ) ) {
 			$anonymous_name = get_post_meta( $post->ID, '_dwqa_anonymous_name', true );
-			$display_name = $anonymous_name ? $anonymous_name : __( 'Anonymous', 'dwqa' );
+			$display_name = $anonymous_name ? $anonymous_name : __( 'Anonymous', 'dw-question-answer' );
 		}
 	}
 
@@ -171,8 +171,14 @@ function dwqa_get_author_link( $user_id = false ) {
 	if ( ! $user_id ) {
 		return false;
 	}
-	global $dwqa_general_settings;
+
 	$user = get_user_by( 'id', $user_id );
+	if(!$user){
+		return false;
+	}
+
+	global $dwqa_general_settings;
+	
 	$question_link = isset( $dwqa_general_settings['pages']['archive-question'] ) ? get_permalink( $dwqa_general_settings['pages']['archive-question'] ) : false;
 	$url = get_the_author_link( $user_id );
 	if ( $question_link ) {
@@ -227,7 +233,7 @@ function dwqa_get_user_badge( $user_id = false ) {
 
 	$badges = array();
 	if ( user_can( $user_id, 'edit_posts' ) ) {
-		$badges['staff'] = __( 'Staff', 'dwqa' );
+		$badges['staff'] = __( 'Staff', 'dw-question-answer' );
 	}
 
 	return apply_filters( 'dwqa_get_user_badge', $badges, $user_id );
@@ -263,7 +269,7 @@ class DWQA_User {
 	function follow_question() {
 		check_ajax_referer( '_dwqa_follow_question', 'nonce' );
 		if ( ! isset( $_POST['post'] ) ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid Post', 'dwqa' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid Post', 'dw-question-answer' ) ) );
 		}
 		$question = get_post( intval( $_POST['post'] ) );
 		if ( is_user_logged_in() ) {

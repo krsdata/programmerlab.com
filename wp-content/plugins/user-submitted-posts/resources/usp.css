@@ -1,7 +1,7 @@
 /* 
-	User Submitted Posts > CSS > HTML5 form
+	User Submitted Posts : CSS : USP Form
 	@ https://perishablepress.com/user-submitted-posts/
-	Complete list of CSS selectors @ http://m0n.co/e
+	Complete list of CSS selectors @ https://m0n.co/e
 */
 
 div#user-submitted-posts { width: 100%; max-width: 800px; overflow: hidden; }
@@ -26,6 +26,10 @@ div#user-submitted-posts div.usp-error { color: #cc3333; }
 div#user-submitted-posts div#usp-error-message { margin: 0 0 20px 0; }
 div#user-submitted-posts div#usp-error-message.usp-callout-failure { color: #cc3333; }
 div#user-submitted-posts div#usp-success-message { margin: 0 0 20px 0; font-weight: bold; }
+
+div#user-submitted-posts fieldset.usp-checkbox { padding: 5px 0; }
+div#user-submitted-posts fieldset.usp-checkbox input { display: inline-block; vertical-align: middle; position: relative; top: -2px; }
+div#user-submitted-posts fieldset.usp-checkbox label { display: inline-block; vertical-align: middle; }
 
 .usp-hidden, .usp-no-js { display: none; }
 .usp-js { display: block; }

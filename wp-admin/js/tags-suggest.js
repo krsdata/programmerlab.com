@@ -1,5 +1,7 @@
 /**
  * Default settings for jQuery UI Autocomplete for use with non-hierarchical taxonomies.
+ *
+ * @output wp-admin/js/tags-suggest.js
  */
 ( function( $ ) {
 	if ( typeof window.tagsSuggestL10n === 'undefined' || typeof window.uiAutocompleteL10n === 'undefined' ) {
@@ -120,7 +122,9 @@
 			},
 			minLength: 2,
 			position: {
-				my: 'left top+2'
+				my: 'left top+2',
+				at: 'left bottom',
+				collision: 'none'
 			},
 			messages: {
 				noResults: window.uiAutocompleteL10n.noResults,

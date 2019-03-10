@@ -1,5 +1,5 @@
 /* 
-	User Submitted Posts > Plugin Settings
+	User Submitted Posts - Plugin Settings
 	@ https://perishablepress.com/user-submitted-posts/
 */
 
@@ -29,12 +29,10 @@ jQuery(document).ready(function($){
 	});
 	
 	// toggle form info
-	$('.usp-custom-form').click(function(e){
-		e.preventDefault;
+	$('.usp-custom-form').click(function(){
 		$('.usp-custom-form-info').slideDown(300);
 	});
-	$('.usp-form').click(function(e){
-		e.preventDefault;
+	$('.usp-form').click(function(){
 		$('.usp-custom-form-info').slideUp(300);
 	});
 	

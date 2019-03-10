@@ -2,11 +2,9 @@
 class WPUF_Admin_Form_Handler {
 
     public function __construct() {
-        $user_frontend = sanitize_title( __( 'User Frontend', 'wpuf' ) );
-
         // post forms list table
-        add_action( "load-{$user_frontend}_page_wpuf-post-forms", array( $this, 'post_forms_actions' ) );
-        add_action( "load-{$user_frontend}_page_wpuf-profile-forms", array( $this, 'profile_forms_actions' ) );
+        add_action( "load-user-frontend_page_wpuf-post-forms", array( $this, 'post_forms_actions' ) );
+        add_action( "load-user-frontend_page_wpuf-profile-forms", array( $this, 'profile_forms_actions' ) );
         add_action( 'admin_notices', array( $this, 'admin_notices' ) );
         add_action( 'removable_query_args', array( $this, 'removable_query_args' ) );
     }
@@ -53,7 +51,7 @@ class WPUF_Admin_Form_Handler {
 
         // Check permission if not wpuf admin then go out from here
         if ( ! current_user_can( wpuf_admin_role() ) ) {
-            wp_die( __( 'You do not have sufficient permissions to do this action', 'wpuf' ) );
+            wp_die( __( 'You do not have sufficient permissions to do this action', 'wp-user-frontend' ) );
         }
 
 
@@ -180,7 +178,7 @@ class WPUF_Admin_Form_Handler {
 
         // Check permission if not wpuf admin then go out from here
         if ( ! current_user_can( wpuf_admin_role() ) ) {
-            wp_die( __( 'You do not have sufficient permissions to do this action', 'wpuf' ) );
+            wp_die( __( 'You do not have sufficient permissions to do this action', 'wp-user-frontend' ) );
         }
 
 
@@ -316,40 +314,40 @@ class WPUF_Admin_Form_Handler {
     public function admin_notices() {
         if ( !empty( $_GET['page'] ) && 'wpuf-post-forms' === $_GET['page'] ) {
             if ( !empty( $_GET['trashed'] ) ) {
-                $notice = sprintf( _n( '%d form moved to the trash.', '%d forms moved to the trash.', $_GET['trashed'], 'wpuf' ), $_GET['trashed'] );
+                $notice = sprintf( _n( '%d form moved to the trash.', '%d forms moved to the trash.', $_GET['trashed'], 'wp-user-frontend' ), $_GET['trashed'] );
                 $this->display_notice( $notice );
 
             } else if ( !empty( $_GET['untrashed'] ) ) {
-                $notice = sprintf( _n( '%d form restored from the trash.', '%d forms restored from the trash.', $_GET['untrashed'], 'wpuf' ), $_GET['untrashed'] );
+                $notice = sprintf( _n( '%d form restored from the trash.', '%d forms restored from the trash.', $_GET['untrashed'], 'wp-user-frontend' ), $_GET['untrashed'] );
                 $this->display_notice( $notice );
 
             } else if ( !empty( $_GET['deleted'] ) ) {
-                $notice = sprintf( _n( '%d form permanently deleted.', '%d forms permanently deleted.', $_GET['deleted'], 'wpuf' ), $_GET['deleted'] );
+                $notice = sprintf( _n( '%d form permanently deleted.', '%d forms permanently deleted.', $_GET['deleted'], 'wp-user-frontend' ), $_GET['deleted'] );
                 $this->display_notice( $notice );
 
             } else if ( !empty( $_GET['duplicated'] ) ) {
                 $form_url = admin_url( 'admin.php?page=wpuf-post-forms&action=edit&id=' . $_GET['duplicated'] );
-                $notice = sprintf( __( 'Form duplicated successfully. <a href="%s">View form.</a>', 'wpuf' ), $form_url );
+                $notice = sprintf( __( 'Form duplicated successfully. <a href="%s">View form.</a>', 'wp-user-frontend' ), $form_url );
                 $this->display_notice( $notice );
             }
         }
 
         if ( !empty( $_GET['page'] ) && 'wpuf-profile-forms' === $_GET['page'] ) {
             if ( !empty( $_GET['trashed'] ) ) {
-                $notice = sprintf( _n( '%d form moved to the trash.', '%d forms moved to the trash.', $_GET['trashed'], 'wpuf' ), $_GET['trashed'] );
+                $notice = sprintf( _n( '%d form moved to the trash.', '%d forms moved to the trash.', $_GET['trashed'], 'wp-user-frontend' ), $_GET['trashed'] );
                 $this->display_notice( $notice );
 
             } else if ( !empty( $_GET['untrashed'] ) ) {
-                $notice = sprintf( _n( '%d form restored from the trash.', '%d forms restored from the trash.', $_GET['untrashed'], 'wpuf' ), $_GET['untrashed'] );
+                $notice = sprintf( _n( '%d form restored from the trash.', '%d forms restored from the trash.', $_GET['untrashed'], 'wp-user-frontend' ), $_GET['untrashed'] );
                 $this->display_notice( $notice );
 
             } else if ( !empty( $_GET['deleted'] ) ) {
-                $notice = sprintf( _n( '%d form permanently deleted.', '%d forms permanently deleted.', $_GET['deleted'], 'wpuf' ), $_GET['deleted'] );
+                $notice = sprintf( _n( '%d form permanently deleted.', '%d forms permanently deleted.', $_GET['deleted'], 'wp-user-frontend' ), $_GET['deleted'] );
                 $this->display_notice( $notice );
 
             } else if ( !empty( $_GET['duplicated'] ) ) {
                 $form_url = admin_url( 'admin.php?page=wpuf-profile-forms&action=edit&id=' . $_GET['duplicated'] );
-                $notice = sprintf( __( 'Form duplicated successfully. <a href="%s">View form.</a>', 'wpuf' ), $form_url );
+                $notice = sprintf( __( 'Form duplicated successfully. <a href="%s">View form.</a>', 'wp-user-frontend' ), $form_url );
                 $this->display_notice( $notice );
             }
         }

@@ -13,36 +13,29 @@
 	if( !defined('ABSPATH') ) {
 		exit;
 	}
-	
-	if( function_exists('wbcr_factory_404_set_lazy_redirect') ) {
-		/**
-		 * Sets a lazy redirect.
-		 *
-		 * @since 3.0.6
-		 * @return void
-		 */
-		function wbcr_factory_404_set_lazy_redirect($url)
+
+	if( !function_exists('get_user_locale') ) {
+		function get_user_locale($user_id = 0)
 		{
-			update_option('wbcr_factory_404_lazy_redirect', $url);
-		}
-	}
-	
-	if( function_exists('wbcr_factory_404_do_lazy_redirect') ) {
-		function wbcr_factory_404_do_lazy_redirect()
-		{
-			$url = get_option('wbcr_factory_404_lazy_redirect', null);
-			
-			if( empty($url) ) {
-				return;
+			$user = false;
+			if( 0 === $user_id && function_exists('wp_get_current_user') ) {
+				$user = wp_get_current_user();
+			} elseif( $user_id instanceof WP_User ) {
+				$user = $user_id;
+			} elseif( $user_id && is_numeric($user_id) ) {
+				$user = get_user_by('id', $user_id);
 			}
-			
-			delete_option('wbcr_factory_404_lazy_redirect');
-			wp_redirect($url);
+
+			if( !$user ) {
+				return get_locale();
+			}
+
+			$locale = $user->locale;
+
+			return $locale ? $locale : get_locale();
 		}
-		
-		add_action('admin_init', 'wbcr_factory_404_do_lazy_redirect');
 	}
-	
+
 	/**
 	 * Fires functions attached to a deprecated filter hook.
 	 *
@@ -54,7 +47,7 @@
 	 *
 	 * @since 1.0.0
 	 *
-	 * @see wbcr_factory_404_deprecated_hook()
+	 * @see wbcr_factory_410_deprecated_hook()
 	 *
 	 * @param string $tag The name of the filter hook.
 	 * @param array $args Array of additional function arguments to be passed to apply_filters().
@@ -64,7 +57,7 @@
 	 *
 	 * @return mixed
 	 */
-	function wbcr_factory_404_apply_filters_deprecated($tag, $args, $version, $replacement = false, $message = null)
+	function wbcr_factory_410_apply_filters_deprecated($tag, $args, $version, $replacement = false, $message = null)
 	{
 		if( function_exists('apply_filters_deprecated') ) {
 			return apply_filters_deprecated($tag, $args, $version, $replacement, $message);
@@ -72,7 +65,7 @@
 		if( !has_filter($tag) ) {
 			return $args[0];
 		}
-		wbcr_factory_404_deprecated_hook($tag, $version, $replacement, $message);
+		wbcr_factory_410_deprecated_hook($tag, $version, $replacement, $message);
 		
 		return apply_filters_ref_array($tag, $args);
 	}
@@ -98,7 +91,7 @@
 	 *
 	 * @return void
 	 */
-	function wbcr_factory_404_do_action_deprecated($tag, $args, $version, $replacement = false, $message = null)
+	function wbcr_factory_410_do_action_deprecated($tag, $args, $version, $replacement = false, $message = null)
 	{
 		if( function_exists('do_action_deprecated') ) {
 			do_action_deprecated($tag, $args, $version, $replacement, $message);
@@ -108,14 +101,14 @@
 		if( !has_action($tag) ) {
 			return;
 		}
-		wbcr_factory_404_deprecated_hook($tag, $version, $replacement, $message);
+		wbcr_factory_410_deprecated_hook($tag, $version, $replacement, $message);
 		do_action_ref_array($tag, $args);
 	}
 	
 	/**
 	 * Marks a deprecated action or filter hook as deprecated and throws a notice.
 	 *
-	 * Use the 'wbcr_factory_404_deprecated_hook_run' action to get the backtrace describing where the
+	 * Use the 'wbcr_factory_410_deprecated_hook_run' action to get the backtrace describing where the
 	 * deprecated hook was called.
 	 *
 	 * Default behavior is to trigger a user error if WP_DEBUG is true.
@@ -133,7 +126,7 @@
 	 * @param string $replacement Optional. The hook that should have been used.
 	 * @param string $message Optional. A message regarding the change.
 	 */
-	function wbcr_factory_404_deprecated_hook($hook, $version, $replacement = null, $message = null)
+	function wbcr_factory_410_deprecated_hook($hook, $version, $replacement = null, $message = null)
 	{
 		/**
 		 * Fires when a deprecated hook is called.
@@ -156,9 +149,7 @@
 		 *                      `WP_DEBUG` to be defined true.
 		 */
 		if( WP_DEBUG && apply_filters('deprecated_hook_trigger_error', true) ) {
-			$message = empty($message)
-				? ''
-				: ' ' . $message;
+			$message = empty($message) ? '' : ' ' . $message;
 			if( !is_null($replacement) ) {
 				trigger_error(sprintf(__('%1$s is <strong>deprecated</strong> since version %2$s! Use %3$s instead.'), $hook, $version, $replacement) . $message);
 			} else {
@@ -167,3 +158,54 @@
 		}
 	}
 
+
+    if(!function_exists('_sanitize_text_fields')){
+        function _sanitize_text_fields( $str, $keep_newlines = false ) {
+            $filtered = wp_check_invalid_utf8( $str );
+
+            if ( strpos($filtered, '<') !== false ) {
+                $filtered = wp_pre_kses_less_than( $filtered );
+                // This will strip extra whitespace for us.
+                $filtered = wp_strip_all_tags( $filtered, false );
+
+                // Use html entities in a special case to make sure no later
+                // newline stripping stage could lead to a functional tag
+                $filtered = str_replace("<\n", "&lt;\n", $filtered);
+            }
+
+            if ( ! $keep_newlines ) {
+                $filtered = preg_replace( '/[\r\n\t ]+/', ' ', $filtered );
+            }
+            $filtered = trim( $filtered );
+
+            $found = false;
+            while ( preg_match('/%[a-f0-9]{2}/i', $filtered, $match) ) {
+                $filtered = str_replace($match[0], '', $filtered);
+                $found = true;
+            }
+
+            if ( $found ) {
+                // Strip out the whitespace that may now exist after removing the octets.
+                $filtered = trim( preg_replace('/ +/', ' ', $filtered) );
+            }
+
+            return $filtered;
+        }
+
+    }
+
+    if(!function_exists('sanitize_textarea_field')){
+        function sanitize_textarea_field( $str ) {
+            $filtered = _sanitize_text_fields( $str, true );
+
+            /**
+             * Filters a sanitized textarea field string.
+             *
+             * @since 4.7.0
+             *
+             * @param string $filtered The sanitized string.
+             * @param string $str      The string prior to being sanitized.
+             */
+            return apply_filters( 'sanitize_textarea_field', $filtered, $str );
+        }
+    }

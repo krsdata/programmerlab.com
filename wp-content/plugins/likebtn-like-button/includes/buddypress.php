@@ -121,7 +121,7 @@ function _likebtn_bp_notifications_add_notification($entity_name, $entity_id, $v
 	if (!$author_id || $author_id == $voter_id) {
 		return false;
 	}
-    bp_notifications_add_notification(array(
+    $args = array(
         'user_id'           => $author_id,
         'item_id'           => $entity_id,
         'secondary_item_id' => $voter_id,
@@ -129,7 +129,9 @@ function _likebtn_bp_notifications_add_notification($entity_name, $entity_id, $v
         'component_action'  => 'likebtn_'.$entity_name.'_'.$action,
         'date_notified'     => bp_core_current_time(),
         'is_new'            => 1,
-    ));
+    );
+
+    bp_notifications_add_notification($args);
     // bp_notifications_add_meta($notification_id, 'entity_name', $entity_name, true)
 }
 
@@ -251,12 +253,17 @@ function _likebtn_bp_activity_add($entity_name, $entity_id, $voter_id, $vote_typ
             $entity_content = _likebtn_get_entity_content($entity_name, $entity_id);
         }
 
-        $snippet_html = strtr($snippet_html, array(
-            '%image_thumbnail%' => $image_thumbnail,
-            '%title%' => $title,
-            '%excerpt%' => $excerpt,
-            '%content%' => $entity_content,
-        ));
+        // Some hostings or plugins redirect to 404 (options.php) if there is "%text%" in one of the post fields.
+        $symbols = array('%', '@');
+
+        foreach ($symbols as $symbol) {
+            $snippet_html = strtr($snippet_html, array(
+                $symbol.'image_thumbnail'.$symbol => $image_thumbnail,
+                $symbol.'title'.$symbol           => $title,
+                $symbol.'excerpt'.$symbol         => $excerpt,
+                $symbol.'content'.$symbol         => $entity_content,
+            ));
+        }
 
         $content .= $snippet_html;
 
@@ -340,9 +347,11 @@ add_filter('bp_before_activity_add_parse_args', 'likebtn_before_activity_add_par
 
 // Display and option in BuddyPress activity filter
 function likebtn_activity_filter_options() {
-    ?>
-    <option value="<?php echo LIKEBTN_BP_ACTIVITY_TYPE; ?>"><?php _e('Votes'); ?></option>
-    <?php
+    if (get_option('likebtn_bp_filter') == '1') {
+        ?>
+        <option value="<?php echo LIKEBTN_BP_ACTIVITY_TYPE; ?>"><?php _e('Votes'); ?></option>
+        <?php
+    }
 }
  
 // Activity Directory

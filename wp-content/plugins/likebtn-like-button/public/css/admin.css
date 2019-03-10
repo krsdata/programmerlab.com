@@ -537,3 +537,18 @@ ul.likebtn-is li {
 .wp-core-ui .likebtn-form-group .button-secondary {
     vertical-align: middle;
 }
+.likebtn-coupon {
+    text-align: center;
+    font-weight: bold;
+    border: 1px dashed;
+    font-size: 40px;
+    padding: 40px 0 40px;
+    margin: 16px 0 13px;
+    color: red;
+}
+.margin-top {
+    margin-top: 15px;
+}
+.likebtn_vn_container {
+    font-weight: bold;
+}

@@ -12,8 +12,7 @@ function usp_enqueueResources() {
 	$include_js   = $usp_options['usp_include_js'];
 	$form_type    = $usp_options['usp_form_version'];
 	$display_url  = $usp_options['usp_display_url'];
-	$usp_response = $usp_options['usp_response']; 
-	$usp_casing   = $usp_options['usp_casing'];
+	$recaptcha    = $usp_options['usp_recaptcha'];
 	
 	$protocol = is_ssl() ? 'https://' : 'http://';
 	
@@ -40,34 +39,101 @@ function usp_enqueueResources() {
 	
 	if ($display_css) {
 		
-		wp_enqueue_style('usp_style', $usp_css, false, null, 'all');
+		wp_enqueue_style('usp_style', $usp_css, array(), USP_VERSION, 'all');
 		
 	}
 	
 	if ($display_js) {
 		
-		wp_enqueue_script('usp_cookie',  $plugin_url .'/resources/jquery.cookie.js',      array('jquery'), null);
-		wp_enqueue_script('usp_parsley', $plugin_url .'/resources/jquery.parsley.min.js', array('jquery'), null);
-		wp_enqueue_script('usp_core',    $plugin_url .'/resources/jquery.usp.core.js',    array('jquery'), null);
-		
-		$print_casing = $usp_casing ? 'true' : 'false';
-		
-		$script  = 'window.ParsleyConfig = { excluded: ".exclude" }; ';
-		$script .= 'var usp_case_sensitivity = '. json_encode($print_casing) .'; ';
-		$script .= 'var usp_challenge_response = '. json_encode($usp_response) .';';
-		
-		wp_add_inline_script('usp_core', $script, 'before');
-		
-		if ($min_images > 0) {
+		if ($recaptcha === 'show') {
 			
-			// wp_enqueue_script('usp_files', $plugin_url .'/resources/jquery.usp.files.js', array('jquery'), null);
-			
+			wp_enqueue_script('usp_recaptcha', 'https://www.google.com/recaptcha/api.js', array(), USP_VERSION);
+		
 		}
+		
+		wp_enqueue_script('usp_cookie',  $plugin_url .'/resources/jquery.cookie.js',      array('jquery'), USP_VERSION);
+		wp_enqueue_script('usp_parsley', $plugin_url .'/resources/jquery.parsley.min.js', array('jquery'), USP_VERSION);
+		wp_enqueue_script('usp_core',    $plugin_url .'/resources/jquery.usp.core.js',    array('jquery'), USP_VERSION);
+		
+		usp_inline_script();
 		
 	}
 	
 }
 add_action('wp_enqueue_scripts', 'usp_enqueueResources');
+
+
+
+// WP >= 4.5
+function usp_inline_script() {
+	
+	$wp_version = get_bloginfo('version');
+	
+	if (version_compare($wp_version, '4.5', '>=')) {
+		
+		global $usp_options;
+		
+		$min_images      = isset($usp_options['min-images'])           ? $usp_options['min-images']           : '';
+		$max_images      = isset($usp_options['max-images'])           ? $usp_options['max-images']           : '';
+		$custom_field    = isset($usp_options['custom_name'])          ? $usp_options['custom_name']          : '';
+		$custom_checkbox = isset($usp_options['custom_checkbox_name']) ? $usp_options['custom_checkbox_name'] : '';
+		$usp_casing      = isset($usp_options['usp_casing'])           ? $usp_options['usp_casing']           : '';
+		$usp_response    = isset($usp_options['usp_response'])         ? $usp_options['usp_response']         : ''; 
+		$print_casing    = $usp_casing ? 'true' : 'false';
+		$parsley_error   = apply_filters('usp_parsley_error', esc_html__('Incorrect response.', 'usp'));
+		
+		$script  = 'var usp_custom_field = '.       json_encode($custom_field)    .'; ';
+		$script .= 'var usp_custom_checkbox = '.    json_encode($custom_checkbox) .'; ';
+		$script .= 'var usp_case_sensitivity = '.   json_encode($print_casing)    .'; ';
+		$script .= 'var usp_challenge_response = '. json_encode($usp_response)    .'; ';
+		$script .= 'var usp_min_images = '.         json_encode($min_images)      .'; ';
+		$script .= 'var usp_max_images = '.         json_encode($max_images)      .'; ';
+		$script .= 'var usp_parsley_error = '.      json_encode($parsley_error)   .'; ';
+		
+		wp_add_inline_script('usp_core', $script, 'before');
+		
+	}
+	
+}
+
+
+
+// WP < 4.5
+function usp_print_scripts() { 
+	
+	$wp_version = get_bloginfo('version');
+	
+	if (version_compare($wp_version, '4.5', '<')) {
+		
+		global $usp_options;
+		
+		$min_images      = isset($usp_options['min-images'])           ? $usp_options['min-images']           : '';
+		$max_images      = isset($usp_options['max-images'])           ? $usp_options['max-images']           : '';
+		$custom_field    = isset($usp_options['custom_name'])          ? $usp_options['custom_name']          : '';
+		$custom_checkbox = isset($usp_options['custom_checkbox_name']) ? $usp_options['custom_checkbox_name'] : '';
+		$usp_casing      = isset($usp_options['usp_casing'])           ? $usp_options['usp_casing']           : '';
+		$usp_response    = isset($usp_options['usp_response'])         ? $usp_options['usp_response']         : ''; 
+		$print_casing    = $usp_casing ? 'true' : 'false';
+		$parsley_error   = apply_filters('usp_parsley_error', esc_html__('Incorrect response.', 'usp'));
+		
+		if (!is_admin()) : ?>
+			
+			<script type="text/javascript">
+				var usp_custom_field = <?php       echo json_encode($custom_field);    ?>; 
+				var usp_custom_checkbox = <?php    echo json_encode($custom_checkbox); ?>; 
+				var usp_case_sensitivity = <?php   echo json_encode($print_casing);    ?>; 
+				var usp_challenge_response = <?php echo json_encode($usp_response);    ?>; 
+				var usp_min_images = <?php         echo json_encode($min_images);      ?>; 
+				var usp_max_images = <?php         echo json_encode($max_images);      ?>; 
+				var usp_parsley_error = <?php      echo json_encode($parsley_error);   ?>; 
+			</script>
+			
+		<?php endif;
+		
+	}
+	
+}
+add_action('wp_print_scripts','usp_print_scripts');
 
 
 

@@ -279,7 +279,7 @@ function wow_customize_register( $wp_customize ) {
 	$wp_customize->add_section('wow_copyright_section',
 		array(
 			'title'       => __( 'Footer Copyright', 'biscayalite' ),
-			'description' => __( '<a style="border-bottom:3px solid rgba(0,0,0,0.1);border-radius:10px;background-color:orange;color:#fff;padding:15px;display:block;" target="_blank" href="https://www.wowthemes.net/themes/biscaya-wp/"> Curious about BISCAYA PREMIUM VERSION? Check it out here !</a>', 'biscayalite'),
+			'description' => __( '<a style="border-bottom:3px solid rgba(0,0,0,0.1);border-radius:10px;background-color:#f86d18;color:#fff;padding:15px;display:block;" target="_blank" href="https://www.wowthemes.net/themes/biscaya-wp/"> BISCAYA PRO is now built with best front end drag & drop page builder - Elementor. Click for live demo!</a>', 'biscayalite'),
 			'priority' => 35,
 		));
 
@@ -301,6 +301,18 @@ add_action('customize_register', 'wow_customize_register');
 function wow_sanitize_text( $input ) {
     return wp_kses_post( force_balance_tags( $input ) );
 }
+
+
+//-----------------------------------------------------
+// Add Google Font
+//-----------------------------------------------------
+function biscayalite_fonts() {
+            wp_register_style('biscayalite-googleFonts', 'https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,700,300');
+            wp_enqueue_style( 'biscayalite-googleFonts');
+        }
+  add_action( 'wp_enqueue_scripts', 'biscayalite_fonts' );
+
+
 
 /*********************************************************************************************
 REQUIRES

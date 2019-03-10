@@ -1,0 +1,1337 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: USP 2018 Nov\n"
+"Language: pl\n"
+
+#. Name of the plugin
+#: user-submitted-posts.php:44 library/support-panel.php:5
+msgid "User Submitted Posts"
+msgstr "Użytkownik przesyła posty"
+
+#: user-submitted-posts.php:81
+msgid "requires WordPress "
+msgstr "wymaga WordPress"
+
+#: user-submitted-posts.php:82
+msgid " or higher, and has been deactivated! "
+msgstr " lub wyższy i został dezaktywowany!"
+
+#: user-submitted-posts.php:83
+msgid "Please return to the"
+msgstr "Wróć do"
+
+#: user-submitted-posts.php:84
+msgid "WordPress Admin Area"
+msgstr "Obszar administracyjny WordPress"
+
+#: user-submitted-posts.php:85
+msgid "to upgrade WordPress and try again."
+msgstr "uaktualnić WordPressa i spróbować ponownie."
+
+#: user-submitted-posts.php:125
+msgid "User Submitted Post"
+msgstr "User Submitted Post"
+
+#: user-submitted-posts.php:433
+msgid "User Submitted Post Info"
+msgstr "User Submitted Post Info"
+
+#: user-submitted-posts.php:463
+msgid "Submitter Name: "
+msgstr "Nazwa przesyłającego:"
+
+#: user-submitted-posts.php:464
+msgid "Submitter Email: "
+msgstr "Wyślij wiadomość e-mail:"
+
+#: user-submitted-posts.php:465
+msgid "Submitter URL: "
+msgstr "URL przesyłającego:"
+
+#: user-submitted-posts.php:466
+msgid "Submitter IP: "
+msgstr "Przesyłający IP:"
+
+#: user-submitted-posts.php:517
+msgid "Show USP Posts"
+msgstr "Pokaż posty w serwisie USP"
+
+#: user-submitted-posts.php:518 library/plugin-settings.php:999
+msgid "USP"
+msgstr "USP"
+
+#: user-submitted-posts.php:1301
+msgid " files required"
+msgstr " wymagane pliki"
+
+#: user-submitted-posts.php:1302
+msgid " file required"
+msgstr " wymagany plik"
+
+#: user-submitted-posts.php:1304
+msgid " files"
+msgstr " pliki"
+
+#: user-submitted-posts.php:1305
+msgid " file"
+msgstr " plik"
+
+#: user-submitted-posts.php:1307 user-submitted-posts.php:1308
+#: user-submitted-posts.php:1309 user-submitted-posts.php:1310
+msgid " pixels"
+msgstr " piksele"
+
+#: user-submitted-posts.php:1312 library/core-functions.php:215
+#: library/plugin-settings.php:290 library/plugin-settings.php:309
+#: library/plugin-settings.php:711 library/plugin-settings.php:1243
+msgid "Custom Field"
+msgstr "Pole niestandardowe"
+
+#: user-submitted-posts.php:1314
+msgid "Custom checkbox required"
+msgstr "Niestandardowe pole wyboru jest wymagane"
+
+#: user-submitted-posts.php:1317
+msgid "An error occurred. Please go back and try again."
+msgstr "Wystąpił błąd. Wróć i spróbuj ponownie."
+
+#: user-submitted-posts.php:1327
+msgid "User login required"
+msgstr "Wymagane logowanie użytkownika"
+
+#: user-submitted-posts.php:1328
+msgid "User name required"
+msgstr "Nazwa użytkownika (wymagana"
+
+#: user-submitted-posts.php:1329
+msgid "Post title required"
+msgstr "Wymagany tytuł posta"
+
+#: user-submitted-posts.php:1330
+msgid "User URL required"
+msgstr "Wymagany jest URL użytkownika"
+
+#: user-submitted-posts.php:1331
+msgid "Post tags required"
+msgstr "Wymagane tagi postów"
+
+#: user-submitted-posts.php:1332
+msgid "Post category required"
+msgstr "Wymagana kategoria postu"
+
+#: user-submitted-posts.php:1333
+msgid "Post content required"
+msgstr "Treść postu jest wymagana"
+
+#: user-submitted-posts.php:1334 user-submitted-posts.php:1335
+msgid "Correct captcha required"
+msgstr "Wymagane jest poprawne captcha"
+
+#: user-submitted-posts.php:1336
+msgid "User email required"
+msgstr "Adres e-mail użytkownika jest wymagany"
+
+#: user-submitted-posts.php:1337
+msgid "Please check your email and try again"
+msgstr "Sprawdź pocztę i spróbuj jeszcze raz"
+
+#: user-submitted-posts.php:1338
+msgid "Non-empty value for hidden field"
+msgstr "Niepuste wartości dla ukrytego pola"
+
+#: user-submitted-posts.php:1339
+msgid "Minimum number of images not met"
+msgstr "Minimalna liczba zdjęć nie została spełniona"
+
+#: user-submitted-posts.php:1340
+msgid "Maximum number of images exceeded "
+msgstr "Przekroczono maksymalną liczbę zdjęć"
+
+#: user-submitted-posts.php:1341
+msgid "Minimum image width not met"
+msgstr "Minimalna szerokość obrazu nie została osiągnięta"
+
+#: user-submitted-posts.php:1342
+msgid "Image width exceeds maximum"
+msgstr "Szerokość obrazu przekracza maksymalną"
+
+#: user-submitted-posts.php:1343
+msgid "Minimum image height not met"
+msgstr "Minimalna wysokość obrazu nie została osiągnięta"
+
+#: user-submitted-posts.php:1344
+msgid "Image height exceeds maximum"
+msgstr "Wysokość obrazu przekracza wartość maksymalną"
+
+#: user-submitted-posts.php:1345
+msgid "File type not allowed (please upload images only)"
+msgstr "Typ pliku jest niedozwolony (prosimy przesyłać tylko obrazy)"
+
+#: user-submitted-posts.php:1346
+msgid " required"
+msgstr " wymagany"
+
+#: user-submitted-posts.php:1351
+msgid "File not uploaded. Please check the file and try again."
+msgstr "Plik nie został przesłany. Sprawdź plik i spróbuj ponownie."
+
+#: user-submitted-posts.php:1355
+msgid "The file(s) could not be uploaded"
+msgstr "Plików nie można załadować"
+
+#: user-submitted-posts.php:1357
+msgid "Post not created. Please contact the site administrator for help."
+msgstr "Post nie został utworzony. Skontaktuj się z administratorem witryny, aby uzyskać pomoc."
+
+#: user-submitted-posts.php:1358
+msgid "Duplicate post title. Please try again."
+msgstr "Zduplikowany tytuł wpisu. Proszę spróbuj ponownie."
+
+#: user-submitted-posts.php:1368
+msgid "Error: "
+msgstr "Błąd:"
+
+#: user-submitted-posts.php:1394
+msgid "Return to form"
+msgstr "Wróć do formularza"
+
+#: user-submitted-posts.php:1424 library/plugin-settings.php:975
+msgid "Please"
+msgstr "Proszę"
+
+#: user-submitted-posts.php:1425
+msgid "log in"
+msgstr "Zaloguj Się"
+
+#: user-submitted-posts.php:1426
+msgid "to submit content!"
+msgstr "przesłać treść!"
+
+#: views/submission-form.php:46 views/submission-form-alt.php:55
+msgid "Please complete the required fields."
+msgstr "Uzupełnij wymagane pola."
+
+#: views/submission-form.php:56 views/submission-form.php:57
+#: views/submission-form-alt.php:61 views/submission-form-alt.php:62
+msgid "Your Name"
+msgstr "Twoje imię"
+
+#: views/submission-form.php:62 views/submission-form.php:63
+#: views/submission-form-alt.php:67 views/submission-form-alt.php:68
+msgid "Your URL"
+msgstr "Twój adres URL"
+
+#: views/submission-form.php:68 views/submission-form.php:69
+#: views/submission-form-alt.php:73 views/submission-form-alt.php:74
+msgid "Your Email"
+msgstr "Twój email"
+
+#: views/submission-form.php:74 views/submission-form.php:75
+#: views/submission-form-alt.php:79 views/submission-form-alt.php:80
+#: library/plugin-settings.php:1036
+msgid "Post Title"
+msgstr "Tytuł postu"
+
+#: views/submission-form.php:80 views/submission-form.php:81
+#: views/submission-form-alt.php:85 views/submission-form-alt.php:86
+#: library/plugin-settings.php:1037
+msgid "Post Tags"
+msgstr "Napisz Tagi"
+
+#: views/submission-form.php:93 views/submission-form-alt.php:98
+msgid "Antispam Question"
+msgstr "Pytanie antyspamowe"
+
+#: views/submission-form.php:98 views/submission-form-alt.php:103
+#: library/plugin-settings.php:1038
+msgid "Post Category"
+msgstr "Post Kategoria"
+
+#: views/submission-form.php:100 views/submission-form-alt.php:105
+msgid "Please select a category.."
+msgstr "Proszę wybierz kategorie.."
+
+#: views/submission-form.php:135 views/submission-form.php:136
+#: views/submission-form-alt.php:140 views/submission-form-alt.php:141
+#: library/plugin-settings.php:1039
+msgid "Post Content"
+msgstr "Treść postu"
+
+#: views/submission-form.php:142 views/submission-form-alt.php:147
+msgid "Verification"
+msgstr "Weryfikacja"
+
+#: views/submission-form.php:149 views/submission-form-alt.php:154
+msgid "Upload an Image"
+msgstr "Prześlij obraz"
+
+#: views/submission-form.php:158 views/submission-form-alt.php:163
+msgid "Add another image"
+msgstr "Dodaj kolejne zdjęcie"
+
+#: views/submission-form.php:180 views/submission-form-alt.php:185
+msgid "Human verification: leave this field empty."
+msgstr "Weryfikacja przez człowieka: pozostaw to pole puste."
+
+#: views/submission-form.php:204 views/submission-form-alt.php:209
+msgid "Submit Post"
+msgstr "Prześlij post"
+
+#: library/shortcode-misc.php:18
+msgid "Reset form"
+msgstr "Zresetować formularz"
+
+#: library/shortcode-misc.php:128
+msgid "View full post"
+msgstr "Wyświetl pełny wpis"
+
+#: library/support-panel.php:52
+msgid "Perishable Press Books"
+msgstr "Nie psujące się książki prasowe"
+
+#: library/support-panel.php:53
+msgid "Plugin Planet"
+msgstr "Plugin Planet"
+
+#: library/support-panel.php:54
+msgid "Donate via PayPal"
+msgstr "Przekaż darowiznę przez PayPal"
+
+#: library/support-panel.php:56
+msgid "books"
+msgstr "książki"
+
+#: library/support-panel.php:57
+msgid "plugins"
+msgstr "wtyczki"
+
+#: library/support-panel.php:58
+msgid "donation"
+msgstr "darowizna"
+
+#: library/support-panel.php:60
+msgid "Thank you for using"
+msgstr "Dziękujemy za użycie"
+
+#: library/support-panel.php:61
+msgid "Please show support by purchasing one of my"
+msgstr "Proszę pokazać wsparcie, kupując jedno z moich"
+
+#: library/support-panel.php:62
+msgid "or"
+msgstr "lub"
+
+#: library/support-panel.php:62
+msgid "or by making a"
+msgstr "lub przez zrobienie"
+
+#: library/support-panel.php:63
+msgid "Your generous support helps future development of"
+msgstr "Twoje hojne wsparcie pomaga w przyszłym rozwoju"
+
+#: library/support-panel.php:64
+msgid "and is greatly appreciated."
+msgstr "i jest bardzo doceniany."
+
+#: library/support-panel.php:66
+msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
+msgstr "Darowizna o dowolnej wielkości pomaga mi w dalszym rozwoju tej darmowej wtyczki i innych niesamowitych zasobów WordPress."
+
+#: library/enqueue-scripts.php:83 library/enqueue-scripts.php:117
+msgid "Incorrect response."
+msgstr "Nieprawidłowa odpowiedź."
+
+#: library/plugin-settings.php:32
+msgid "Get USP Pro for unlimited forms!"
+msgstr "Uzyskaj USP Pro dla nieograniczonej liczby formularzy!"
+
+#: library/plugin-settings.php:33
+msgid "Go Pro"
+msgstr "Bądź profesjonalny"
+
+#: library/plugin-settings.php:37
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: library/plugin-settings.php:55 library/plugin-settings.php:1007
+#: library/plugin-settings.php:1595
+msgid "Plugin Homepage"
+msgstr "Strona domowa wtyczki"
+
+#: library/plugin-settings.php:56
+msgid "Homepage"
+msgstr "Strona główna"
+
+#: library/plugin-settings.php:61
+msgid "Give USP a 5-star rating at WordPress.org"
+msgstr "Nadaj USP 5-gwiazdkową ocenę na WordPress.org"
+
+#: library/plugin-settings.php:62
+msgid "Rate this plugin&nbsp;&raquo;"
+msgstr "Oceń tę wtyczkę & nbsp; & raquo;"
+
+#: library/plugin-settings.php:120
+msgid "WP Post (recommended)"
+msgstr "WP Post (zalecane)"
+
+#: library/plugin-settings.php:124
+msgid "WP Page"
+msgstr "Strona WP"
+
+#: library/plugin-settings.php:140
+msgid "HTML5 Form + Default CSS"
+msgstr "Formularz HTML5 + domyślny CSS"
+
+#: library/plugin-settings.php:140
+msgid "(Recommended)"
+msgstr "(Zalecana)"
+
+#: library/plugin-settings.php:144
+msgid "HTML5 Form + Disable CSS"
+msgstr "Formularz HTML5 + wyłącz CSS"
+
+#: library/plugin-settings.php:144
+msgid "(Provide your own styles)"
+msgstr "(Podaj własne style)"
+
+#: library/plugin-settings.php:148
+msgid "Custom Form + Custom CSS"
+msgstr "Niestandardowy formularz + niestandardowy arkusz CSS"
+
+#: library/plugin-settings.php:148
+msgid "(Provide your own form template &amp; styles)"
+msgstr "(Podaj swój własny szablon formularza i style)"
+
+#: library/plugin-settings.php:164 library/plugin-settings.php:188
+#: library/plugin-settings.php:211 library/plugin-settings.php:235
+msgid "Auto-display before post content"
+msgstr "Automatyczne wyświetlanie przed treścią postu"
+
+#: library/plugin-settings.php:168 library/plugin-settings.php:192
+#: library/plugin-settings.php:215 library/plugin-settings.php:239
+msgid "Auto-display after post content"
+msgstr "Automatyczne wyświetlanie po treści posta"
+
+#: library/plugin-settings.php:172
+msgid "Do not auto-display submitted images"
+msgstr "Nie wyświetlaj automatycznie przesłanych obrazów"
+
+#: library/plugin-settings.php:196
+msgid "Do not auto-display submitted email"
+msgstr "Nie wyświetlaj automatycznie przesłanych wiadomości e-mail"
+
+#: library/plugin-settings.php:219
+msgid "Do not auto-display submitted URL"
+msgstr "Nie wyświetlaj automatycznie przesłanego adresu URL"
+
+#: library/plugin-settings.php:243
+msgid "Do not auto-display the Custom Field"
+msgstr "Nie wyświetlaj automatycznie pola niestandardowego"
+
+#: library/plugin-settings.php:271 library/plugin-settings.php:303
+#: library/plugin-settings.php:336 library/plugin-settings.php:368
+msgid "Display and require"
+msgstr "Wyświetl i wymagaj"
+
+#: library/plugin-settings.php:272 library/plugin-settings.php:304
+msgid "Display but do not require"
+msgstr "Wyświetl, ale nie wymagaj"
+
+#: library/plugin-settings.php:273 library/plugin-settings.php:305
+#: library/plugin-settings.php:337 library/plugin-settings.php:369
+msgid "Disable this field"
+msgstr "Wyłącz to pole"
+
+#: library/plugin-settings.php:308 library/plugin-settings.php:340
+#: library/plugin-settings.php:372 library/plugin-settings.php:404
+msgid "(Visit"
+msgstr "(Odwiedzić"
+
+#: library/plugin-settings.php:309 library/plugin-settings.php:341
+#: library/plugin-settings.php:373 library/plugin-settings.php:405
+msgid "to configure options)"
+msgstr "skonfigurować opcje)"
+
+#: library/plugin-settings.php:324 library/plugin-settings.php:341
+#: library/plugin-settings.php:1261 library/plugin-settings.php:1266
+msgid "Challenge Question"
+msgstr "Pytanie o wyzwanie"
+
+#: library/plugin-settings.php:356 library/plugin-settings.php:373
+#: library/plugin-settings.php:1283
+msgid "Google reCAPTCHA"
+msgstr "Google reCAPTCHA"
+
+#: library/plugin-settings.php:388
+msgid "Post Images"
+msgstr "Opublikuj obrazy"
+
+#: library/plugin-settings.php:400
+msgid "Display"
+msgstr "Pokaz"
+
+#: library/plugin-settings.php:401
+msgid "Disable"
+msgstr "Wyłączyć"
+
+#: library/plugin-settings.php:405 library/plugin-settings.php:1344
+msgid "Image Uploads"
+msgstr "Przesyłanie obrazów"
+
+#: library/plugin-settings.php:485
+msgid "Draft"
+msgstr "Wersja robocza"
+
+#: library/plugin-settings.php:486
+msgid "Pending (default)"
+msgstr "Oczekujące (domyślne)"
+
+#: library/plugin-settings.php:487
+msgid "Publish immediately"
+msgstr "Opublikuj natychmiast"
+
+#: library/plugin-settings.php:488
+msgid "Publish after 1 approved post"
+msgstr "Opublikuj po 1 zatwierdzonym wpisie"
+
+#: library/plugin-settings.php:489
+msgid "Publish after "
+msgstr "Opublikuj po"
+
+#: library/plugin-settings.php:489
+msgid " approved posts"
+msgstr " zatwierdzone posty"
+
+#: library/plugin-settings.php:655
+msgid "There was an error. Please ensure that you have added a title, some content, and that you have uploaded only images."
+msgstr "Wystąpił błąd. Upewnij się, że dodałeś tytuł, treść i że przesłałeś tylko zdjęcia."
+
+#: library/plugin-settings.php:669
+msgid "Please select your image(s) to upload."
+msgstr "Wybierz obraz (y) do przesłania."
+
+#: library/plugin-settings.php:675
+msgid "Success! Thank you for your submission."
+msgstr "Powodzenie! Dziękujemy za zgłoszenie."
+
+#: library/plugin-settings.php:701
+msgid "Email"
+msgstr "E-mail"
+
+#: library/plugin-settings.php:702
+msgid "URL"
+msgstr "URL"
+
+#: library/plugin-settings.php:962
+msgid "Toggle all panels"
+msgstr "Przełącz wszystkie panele"
+
+#: library/plugin-settings.php:971
+msgid "We need your support!"
+msgstr "Potrzebujemy Twojego wsparcia!"
+
+#: library/plugin-settings.php:975
+msgid "Make a donation via PayPal"
+msgstr "Przekaż darowiznę za pośrednictwem PayPal"
+
+#: library/plugin-settings.php:975
+msgid "make a donation"
+msgstr "ofiarować"
+
+#: library/plugin-settings.php:975
+msgid "and/or"
+msgstr "i / lub"
+
+#: library/plugin-settings.php:976
+msgid "Rate and review at the Plugin Directory"
+msgstr "Oceń i opisz w katalogu wtyczek"
+
+#: library/plugin-settings.php:977
+msgid "give this plugin a 5-star rating"
+msgstr "daj tej wtyczce 5 gwiazdek"
+
+#: library/plugin-settings.php:981
+msgid "Your generous support enables continued development of this free plugin. Thank you!"
+msgstr "Twoje hojne wsparcie umożliwia ciągły rozwój tej darmowej wtyczki. Dziękuję Ci!"
+
+#: library/plugin-settings.php:986
+msgid "Check this box if you have shown support"
+msgstr "Zaznacz to pole, jeśli pokazałeś wsparcie"
+
+#: library/plugin-settings.php:995
+msgid "Overview"
+msgstr "Przegląd"
+
+#: library/plugin-settings.php:999
+msgid "enables your visitors to submit posts and upload images from the front-end of your site. "
+msgstr "umożliwia odwiedzającym przesyłanie postów i przesyłanie zdjęć z poziomu strony głównej witryny."
+
+#: library/plugin-settings.php:1000
+msgid "For advanced functionality and unlimited forms, check out"
+msgstr "Aby uzyskać zaawansowaną funkcjonalność i nieograniczoną liczbę formularzy, sprawdź"
+
+#: library/plugin-settings.php:1000 library/plugin-settings.php:1402
+msgid "USP Pro"
+msgstr "USP Pro"
+
+#: library/plugin-settings.php:1001
+msgid "&mdash; the ultimate solution for user-generated content."
+msgstr "& mdash; najlepsze rozwiązanie dla treści generowanych przez użytkowników."
+
+#: library/plugin-settings.php:1005 library/plugin-settings.php:1022
+msgid "Plugin Settings"
+msgstr "Ustawienia wtyczki"
+
+#: library/plugin-settings.php:1006
+msgid "Display the form"
+msgstr "Wyświetl formularz"
+
+#: library/plugin-settings.php:1010
+msgid "If you like this plugin, please"
+msgstr "Jeśli podoba ci się ta wtyczka, proszę"
+
+#: library/plugin-settings.php:1011
+msgid "THANK YOU for your support!"
+msgstr "Dziękuję za Twoje wsparcie!"
+
+#: library/plugin-settings.php:1011
+msgid "give it a 5-star rating"
+msgstr "nadaj mu ocenę 5 gwiazdek"
+
+#: library/plugin-settings.php:1015
+msgid "Unlimited front-end forms"
+msgstr "Nieograniczone formularze front-end"
+
+#: library/plugin-settings.php:1015
+msgid "Get USP Pro"
+msgstr "Uzyskaj USP Pro"
+
+#: library/plugin-settings.php:1025
+msgid "Configure your settings for User Submitted Posts."
+msgstr "Skonfiguruj ustawienia dla przesłanych przez użytkowników postów."
+
+#: library/plugin-settings.php:1027
+msgid "Form Fields"
+msgstr "Pola formularzy"
+
+#: library/plugin-settings.php:1033
+msgid "User Name"
+msgstr "Nazwa Użytkownika"
+
+#: library/plugin-settings.php:1034
+msgid "User Email"
+msgstr "E-mail użytkownika"
+
+#: library/plugin-settings.php:1035
+msgid "User URL"
+msgstr "Adres URL użytkownika"
+
+#: library/plugin-settings.php:1050
+msgid "General Settings"
+msgstr "Ustawienia główne"
+
+#: library/plugin-settings.php:1052
+msgid "Note that the default settings work fine for most cases."
+msgstr "Pamiętaj, że domyślne ustawienia działają prawidłowo w większości przypadków."
+
+#: library/plugin-settings.php:1057
+msgid "Form Style"
+msgstr "Styl formularza"
+
+#: library/plugin-settings.php:1062
+msgid "With this option, you can copy the plugin&rsquo;s default templates:"
+msgstr "Za pomocą tej opcji możesz skopiować domyślne szablony wtyczki:"
+
+#: library/plugin-settings.php:1067
+msgid "..and upload them into a directory named"
+msgstr "..i prześlij je do katalogu o nazwie"
+
+#: library/plugin-settings.php:1067
+msgid "in your theme:"
+msgstr "w twoim motywie:"
+
+#: library/plugin-settings.php:1073
+msgid "That will enable you to customize the form and styles as desired. For more info, check out the \"Custom Submission Form\" section in the"
+msgstr "Umożliwi to dostosowanie formularza i stylów zgodnie z potrzebami. Aby uzyskać więcej informacji, zobacz sekcję \"Niestandardowy formularz zgłoszeniowy\" w dziale"
+
+#: library/plugin-settings.php:1074
+msgid "Installation Docs"
+msgstr "Dokumenty instalacyjne"
+
+#: library/plugin-settings.php:1075
+msgid "FYI: here is a"
+msgstr "FYI: oto jest"
+
+#: library/plugin-settings.php:1075
+msgid "list of USP CSS selectors"
+msgstr "lista selektorów CSS USP"
+
+#: library/plugin-settings.php:1081
+msgid "Include JavaScript"
+msgstr "Dołącz JavaScript"
+
+#: library/plugin-settings.php:1083
+msgid "Check this box if you want to include the external JavaScript files (recommended)."
+msgstr "Zaznacz to pole, jeśli chcesz dołączyć zewnętrzne pliki JavaScript (zalecane)."
+
+#: library/plugin-settings.php:1086
+msgid "Targeted Loading"
+msgstr "Ukierunkowane ładowanie"
+
+#: library/plugin-settings.php:1088
+msgid "By default, external CSS &amp; JavaScript files are loaded on every page. Here you may specify the URL of the USP form to load resources only on that page. Note: leave blank to load on all pages."
+msgstr "Domyślnie zewnętrzny kod CSS & amp; Pliki JavaScript są ładowane na każdej stronie. Tutaj możesz podać adres URL formularza USP, aby załadować zasoby tylko na tej stronie. Uwaga: pozostaw puste, aby załadować na wszystkich stronach."
+
+#: library/plugin-settings.php:1091
+msgid "Post Type"
+msgstr "Typ postu"
+
+#: library/plugin-settings.php:1094
+msgid "Submit posts as WP Posts or Pages"
+msgstr "Prześlij posty jako posty lub strony WP"
+
+#: library/plugin-settings.php:1098
+msgid "Post Status"
+msgstr "Opublikuj status"
+
+#: library/plugin-settings.php:1101
+msgid "Post Status for submitted posts"
+msgstr "Stan postu dla przesłanych postów"
+
+#: library/plugin-settings.php:1105
+msgid "Redirect URL"
+msgstr "Przekierowanie URL"
+
+#: library/plugin-settings.php:1107
+msgid "Specify a URL to redirect the user after post-submission. Leave blank to redirect back to current page."
+msgstr "Podaj adres URL, aby przekierować użytkownika po jego przesłaniu. Pozostaw puste, aby przekierować z powrotem do bieżącej strony."
+
+#: library/plugin-settings.php:1110
+msgid "Success Message"
+msgstr "Wiadomość powitalna"
+
+#: library/plugin-settings.php:1112
+msgid "Success message that is displayed if post-submission is successful. Basic markup is allowed."
+msgstr "Komunikat o powodzeniu wyświetlany, jeśli zgłoszenie się powiodło. Podstawowe znaczniki są dozwolone."
+
+#: library/plugin-settings.php:1115
+msgid "Error Message"
+msgstr "Komunikat o błędzie"
+
+#: library/plugin-settings.php:1117
+msgid "General error message that is displayed if post-submission fails. Basic markup is allowed."
+msgstr "Ogólny komunikat o błędzie wyświetlany, gdy nie można przesłać zgłoszenia. Podstawowe znaczniki są dozwolone."
+
+#: library/plugin-settings.php:1120
+msgid "Custom Content"
+msgstr "Treść niestandardowa"
+
+#: library/plugin-settings.php:1122
+msgid "Custom text/markup to be included before the submission form. Leave blank to disable."
+msgstr "Niestandardowy tekst / znaczniki, które należy dołączyć przed formularzem zgłoszeniowym. Pozostaw puste, aby wyłączyć."
+
+#: library/plugin-settings.php:1125
+msgid "Rich Text Editor"
+msgstr "Bogaty edytor tekstu"
+
+#: library/plugin-settings.php:1127
+msgid "Check this box if you want to enable WP rich text editing for submitted posts."
+msgstr "Zaznacz to pole, jeśli chcesz włączyć edytowanie tekstu sformatowanego WP dla przesłanych postów."
+
+#: library/plugin-settings.php:1130
+msgid "Unique Titles"
+msgstr "Unikalne tytuły"
+
+#: library/plugin-settings.php:1132
+msgid "Require submitted post titles to be unique (useful for preventing multiple/duplicate submitted posts)."
+msgstr "Wymagaj, by nadesłane posty były unikatowe (przydatne w zapobieganiu wielokrotnemu / duplikowaniu przesłanych postów)."
+
+#: library/plugin-settings.php:1135
+msgid "Disable Required"
+msgstr "Wyłącz Wymagane"
+
+#: library/plugin-settings.php:1137
+msgid "Disable all required attributes on default form fields (useful for troubleshooting error messages)."
+msgstr "Wyłącz wszystkie wymagane atrybuty w domyślnych polach formularza (przydatne przy rozwiązywaniu problemów z komunikatami o błędach)."
+
+#: library/plugin-settings.php:1140
+msgid "Enable Shortcodes"
+msgstr "Włącz Shortcodes"
+
+#: library/plugin-settings.php:1142
+msgid "Enable shortcodes in widgets. By default, WordPress does not enable shortcodes in widgets. "
+msgstr "Włącz krótkie kody w widżetach. Domyślnie WordPress nie włącza shortcodów w widżetach."
+
+#: library/plugin-settings.php:1143
+msgid "This setting enables any/all shortcodes in widgets (even shortcodes from other plugins)."
+msgstr "To ustawienie włącza wszystkie / wszystkie skróty w widżetach (nawet krótkie kody z innych wtyczek)."
+
+#: library/plugin-settings.php:1148
+msgid "GDPR"
+msgstr "GDPR"
+
+#: library/plugin-settings.php:1153
+msgid "Disable IP Tracking"
+msgstr "Wyłącz śledzenie IP"
+
+#: library/plugin-settings.php:1155
+msgid "By default USP records the IP address with each submitted post. Check this box to disable all IP tracking."
+msgstr "Domyślnie USP rejestruje adres IP każdego przesłanego postu. Zaznacz to pole, aby wyłączyć śledzenie IP."
+
+#: library/plugin-settings.php:1159
+msgid "Display Checkbox"
+msgstr "Wyświetl pole wyboru"
+
+#: library/plugin-settings.php:1161
+msgid "Display custom checkbox on your form (useful for GDPR, agree to terms, etc.)"
+msgstr "Wyświetlaj niestandardowe pole wyboru w formularzu (przydatne dla GDPR, zgadzasz się na warunki, itp.)"
+
+#: library/plugin-settings.php:1164
+msgid "Checkbox Name"
+msgstr "Nazwa pola wyboru"
+
+#: library/plugin-settings.php:1166 library/plugin-settings.php:1251
+msgid "Use only alphanumeric, underscores, and dashes. If unsure, use the default name:"
+msgstr "Używaj tylko znaków alfanumerycznych, podkreśleń i myślników. Jeśli nie masz pewności, użyj domyślnej nazwy:"
+
+#: library/plugin-settings.php:1169
+msgid "Checkbox Error"
+msgstr "Błąd Checkbox"
+
+#: library/plugin-settings.php:1171
+msgid "Error message displayed if user does not check the box."
+msgstr "Komunikat o błędzie wyświetlany, jeśli użytkownik nie zaznaczy pola."
+
+#: library/plugin-settings.php:1174
+msgid "Checkbox Text"
+msgstr "Tekst w polu wyboru"
+
+#: library/plugin-settings.php:1176
+msgid "Text displayed next to checkbox. Tip: use curly brackets to output angle brackets, for example:"
+msgstr "Tekst wyświetlany obok pola wyboru. Wskazówka: użyj nawiasów klamrowych do wyprowadzania nawiasów trójkątnych, na przykład:"
+
+#: library/plugin-settings.php:1181 library/plugin-settings.php:1186
+msgid "Categories"
+msgstr "Kategorie"
+
+#: library/plugin-settings.php:1189
+msgid "Select which categories may be assigned to submitted posts (click to toggle)"
+msgstr "Wybierz kategorie, które mogą być przypisane do przesłanych postów (kliknij, aby przełączyć)"
+
+#: library/plugin-settings.php:1197
+msgid "Hidden/Default Category"
+msgstr "Kategoria ukryta / domyślna"
+
+#: library/plugin-settings.php:1199
+msgid "Use a hidden field for the post category. This may be used to specify a default category when the category field is disabled."
+msgstr "Użyj ukrytego pola dla kategorii postów. Może to być użyte do określenia domyślnej kategorii, gdy pole kategorii jest wyłączone."
+
+#: library/plugin-settings.php:1202
+msgid "Category ID for Hidden Field"
+msgstr "Identyfikator kategorii dla pola ukrytego"
+
+#: library/plugin-settings.php:1204
+msgid "Specify the ID of the category to use for the &ldquo;Hidden/Default Category&rdquo; option."
+msgstr "Podaj identyfikator kategorii, która ma być używana dla kategorii \"Ukryta / domyślna kategoria\" & rdquo; opcja."
+
+#: library/plugin-settings.php:1209
+msgid "Users"
+msgstr "Użytkownicy"
+
+#: library/plugin-settings.php:1214
+msgid "Assigned Author"
+msgstr "Przypisany autor"
+
+#: library/plugin-settings.php:1217
+msgid "Specify the user that should be assigned as author for submitted posts."
+msgstr "Określ użytkownika, któremu należy przypisać rolę autora do przesłanych postów."
+
+#: library/plugin-settings.php:1221
+msgid "Registered Username"
+msgstr "Zarejestrowana Nazwa Użytkownika"
+
+#: library/plugin-settings.php:1223
+msgid "Use registered username as post author. Valid when the person submitting the form is logged in to WordPress."
+msgstr "Użyj zarejestrowanej nazwy użytkownika jako autora postu. Obowiązuje, gdy osoba przesyłająca formularz jest zalogowana do WordPress."
+
+#: library/plugin-settings.php:1226
+msgid "User Profile URL"
+msgstr "Adres URL profilu użytkownika"
+
+#: library/plugin-settings.php:1228
+msgid "Use registered user&rsquo;s Profile URL as the value of the URL field. Valid when the person submitting the form is logged in to WordPress."
+msgstr "Użyj adresu URL profilu zarejestrowanego użytkownika jako wartości pola adresu URL. Obowiązuje, gdy osoba przesyłająca formularz jest zalogowana do WordPress."
+
+#: library/plugin-settings.php:1231
+msgid "Require User Login"
+msgstr "Wymagaj logowania użytkownika"
+
+#: library/plugin-settings.php:1233
+msgid "Require users to be logged in to WordPress to view/submit the form"
+msgstr "Wymagaj, aby użytkownicy byli zalogowani do WordPressa w celu wyświetlenia / wysłania formularza"
+
+#: library/plugin-settings.php:1236
+msgid "Disable Replace Author"
+msgstr "Wyłącz opcję Zastąp autora"
+
+#: library/plugin-settings.php:1238
+msgid "Do not replace post author with submitted user name"
+msgstr "Nie zastępuj autora postu przesłaną nazwą użytkownika"
+
+#: library/plugin-settings.php:1244
+msgid "Here you may change the name and label used by the Custom Field. You can enable this field via the Form Fields setting, above."
+msgstr "Tutaj możesz zmienić nazwę i etykietę używaną przez pole niestandardowe. Możesz włączyć to pole, korzystając z powyższego ustawienia pól formularzy."
+
+#: library/plugin-settings.php:1249
+msgid "Custom Field Name"
+msgstr "Niestandardowa nazwa pola"
+
+#: library/plugin-settings.php:1254
+msgid "Custom Field Label"
+msgstr "Niestandardowa etykieta pola"
+
+#: library/plugin-settings.php:1256
+msgid "This will be displayed as the field label on the form. Default: Custom Field"
+msgstr "Zostanie to wyświetlone jako etykieta pola w formularzu. Domyślnie: Pole niestandardowe"
+
+#: library/plugin-settings.php:1268
+msgid "To prevent spam, enter a question that users must answer before submitting the form."
+msgstr "Aby zapobiec spamowi, wpisz pytanie, które użytkownicy muszą odpowiedzieć przed przesłaniem formularza."
+
+#: library/plugin-settings.php:1271
+msgid "Challenge Response"
+msgstr "Odpowiedź na wyzwanie"
+
+#: library/plugin-settings.php:1273
+msgid "Enter the *only* correct answer to the challenge question."
+msgstr "Wpisz poprawną odpowiedź * tylko * na pytanie dotyczące wyzwania."
+
+#: library/plugin-settings.php:1276
+msgid "Case-sensitivity"
+msgstr "Rozróżnianie wielkości liter"
+
+#: library/plugin-settings.php:1278
+msgid "Check this box if you want the challenge response to be case-sensitive."
+msgstr "Zaznacz to pole, jeśli chcesz, aby w odpowiedzi na wyzwanie były rozróżniane małe i wielkie litery."
+
+#: library/plugin-settings.php:1284
+msgid "To enable Google reCAPTCHA, enter your public and private keys."
+msgstr "Aby włączyć Google reCAPTCHA, wpisz klucze publiczne i prywatne."
+
+#: library/plugin-settings.php:1289
+msgid "Public Key"
+msgstr "Klucz publiczny"
+
+#: library/plugin-settings.php:1291
+msgid "Enter your Public Key"
+msgstr "Wprowadź swój klucz publiczny"
+
+#: library/plugin-settings.php:1294
+msgid "Private Key"
+msgstr "Prywatny klucz"
+
+#: library/plugin-settings.php:1296
+msgid "Enter your Private Key"
+msgstr "Wprowadź swój klucz prywatny"
+
+#: library/plugin-settings.php:1301
+msgid "Email Alerts"
+msgstr "powiadomienia email"
+
+#: library/plugin-settings.php:1306
+msgid "Receive Email Alert"
+msgstr "Otrzymuj powiadomienie e-mailem"
+
+#: library/plugin-settings.php:1308
+msgid "Check this box if you want to be notified via email for new post submissions."
+msgstr "Zaznacz to pole, jeśli chcesz otrzymywać powiadomienia pocztą e-mail o nowych przesłanych postach."
+
+#: library/plugin-settings.php:1311
+msgid "Enable HTML Format"
+msgstr "Włącz format HTML"
+
+#: library/plugin-settings.php:1313
+msgid "Check this box to enable HTML format for email alerts."
+msgstr "Zaznacz to pole, aby włączyć format HTML dla alertów e-mail."
+
+#: library/plugin-settings.php:1316
+msgid "Email Address for Alerts"
+msgstr "Adres e-mail dla alertów"
+
+#: library/plugin-settings.php:1318
+msgid "If you checked the box to receive email alerts, indicate here the address(es) to which the emails should be sent."
+msgstr "Jeśli zaznaczyłeś to pole, aby otrzymywać powiadomienia e-mailem, podaj tutaj adresy, na które e-maile mają być wysyłane."
+
+#: library/plugin-settings.php:1319
+msgid "Multiple recipients may be included using a comma, like so:"
+msgstr "Wielu odbiorców może być dołączonych przecinkami, na przykład:"
+
+#: library/plugin-settings.php:1322
+msgid "Email &ldquo;From&rdquo; Address"
+msgstr "Email & ldquo; From & rdquo; Adres"
+
+#: library/plugin-settings.php:1324
+msgid "Here you may customize the address(es) used for the &ldquo;From&rdquo; header (see plugin FAQs for info). "
+msgstr "Tutaj możesz dostosować adres (y) używany w & bdquo; Od & rdquo; nagłówek (zobacz często zadawane pytania dotyczące wtyczek)."
+
+#: library/plugin-settings.php:1325
+msgid "If multiple addresses are specified in the previous setting, include an equal number of &ldquo;From&rdquo; addresses for this setting (in the same order)."
+msgstr "Jeśli w poprzednim ustawieniu podano wiele adresów, podaj równą liczbę && bdquo; Od & rdquo; adresy dla tego ustawienia (w tej samej kolejności)."
+
+#: library/plugin-settings.php:1328
+msgid "Email Alert Subject"
+msgstr "Temat alertu e-mail"
+
+#: library/plugin-settings.php:1330
+msgid "Subject line for email alerts. Leave blank to use the default subject line. Note: you can use the following variables: "
+msgstr "Wiersz tematu powiadomień e-mail. Pozostaw puste, aby użyć domyślnego wiersza tematu. Uwaga: możesz użyć następujących zmiennych:"
+
+#: library/plugin-settings.php:1335
+msgid "Email Alert Message"
+msgstr "Powiadomienie o wiadomości e-mail"
+
+#: library/plugin-settings.php:1337
+msgid "Message for email alerts. Leave blank to use the default message. Note: you can use the following variables: "
+msgstr "Wiadomość dla powiadomień e-mail. Pozostaw puste, aby użyć domyślnej wiadomości. Uwaga: możesz użyć następujących zmiennych:"
+
+#: library/plugin-settings.php:1349
+msgid "Featured Image"
+msgstr "Przedstawiony obraz"
+
+#: library/plugin-settings.php:1351
+msgid "Set submitted images as Featured Images. Requires theme support for Featured Images (aka Post Thumbnails)."
+msgstr "Ustaw przesłane obrazy jako Polecane obrazy. Wymaga obsługi motywów dla polecanych obrazów (np. Post Thumbnails)."
+
+#: library/plugin-settings.php:1354
+msgid "Upload Message"
+msgstr "Prześlij wiadomość"
+
+#: library/plugin-settings.php:1356
+msgid "Message that appears next to the upload field. Useful for stating your upload guidelines/policy/etc. Basic markup allowed."
+msgstr "Wiadomość wyświetlana obok pola przesyłania. Przydatne do określenia wytycznych dotyczących przesyłania / zasad / itp. Podstawowe znaczniki dozwolone."
+
+#: library/plugin-settings.php:1359
+msgid "&ldquo;Add another image&rdquo; link"
+msgstr "& ldquo; Dodaj kolejne zdjęcie & rdquo; połączyć"
+
+#: library/plugin-settings.php:1361
+msgid "Custom markup for the &ldquo;Add another image&rdquo; link. Leave blank to use the default markup (recommended)."
+msgstr "Niestandardowy znacznik dla & bdquo; Dodaj kolejne zdjęcie & rdquo; połączyć. Pozostaw puste, aby użyć domyślnego znacznika (zalecane)."
+
+#: library/plugin-settings.php:1364
+msgid "Minimum number of images"
+msgstr "Minimalna liczba zdjęć"
+
+#: library/plugin-settings.php:1367
+msgid "Specify the minimum number of images."
+msgstr "Określ minimalną liczbę obrazów."
+
+#: library/plugin-settings.php:1371
+msgid "Maximum number of images"
+msgstr "Maksymalna liczba zdjęć"
+
+#: library/plugin-settings.php:1374
+msgid "Specify the maximum number of images."
+msgstr "Określ maksymalną liczbę obrazów."
+
+#: library/plugin-settings.php:1378
+msgid "Minimum image width"
+msgstr "Minimalna szerokość obrazu"
+
+#: library/plugin-settings.php:1380
+msgid "Specify a minimum width (in pixels) for uploaded images."
+msgstr "Określ minimalną szerokość (w pikselach) dla przesłanych obrazów."
+
+#: library/plugin-settings.php:1383
+msgid "Minimum image height"
+msgstr "Minimalna wysokość obrazu"
+
+#: library/plugin-settings.php:1385
+msgid "Specify a minimum height (in pixels) for uploaded images."
+msgstr "Określ minimalną wysokość (w pikselach) dla przesłanych obrazów."
+
+#: library/plugin-settings.php:1388
+msgid "Maximum image width"
+msgstr "Maksymalna szerokość obrazu"
+
+#: library/plugin-settings.php:1390
+msgid "Specify a maximum width (in pixels) for uploaded images."
+msgstr "Określ maksymalną szerokość (w pikselach) przesłanych obrazów."
+
+#: library/plugin-settings.php:1393
+msgid "Maximum image height"
+msgstr "Maksymalna wysokość obrazu"
+
+#: library/plugin-settings.php:1395
+msgid "Specify a maximum height (in pixels) for uploaded images."
+msgstr "Określ maksymalną wysokość (w pikselach) dla przesłanych obrazów."
+
+#: library/plugin-settings.php:1398
+msgid "More Options"
+msgstr "Więcej opcji"
+
+#: library/plugin-settings.php:1401
+msgid "For more options, like the ability to upload other file types (like PDF, Word, Zip, videos, and more), check out"
+msgstr "Aby uzyskać więcej opcji, takich jak możliwość przesyłania innych typów plików (takich jak PDF, Word, Zip, wideo i inne), sprawdź"
+
+#: library/plugin-settings.php:1402
+msgid "Go Pro!"
+msgstr "Bądź profesjonalny!"
+
+#: library/plugin-settings.php:1409
+msgid "Auto-Display Content"
+msgstr "Automatycznie wyświetlaj treść"
+
+#: library/plugin-settings.php:1414
+msgid "Auto-Display Images"
+msgstr "Automatyczne wyświetlanie obrazów"
+
+#: library/plugin-settings.php:1416
+msgid "Auto-display user-submitted images:"
+msgstr "Automatyczne wyświetlanie obrazów przesłanych przez użytkowników:"
+
+#: library/plugin-settings.php:1421
+msgid "Image Markup"
+msgstr "Oznaczenie obrazu"
+
+#: library/plugin-settings.php:1423
+msgid "Markup to use for each submitted image (when auto-display is enabled). Can use"
+msgstr "Znacznik do użycia dla każdego przesłanego obrazu (po włączeniu automatycznego wyświetlania). Można użyć"
+
+#: library/plugin-settings.php:1425 library/plugin-settings.php:1438
+#: library/plugin-settings.php:1451 library/plugin-settings.php:1464
+msgid "and"
+msgstr "i"
+
+#: library/plugin-settings.php:1428
+msgid "Auto-Display Email"
+msgstr "Automatycznie wyświetlaj wiadomość e-mail"
+
+#: library/plugin-settings.php:1430
+msgid "Auto-display user-submitted email:"
+msgstr "Automatycznie wyświetlaj e-maile wysłane przez użytkowników:"
+
+#: library/plugin-settings.php:1435
+msgid "Email Markup"
+msgstr "Znaczniki e-mail"
+
+#: library/plugin-settings.php:1437
+msgid "Markup to use for the submitted email address (when auto-display is enabled). Can use"
+msgstr "Znacznik do użycia dla przesłanego adresu e-mail (gdy włączony jest automatyczny wyświetlacz). Można użyć"
+
+#: library/plugin-settings.php:1441
+msgid "Auto-Display URL"
+msgstr "Automatycznie wyświetlany adres URL"
+
+#: library/plugin-settings.php:1443
+msgid "Auto-display user-submitted URL:"
+msgstr "Automatycznie wyświetlaj URL przesłany przez użytkownika:"
+
+#: library/plugin-settings.php:1448
+msgid "URL Markup"
+msgstr "Oznaczenie adresu URL"
+
+#: library/plugin-settings.php:1450
+msgid "Markup to use for the submitted URL (when auto-display is enabled). Can use"
+msgstr "Znacznik do użycia dla przesłanego adresu URL (gdy włączony jest autowyświetlanie). Można użyć"
+
+#: library/plugin-settings.php:1454
+msgid "Auto-Display Custom Field"
+msgstr "Automatycznie wyświetlaj niestandardowe pole"
+
+#: library/plugin-settings.php:1456
+msgid "Auto-display user-submitted Custom Field:"
+msgstr "Automatycznie wyświetlaj niestandardowe pole przesłane przez użytkownika:"
+
+#: library/plugin-settings.php:1461
+msgid "Custom Field Markup"
+msgstr "Niestandardowy znacznik pola"
+
+#: library/plugin-settings.php:1463
+msgid "Markup to use for the submitted Custom Field (when auto-display is enabled). Can use"
+msgstr "Znacznik do użycia dla przesłanego pola niestandardowego (w przypadku włączenia automatycznego wyświetlania). Można użyć"
+
+#: library/plugin-settings.php:1469 library/plugin-settings.php:1581
+msgid "Save Settings"
+msgstr "Zapisz ustawienia"
+
+#: library/plugin-settings.php:1474
+msgid "Display the Form"
+msgstr "Wyświetl formularz"
+
+#: library/plugin-settings.php:1477
+msgid "Post-Submit Form"
+msgstr "Formularz po przesłaniu"
+
+#: library/plugin-settings.php:1478
+msgid "USP enables you to display a post-submission form anywhere on your site."
+msgstr "USP pozwala wyświetlać formularz zgłoszenia końcowego w dowolnym miejscu w witrynie."
+
+#: library/plugin-settings.php:1479 library/plugin-settings.php:1488
+msgid "Use the shortcode to display the form on any WP Post or Page:"
+msgstr "Użyj krótkiego kodu, aby wyświetlić formularz na dowolnym WP postu lub stronie:"
+
+#: library/plugin-settings.php:1482 library/plugin-settings.php:1491
+msgid "Or, use the template tag to display the form anywhere in your theme template:"
+msgstr "Lub użyj tagu szablonu, aby wyświetlić formularz w dowolnym miejscu szablonu szablonu:"
+
+#: library/plugin-settings.php:1486
+msgid "Login/Register Form"
+msgstr "Zaloguj się / zarejestruj formularz"
+
+#: library/plugin-settings.php:1487
+msgid "You also can display a form that enables users to log in, register, or reset their password."
+msgstr "Możesz także wyświetlić formularz, który umożliwia użytkownikom logowanie, rejestrowanie lub resetowanie hasła."
+
+#: library/plugin-settings.php:1495
+msgid "Display Submitted Posts"
+msgstr "Wyświetl przesłane posty"
+
+#: library/plugin-settings.php:1496
+msgid "Use this shortcode to display a list of submitted posts on any WP Post or Page:"
+msgstr "Użyj tego skrótu, aby wyświetlić listę przesłanych postów na dowolnym WP postu lub stronie:"
+
+#: library/plugin-settings.php:1499
+msgid "Or, use the template tag to display a list of submitted posts anywhere in your theme template:"
+msgstr "Lub użyj tagu szablonu, aby wyświetlić listę przesłanych postów w dowolnym miejscu szablonu:"
+
+#: library/plugin-settings.php:1502
+msgid "Here are some examples showing how to configure this shortcode:"
+msgstr "Oto kilka przykładów pokazujących, jak skonfigurować ten shortcode:"
+
+#: library/plugin-settings.php:1510
+msgid "Display Image Gallery"
+msgstr "Wyświetl galerię obrazów"
+
+#: library/plugin-settings.php:1511
+msgid "Use this shortcode to display a gallery of uploaded images for each submitted post:"
+msgstr "Użyj tego skrótu, aby wyświetlić galerię przesłanych zdjęć dla każdego przesłanego postu:"
+
+#: library/plugin-settings.php:1514
+msgid "Or, use the template tag to display an image gallery anywhere in your theme template:"
+msgstr "Lub użyj tagu szablonu, aby wyświetlić galerię obrazów w dowolnym miejscu szablonu:"
+
+#: library/plugin-settings.php:1517
+msgid "You can customize using any of the follwing attributes:"
+msgstr "Możesz dostosować używając następujących atrybutów:"
+
+#: library/plugin-settings.php:1532
+msgid "Reset Form Button"
+msgstr "Zresetuj przycisk formularza"
+
+#: library/plugin-settings.php:1533
+msgid "This shortcode displays a link that resets the form to its original state:"
+msgstr "Ten shortcode wyświetla łącze, które resetuje formularz do jego pierwotnego stanu:"
+
+#: library/plugin-settings.php:1536
+msgid "This shortcode accepts the following attributes:"
+msgstr "Ten shortcode akceptuje następujące atrybuty:"
+
+#: library/plugin-settings.php:1542
+msgid "Note that the url attribute accepts"
+msgstr "Pamiętaj, że atrybut url akceptuje"
+
+#: library/plugin-settings.php:1542
+msgid "to get the current URL."
+msgstr ", aby uzyskać aktualny adres URL."
+
+#: library/plugin-settings.php:1545
+msgid "Access Control"
+msgstr "Kontrola dostępu"
+
+#: library/plugin-settings.php:1546
+msgid "USP provides three shortcodes to control access and restrict content."
+msgstr "USP udostępnia trzy krótkie kody do kontrolowania dostępu i ograniczania zawartości."
+
+#: library/plugin-settings.php:1547
+msgid "Display content only to users with a specific capability:"
+msgstr "Wyświetlaj zawartość tylko dla użytkowników o określonej zdolności:"
+
+#: library/plugin-settings.php:1550
+msgid "Display content to logged-in users:"
+msgstr "Wyświetl zawartość dla zalogowanych użytkowników:"
+
+#: library/plugin-settings.php:1553
+msgid "Display content to visitors only:"
+msgstr "Wyświetlaj treść tylko dla odwiedzających:"
+
+#: library/plugin-settings.php:1556
+msgid "Tip:"
+msgstr "Wskazówka:"
+
+#: library/plugin-settings.php:1556
+msgid "to include markup in the deny message, you can use"
+msgstr "Aby włączyć znaczniki w wiadomości odmowy, możesz użyć"
+
+#: library/plugin-settings.php:1556
+msgid "to output"
+msgstr "na wyjście"
+
+#: library/plugin-settings.php:1559
+msgid "Example"
+msgstr "Przykład"
+
+#: library/plugin-settings.php:1560
+msgid "If the user is logged in, display the post-submit form; or if the user is not logged in, display the login form:"
+msgstr "Jeśli użytkownik jest zalogowany, wyświetl formularz post-submit; lub jeśli użytkownik nie jest zalogowany, wyświetl formularz logowania:"
+
+#: library/plugin-settings.php:1572
+msgid "Restore Defaults"
+msgstr "Przywróć domyślne"
+
+#: library/plugin-settings.php:1575
+msgid "Leave this option disabled to remember your settings. Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
+msgstr "Pozostaw tę opcję wyłączoną, aby zapamiętać swoje ustawienia. Lub, aby kontynuować i przywrócić domyślne opcje wtyczek: zaznacz pole, zapisz ustawienia, a następnie dezaktywuj / ponownie aktywuj wtyczkę."
+
+#: library/plugin-settings.php:1579
+msgid "Restore default options upon plugin deactivation/reactivation."
+msgstr "Przywróć domyślne opcje po dezaktywacji / reaktywacji wtyczki."
+
+#: library/plugin-settings.php:1586
+msgid "Show Support"
+msgstr "Pokaż wsparcie"
+
+#: library/plugin-settings.php:1595
+msgid "by"
+msgstr "przez"
+
+#: library/plugin-settings.php:1596
+msgid "Jeff Starr on Twitter"
+msgstr "Jeff Starr na Twitterze"
+
+#: library/plugin-settings.php:1597
+msgid "Obsessive Web Design &amp; Development"
+msgstr "Obsessive Web Design & amp; Rozwój"
+
+#: library/plugin-settings.php:1608
+msgid "Save Preference"
+msgstr "Zapisz preferencję"
+
+#: library/plugin-settings.php:1615
+msgid "Are you sure you want to restore all default options? (this action cannot be undone)"
+msgstr "Czy na pewno chcesz przywrócić wszystkie domyślne opcje? (tej czynności nie można cofnąć)"
+
+#. Description of the plugin
+#: 
+msgid "Enables your visitors to submit posts and images from anywhere on your site."
+msgstr "Umożliwia odwiedzającym przesyłanie postów i zdjęć z dowolnego miejsca w witrynie."
+
+#. URI of the plugin
+#: 
+msgid "https://perishablepress.com/user-submitted-posts/"
+msgstr "https://perishablepress.com/user-submitted-posts/"
+
+#. Author of the plugin
+#: 
+msgid "Jeff Starr"
+msgstr "Jeff Starr"
+
+#. Author URI of the plugin
+#: 
+msgid "https://plugin-planet.com/"
+msgstr "https://plugin-planet.com/"
+

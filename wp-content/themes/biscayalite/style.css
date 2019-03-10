@@ -4,7 +4,7 @@ Theme URI:https://www.wowthemes.net/themes/biscaya-wp/
 Author:WowThemes.net
 Author URI:https://www.wowthemes.net/
 Description:Build your beautiful blog in no time with BiscayaLite, a clean masonry, responsive theme.
-Version:2.1.1
+Version:2.1.2
 License: GNU General Public License v3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.en.html
 Text Domain:biscayalite
@@ -38,6 +38,9 @@ body {
 	-webkit-font-smoothing:antialiased;
 	line-height:1.80em;
 	background-color:#444;
+    background-image:url(img/defaultbg.jpg);
+    background-size:cover;
+    background-attachment:fixed;
 	font-family:Open Sans, Helvetica;
 }
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
@@ -121,20 +124,16 @@ aside ul {
 	box-shadow:0 0 2px #ccc;
 }
 .boxedcontent {
-	background:#fff;
-	z-index:10000;
-	position: relative;
-	width: 99.984%;
-}
-.boxedlayout {
-    max-width: 1060px;
+    background: #fff;
+    position: relative;
+    width: 1070px;
+    max-width: 90%;
     margin: 0px auto;
     margin-top: 40px;
     margin-bottom: 50px;
 }
 .container {
-    width: 95.25%;
-    max-width: 100%;
+    width: 95%;
 }
 /*==============================================* HEADER *===============================================*/
 .formheadersearch {
@@ -1059,6 +1058,7 @@ section.homerecentportfolio h1.heading {
 .thumbnail ul.social-icons li {
 	background-color: #333;
 }
+p.featimage {margin:0 0 25px 0;}
 /*================================================== * Testimonials* ===============================================*/
 .tiles.testimonialpage .col-md-4 {
 	margin-bottom:20px;
@@ -1115,7 +1115,7 @@ section.homerecentportfolio h1.heading {
 }
 blockquote p {
 	line-height:inherit;
-	font-size:13px;
+	font-size:14px;
 	font-style:italic;
 }
 cite {
@@ -1341,6 +1341,7 @@ img.attachment-recentprojects-thumb:hover {
 	width:200px;
 }
 .post-navigation {
+    margin-top:20px;
 	margin-bottom:20px;
 	font-style:italic;
 }
@@ -1738,8 +1739,8 @@ ul {
 	font-size:17.5px;
 }
 .blogindex .attachment-recentprojects-thumb {
-	width:65px;
-	height:55px;
+	width:95px;
+	height:65px;
 	border:1px solid #ddd;
 	float:left;
 	margin-right:10px;
@@ -2096,7 +2097,7 @@ footer ul.social-icons li {
 	line-height:50px;
 	color:#fff;
 	border-top:1px solid #444;
-	font-size:11px;
+	font-size:12px;
 }
 .footerbottom a {
 	color:#fff !Important;
@@ -2600,9 +2601,7 @@ a.text-logo {color:#333;}
 	}
 }
 @media screen and (max-width:1050px) {
-	html,body {
-		background: none !Important;
-	}
+
 }
 /******************************************************************************************************************** WOOCOMMERCE*******************************************************************************************************************/
 .woocommerce nav.woocommerce-pagination ul li a:focus,.woocommerce nav.woocommerce-pagination ul li a:hover,.woocommerce nav.woocommerce-pagination ul li span.current {

@@ -10,8 +10,8 @@ class WPUF_Upload {
 
     function __construct() {
 
-        add_action( 'wp_ajax_wpuf_file_upload', array($this, 'upload_file') );
-        add_action( 'wp_ajax_nopriv_wpuf_file_upload', array($this, 'upload_file') );
+        add_action( 'wp_ajax_wpuf_upload_file', array($this, 'upload_file') );
+        add_action( 'wp_ajax_nopriv_wpuf_upload_file', array($this, 'upload_file') );
 
         add_action( 'wp_ajax_wpuf_file_del', array($this, 'delete_file') );
         add_action( 'wp_ajax_nopriv_wpuf_file_del', array($this, 'delete_file') );
@@ -53,11 +53,15 @@ class WPUF_Upload {
                 $guest_post = true;
             }
 
+            // check if the request coming from weForms & allow users to upload when require login option is disabled
+            if ( isset( $form_settings['require_login'] ) && $form_settings['require_login'] == 'false' ) {
+                $guest_post = true;
+            }
+
             //if it is registration form, let the user upload the file
             if ( get_post_type( $form_id ) == 'wpuf_profile' ) {
                 $guest_post = true;
             }
-
 
             if ( ! $guest_post ) {
                 die( 'error' );
@@ -81,8 +85,8 @@ class WPUF_Upload {
             $response = array( 'success' => true );
 
             if ($image_only) {
-                $image_size = wpuf_get_option( 'insert_photo_size', 'wpuf_general', 'thumbnail' );
-                $image_type = wpuf_get_option( 'insert_photo_type', 'wpuf_general', 'link' );
+                $image_size = wpuf_get_option( 'insert_photo_size', 'wpuf_frontend_posting', 'thumbnail' );
+                $image_type = wpuf_get_option( 'insert_photo_type', 'wpuf_frontend_posting', 'link' );
 
                 if ( $image_type == 'link' ) {
                     $response['html'] = wp_get_attachment_link( $attach['attach_id'], $image_size );
@@ -96,7 +100,7 @@ class WPUF_Upload {
 
             echo $response['html'];
         } else {
-            echo 'error';
+            echo $attach['error'];
         }
 
 
@@ -156,19 +160,22 @@ class WPUF_Upload {
             $image = wp_mime_type_icon( $attach_id );
         }
 
-        $html = '<li class="wpuf-image-wrap thumbnail">';
+        $html = '<li class="ui-state-default wpuf-image-wrap thumbnail">';
         $html .= sprintf( '<div class="attachment-name"><img src="%s" alt="%s" /></div>', $image, esc_attr( $attachment->post_title ) );
 
-        if ( wpuf_get_option( 'image_caption', 'wpuf_general', 'off' ) == 'on' ) {
+        if ( wpuf_get_option( 'image_caption', 'wpuf_frontend_posting', 'off' ) == 'on' ) {
             $html .= '<div class="wpuf-file-input-wrap">';
-            $html .= sprintf( '<input type="text" name="wpuf_files_data[%d][title]" value="%s" placeholder="%s">', $attach_id, esc_attr( $attachment->post_title ), __( 'Title', 'wpuf' ) );
-            $html .= sprintf( '<textarea name="wpuf_files_data[%d][caption]" placeholder="%s">%s</textarea>', $attach_id, __( 'Caption', 'wpuf' ), esc_textarea( $attachment->post_excerpt ) );
-            $html .= sprintf( '<textarea name="wpuf_files_data[%d][desc]" placeholder="%s">%s</textarea>', $attach_id, __( 'Description', 'wpuf' ), esc_textarea( $attachment->post_content ) );
+            $html .= sprintf( '<input type="text" name="wpuf_files_data[%d][title]" value="%s" placeholder="%s">', $attach_id, esc_attr( $attachment->post_title ), __( 'Title', 'wp-user-frontend' ) );
+            $html .= sprintf( '<textarea name="wpuf_files_data[%d][caption]" placeholder="%s">%s</textarea>', $attach_id, __( 'Caption', 'wp-user-frontend' ), esc_textarea( $attachment->post_excerpt ) );
+            $html .= sprintf( '<textarea name="wpuf_files_data[%d][desc]" placeholder="%s">%s</textarea>', $attach_id, __( 'Description', 'wp-user-frontend' ), esc_textarea( $attachment->post_content ) );
             $html .= '</div>';
         }
 
         $html .= sprintf( '<input type="hidden" name="wpuf_files[%s][]" value="%d">', $type, $attach_id );
-        $html .= sprintf( '<div class="caption"><a href="#" class="btn btn-danger btn-small attachment-delete" data-attach_id="%d">%s</a></div>', $attach_id, __( 'Delete', 'wpuf' ) );
+        $html .= '<div class="caption">';
+        $html .= sprintf( '<a href="#" class="attachment-delete" data-attach_id="%d"> <img src="%s" /></a>', $attach_id, WPUF_ASSET_URI . '/images/del-img.png' );
+        $html .= sprintf( '<span class="wpuf-drag-file"> <img src="%s" /></span>', WPUF_ASSET_URI . '/images/move-img.png' );
+        $html .= '</div>';
         $html .= '</li>';
 
         return $html;
@@ -182,7 +189,6 @@ class WPUF_Upload {
 
         //post author or editor role
         if ( get_current_user_id() == $attachment->post_author || current_user_can( 'delete_private_pages' ) ) {
-            wp_delete_attachment( $attach_id, true );
             echo 'success';
         }
 

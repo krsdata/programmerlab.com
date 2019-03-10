@@ -26,7 +26,7 @@ if ( !defined('ABSPATH') )
 	<ul class="likebtn-mlw">
 	<?php foreach ($post_loop as $post): ?>
 		<li id="post-<?php echo $post['id'] ?>" class="likebtn-mlw-item" >
-            <a href="<?php echo $post['link'] ?>" title="<?php echo $post['title'] ?>">
+            <a href="<?php echo $post['link'] ?>" title="<?php echo esc_attr($post['title']) ?>">
                 <?php if ($show_thumbnail): ?>
                     <?php if ('image/' == substr( $post['post_mime_type'], 0, 6 ) ): ?>
                         <?php echo wp_get_attachment_image( $post['id'], $thumbnail_size, array('class' => 'likebtn-item-thumbnail') ); ?>
@@ -70,7 +70,13 @@ if ( !defined('ABSPATH') )
 	</ul>
 <?php else: // No items ?>
 	<div class="likebtn-mlw-no-items">
-		<p><?php _e('No items liked yet.', LIKEBTN_I18N_DOMAIN); ?></p>
+		<p>
+            <?php if ($empty_text): ?>
+                <?php echo $empty_text; ?>
+            <?php else: ?>
+                <?php _e('No items liked yet.', LIKEBTN_I18N_DOMAIN); ?>
+            <?php endif ?>
+        </p>
 	</div>
 <?php
 endif;

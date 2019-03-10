@@ -29,6 +29,13 @@ abstract class WPUF_Post_Form_Template {
     public $description;
 
     /**
+     * Form Template Image
+     *
+     * @var string
+     */
+    public $image;
+
+    /**
      * Conditional logic
      *
      * @var array
@@ -48,6 +55,15 @@ abstract class WPUF_Post_Form_Template {
      * @var array
      */
     protected $form_settings;
+
+    /**
+     * Form notifications
+     *
+     * @since 2.5.2
+     *
+     * @var array
+     */
+    protected $form_notifications;
 
     public function __construct() {
         $this->conditionals = array(
@@ -96,6 +112,17 @@ abstract class WPUF_Post_Form_Template {
     }
 
     /**
+     * Get form notifications
+     *
+     * @since 2.5.2
+     *
+     * @return array
+     */
+    public function get_form_notifications() {
+        return apply_filters( 'wpuf_post_form_template_form_notifications', $this->form_notifications, $this );
+    }
+
+    /**
      * Check if the template is enabled
      *
      * @return boolean
@@ -125,4 +152,18 @@ abstract class WPUF_Post_Form_Template {
      * @return void
      */
     public function after_update( $post_id, $form_id, $form_settings ) {}
+
+    /**
+     * wpuf_visibility property for all fields
+     *
+     * @since 2.6
+     *
+     * @return array
+    */
+    public function get_default_visibility_prop( $default = 'everyone' ) {
+        return array(
+            'selected'         => $default,
+            'choices'          => array()
+        );
+    }
 }

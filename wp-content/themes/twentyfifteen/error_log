@@ -1,2 +1,0 @@
-[04-Mar-2017 02:45:29 UTC] PHP Fatal error:  Call to undefined function get_header() in /home/programmerlab/public_html/wp-content/themes/twentyfifteen/404.php on line 10
-[04-Mar-2017 07:58:58 UTC] PHP Fatal error:  Call to undefined function get_template_directory() in /home/programmerlab/public_html/wp-content/themes/twentyfifteen/functions.php on line 41

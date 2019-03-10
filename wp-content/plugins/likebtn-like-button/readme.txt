@@ -2,8 +2,8 @@
 Contributors: likebtn, LikeBtn Support
 Tags: like button, voting, rating, vote, like, dislike, contest, rate, widget, widgets, like button widget, facebook like, facebook like button, poll, survey, donate, donations, share, share button, share buttons, thumbs up, thumb, thumbs, like counter, likes counter, post, posts, sharing, woocommerce, wordpress, bbPress, buddypress, comment, comments, rich snippets, page, pages, facebook, ratings, review, reviews, seo, votes, plugin, mobile plugin, youtube, mycred, ranking, user rating, open graph, Facebook Open Graph, metadata, opengraph, epoch
 Requires at least: 2.8
-Tested up to: 4.7
-Stable tag: 2.3.4
+Tested up to: 5.1
+Stable tag: 2.6.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,10 +24,11 @@ The **Like Button Rating** plugin allows you to add a cool looking fully customi
 *   Epoch comments
 
 = Live Demo =
-<a href="http://wordpress.likebtn.com/wordpress-like-button-plugin/" target="_blank" title="wordpress like button demo">Like Button Rating Demo</a>
+<a href="http://wordpress.likebtn.com/wordpress-like-button-plugin/" target="_blank" title="wordpress like button rating demo">Like Button Rating Demo</a>
 
 = Features =
-*   More than 80 parameters, 28 themes, 37 languages.
+*   GDPR compliant.
+*   More than 80 parameters, 41 themes, 40 languages.
 *   Custom themes and images.
 *   Works on websites fully cached with WP Super Cache, WP Total Cache, CloudFlare, etc.
 *   Google Rich Snippets providing five star rating in Google search results. (<a href="https://likebtn.com/en/faq#rich_snippets" target="_blank" title="Google Rich Snippets Five Star Rating">Learn more</a>)
@@ -35,17 +36,21 @@ The **Like Button Rating** plugin allows you to add a cool looking fully customi
 *   Real-time reports.
 *   Voting statistics. (PRO/VIP/ULTRA)
 *   Multisite compatible.
+*   Email notifications on new votes for admin. (PRO)
 *   The list of the the most liked content using widget or <code>[likebtn_most_liked]</code> shortcode. (PRO/VIP/ULTRA)
 *   The list of the content liked by the current authenticated user using widget or <code>[likebtn_liked_by_user]</code> shortcode. (PRO/VIP/ULTRA)
 *   Shortcode <code>[likebtn]</code> to display the Like button inside a post or page.
 *   Shortcodes <code>[likebtn_likes]</code> and <code>[likebtn_dislikes]</code> to display number of likes and dislikes.
 *   Shortcode <code>[likebtn_off]</code> to disable the Like button in a post or page.
+*   Shortcode <code>[likebtn_category_likes]</code> to display total number of likes for category.
 *   Tracking voters by IP+Device+Cookie or by users.
 *   Like box displaying users who liked an item.
 *   Compatible with <a href="https://wordpress.org/plugins/mycred/" target="_blank">myCRED</a> points management system.
 *   BuddyPress notifications for authors when authenticated users like or dislike author's content.
 *   Recording like & dislike actions in BuddyPress activity stream (votes in private groups are NOT displayed in the public activity stream).
 *   Custom templates for snippets in BuddyPress activity stream.
+*   WPML compatible.
+*   Changing number of likes or setting initial random number of likes (ULTRA).
 *   Customizable position and alignment.
 *   Full access to the Like button CSS.
 *   Custom Like & Dislike buttons texts.
@@ -60,11 +65,11 @@ The **Like Button Rating** plugin allows you to add a cool looking fully customi
 
 = Documentation =
 
-<a href="https://likebtn.com/en/wordpress-like-button-plugin#documentation" target="_blank" title="WordPress Like Button Rating">Like Button Plugin Documentation</a>
+<a href="https://likebtn.com/en/wordpress-like-button-plugin#documentation" target="_blank" title="WordPress Like Button Rating">Like Button Rating Plugin Documentation</a>
 
 [youtube https://www.youtube.com/watch?v=JpMYoKPPbyM]
 
-The Like Button Rating plugin is powered by <a href="http://likebtn.com" target="_blank" title="Like button rating for website">LikeBtn.com</a>. The plugin is **commercial** and provides a 7-day TRIAL. After TRIAL ends your website is switched to the **FREE plan** and you can continue using FREE or <a href="https://likebtn.com/en/pricing" target="_blank" title="Like Button Plans">upgrade.
+The Like Button Rating plugin is powered by <a href="http://likebtn.com" target="_blank" title="Like button rating for website">LikeBtn.com</a>. The plugin is **commercial** and provides a 7-day TRIAL. After TRIAL ends your website is switched to the **FREE plan** and you can continue using FREE or <a href="https://likebtn.com/en/pricing" target="_blank" title="Like Button Plans">upgrade</a>. Plugin also provides discounts for non-profits.
 
 ---
 
@@ -107,7 +112,91 @@ The Like Button Rating plugin is powered by <a href="http://likebtn.com" target=
 
 == Changelog ==
 
-= 2.3.3 =
+= 2.6.14 =
+* Add - WordPress 5.1 compatibility.
+
+= 2.6.13 =
+* Add - WordPress 5.0 compatibility.
+
+= 2.6.12 =
+* Add - "Text when there are no items" option added to the Most liked content widget
+* Fix - Change BudyPress placeholders to avoid 404 error in options on some hostings
+
+= 2.6.11 =
+* Add - Initial random likes option in Settings
+* Add - BuddyPress option to hide Votes filter in activity stream
+* Add - [likebtn_category_likes] shortcode to display total likes for category
+* Add - Automatically check max_input_vars
+* Add - Cloudflare IP range auto update
+
+= 2.6.10 =
+* Add - GDPR compliance
+
+= 2.6.9 =
+* Add - Option to notify admin by email on new votes (see Settings tab)
+
+= 2.6.8 =
+* Add - Export User Email when exporting votes to CSV
+
+= 2.6.7 =
+* Fix - user_logged_in_alert parameter now is taken into account in the shortcode
+
+= 2.6.6 =
+* Add - Interface improvements
+
+= 2.6.5 =
+* Fix - Minor bug fixes
+
+= 2.6.4 =
+* Add - Interface tuning
+
+= 2.6.3 =
+* Add - Admin panel sidebar tuning
+
+= 2.6.2 =
+* Add - Slovenian and Belarusian language
+* Fix - Og description fix in BuddyPress
+
+= 2.6.1 =
+* Fix - Custom theme issue in WP 4.9
+
+= 2.6.0 =
+* Add - Votes date range in The Most Liked Content Widget
+
+= 2.5.4 =
+* Fix - Fixed importing settings
+
+= 2.5.3 =
+* Fix - Minor bug fixes
+
+= 2.5.2 =
+* Add - Like button removed from the edit post admin page
+* Fix - Fixed displaying gravatars in the Like Box
+
+= 2.5.1 =
+* Add - Plan is automatically synced on upgrade now
+
+= 2.5.0 =
+* Add - Chain settings copying: if for example for Post the "Copy Settings From" option is set to Page and for Page the "Copy Settings From" option is set to Comments, settings for Post will be copied from Comments.
+* Add - Current website language is set as default language for Like Button Rating on installation
+* Add - If your server incorrectly sets HTTP_X_FORWARDED_FOR header to server IP address plugin will use client's IP
+
+= 2.4.0 =
+* Add - Counter animation option
+* Add - Voting animation option
+* Add - Button background color after voting for the custom theme
+* Add - Vertical layout option
+* Add - New languages: Bosnian, Serbian, Slovak
+* Add - 14 new themes
+* Add - All the Like button parameters made available in the shortcode
+
+= 2.3.5 =
+* Add - Exporting votes from Votes tab
+* Add - WPML compatibility
+* Add - PHP 7 compatibility
+* Add - Added [likebtn_user_votes] shortcode
+
+= 2.3.4 =
 * Fix - WP 4.7.3 compatibility fix
 
 = 2.3.3 =

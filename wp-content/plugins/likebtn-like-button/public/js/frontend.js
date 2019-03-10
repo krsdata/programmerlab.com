@@ -42,6 +42,7 @@ function likebtn_eh(event)
     var modal_content = event.wrapper.getAttribute('data-clk_modal');
     if (event.type === "likebtn.click" && modal_content) {
         likebtn_modal(modal_content);
+        return;
     }
 
     // Do not send ajax request if proxy request is being sent

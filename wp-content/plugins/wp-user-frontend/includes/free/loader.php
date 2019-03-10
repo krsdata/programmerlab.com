@@ -55,61 +55,105 @@ class WPUF_Free_Loader extends WPUF_Pro_Prompt {
         new WPUF_Edit_Profile();
 
         if ( is_admin() ) {
-            new WPUF_Admin_Form_Free();
+
+            /**
+             * Conditionally load the free loader
+             *
+             * @since 2.5.7
+             *
+             * @var boolean
+             */
+            $load_free = apply_filters( 'wpuf_free_loader', true );
+
+            if ( $load_free ) {
+                new WPUF_Admin_Form_Free();
+            }
         }
     }
 
     function admin_menu_top() {
         $capability = wpuf_admin_role();
 
-        add_submenu_page( 'wp-user-frontend', __( 'Registration Forms', 'wpuf' ), __( 'Registration Forms', 'wpuf' ), $capability, 'wpuf-profile-forms', array($this, 'admin_reg_forms_page') );
+        add_submenu_page( 'wp-user-frontend', __( 'Registration Forms', 'wp-user-frontend' ), __( 'Registration Forms', 'wp-user-frontend' ), $capability, 'wpuf-profile-forms', array($this, 'admin_reg_forms_page') );
     }
 
     function admin_menu() {
-        $capability = wpuf_admin_role();
-
-        add_submenu_page( 'wp-user-frontend', __( 'Coupons', 'wpuf' ), __( 'Coupons', 'wpuf' ), $capability, 'wpuf_coupon', array($this, 'admin_coupon_page' ) );
+        if ( 'on' == wpuf_get_option( 'enable_payment', 'wpuf_payment', 'on' ) ) {
+            $capability = wpuf_admin_role();
+            add_submenu_page( 'wp-user-frontend', __( 'Coupons', 'wp-user-frontend' ), __( 'Coupons', 'wp-user-frontend' ), $capability, 'wpuf_coupon', array($this, 'admin_coupon_page' ) );
+        }
     }
 
     function admin_reg_forms_page() {
         ?>
-        <h2><?php _e( 'Registration Form', 'wpuf' ); ?></h2>
+        <h2><?php _e( 'Registration Form', 'wp-user-frontend' ); ?></h2>
 
-        <div class="wpuf-notice" style="padding: 20px; background: #fff; border: 1px solid #ddd;">
+        <p>
+            <?php _e( 'Use the shortcode <code>[wpuf-registration]</code> for a simple and default WordPress registration form.', 'wp-user-frontend' ); ?>
+        </p>
+
+        <p>
+            <a target="_blank" class="button" href="https://wedevs.com/docs/wp-user-frontend-pro/registration-profile-forms/how-to-setup-registrationlogin-page/">
+                <span class="dashicons dashicons-sos" style="margin-top: 3px;"></span>
+                Learn How to Setup
+            </a>
+        </p>
+
+        <div class="wpuf-notice" style="padding: 20px;background: #fff;border: 1px solid #ddd;max-width: 360px;margin: 100px auto 0 auto;">
+            <h3 style="margin: 0;">Pro Features</h3>
+
             <p>
-                <?php _e( 'Registration form builder is a two way form which can be used both for <strong>user registration</strong> and <strong>profile editing</strong>.', 'wpuf' ); ?>
+                <?php _e( 'Registration form builder is a two way form which can be used both for <strong>user registration</strong> and <strong>profile editing</strong>.', 'wp-user-frontend' ); ?>
             </p>
 
-            <p>
-                <?php _e( 'Users can also register themselves by using a subscription pack.', 'wpuf' ); ?>
-            </p>
+            <ul class="wpuf-pro-features">
+                <li>
+                    <span class="dashicons dashicons-yes"></span>
+                    <span class="feature">Registration Form Builder</span>
+                </li>
+                <li>
+                    <span class="dashicons dashicons-yes"></span>
+                    <span class="feature">Profile Form Builder</span>
+                </li>
+                <li>
+                    <span class="dashicons dashicons-yes"></span>
+                    <span class="feature">Register by Subscription Package Purchase</span>
+                </li>
+            </ul>
 
-            <p>
-                <?php _e( 'This feature is only available in the Pro Version.', 'wpuf' ); ?>
-            </p>
-
-            <p>
-                <a href="<?php echo self::get_pro_url(); ?>" target="_blank" class="button-primary"><?php _e( 'Upgrade to Pro Version', 'wpuf' ); ?></a>
+            <p style="margin-top: 30px;">
+                <a href="<?php echo self::get_pro_url(); ?>" target="_blank" class="button-primary"><?php _e( 'Upgrade to Pro Version', 'wp-user-frontend' ); ?></a>
+                <a href="https://wedevs.com/docs/wp-user-frontend-pro/registration-forms/" target="_blank" class="button"><?php _e( 'Learn More', 'wp-user-frontend' ); ?></a>
             </p>
         </div>
+
+        <style type="text/css">
+            ul.wpuf-pro-features span.dashicons.dashicons-yes {
+                background: #4CAF50;
+                border-radius: 50%;
+                color: #fff;
+                margin-right: 7px;
+            }
+        </style>
         <?php
     }
 
     function admin_coupon_page() {
         ?>
-        <h2><?php _e( 'Coupons', 'wpuf' ); ?></h2>
+        <h2><?php _e( 'Coupons', 'wp-user-frontend' ); ?></h2>
 
         <div class="wpuf-notice" style="padding: 20px; background: #fff; border: 1px solid #ddd;">
             <p>
-                <?php _e( 'Use Coupon codes for subscription for discounts.', 'wpuf' ); ?>
+                <?php _e( 'Use Coupon codes for subscription for discounts.', 'wp-user-frontend' ); ?>
             </p>
 
             <p>
-                <?php _e( 'This feature is only available in the Pro Version.', 'wpuf' ); ?>
+                <?php _e( 'This feature is only available in the Pro Version.', 'wp-user-frontend' ); ?>
             </p>
 
             <p>
-                <a href="<?php echo self::get_pro_url(); ?>" target="_blank" class="button-primary"><?php _e( 'Upgrade to Pro Version', 'wpuf' ); ?></a>
+                <a href="<?php echo self::get_pro_url(); ?>" target="_blank" class="button-primary"><?php _e( 'Upgrade to Pro Version', 'wp-user-frontend' ); ?></a>
+                <a href="https://wedevs.com/docs/wp-user-frontend-pro/subscription-payment/coupons/" target="_blank" class="button"><?php _e( 'Learn more about Coupons', 'wp-user-frontend' ); ?></a>
             </p>
         </div>
 
@@ -121,29 +165,25 @@ class WPUF_Free_Loader extends WPUF_Pro_Prompt {
 
         if ( $current_screen->id == 'user-frontend_page_wpuf-settings' ) {
             ?>
-            <script type="text/javascript">
+            <!-- <script type="text/javascript">
             jQuery(function($){
                 $('#wpuf_profile').find('input, select').each(function(i, el){ $(el).attr('disabled','disabled'); });
             });
-            </script>
+            </script> -->
             <?php
         }
     }
 
     function settings_login_prompt( $fields ) {
 
-        // var_dump( $fields ); die();
+        // $new_field = array(
+        //     'name'    => 'something',
+        //     'label'   => __( 'Pro Feature', 'wpuf' ),
+        //     'desc'    => 'These Features are ' . self::get_pro_prompt_text() . ' Only.',
+        //     'type'    => 'html',
+        // );
 
-        $new_field = array(
-            'name'    => 'something',
-            'label'   => __( 'Pro Feature', 'wpuf' ),
-            'desc'    => 'These Features are ' . self::get_pro_prompt_text() . ' Only.',
-            'type'    => 'html',
-        );
-
-        array_unshift( $fields['wpuf_profile'], $new_field );
-
-        // var_dump( $fields ); die();
+        // array_unshift( $fields['wpuf_profile'], $new_field );
 
         return $fields;
     }
@@ -154,7 +194,7 @@ class WPUF_Free_Loader extends WPUF_Pro_Prompt {
      * @return void
      */
     function add_meta_box_post() {
-        add_meta_box( 'wpuf-metabox-fields-banner', __( 'Upgrade to Pro', 'wpuf' ), array($this, 'show_banner_metabox'), 'wpuf_forms', 'side', 'core' );
+        add_meta_box( 'wpuf-metabox-fields-banner', __( 'Upgrade to Pro', 'wp-user-frontend' ), array($this, 'show_banner_metabox'), 'wpuf_forms', 'side', 'core' );
     }
 
     function show_banner_metabox() {
@@ -179,7 +219,7 @@ class WPUF_Free_Loader extends WPUF_Pro_Prompt {
         WPUF_form_element::add_form_settings_content( $form_settings, $post );
     }
     public function post_notification_hook_runner() {
-        WPUF_form_element::add_post_notification_content(  );
+        WPUF_form_element::add_post_notification_content();
     }
 
     public function wpuf_edit_form_area_profile_runner() {
@@ -227,11 +267,11 @@ class WPUF_Free_Loader extends WPUF_Pro_Prompt {
      */
     public function post_form_templates( $integrations ) {
         require_once dirname( __FILE__ ) . '/post-form-templates/woocommerce.php';
+        require_once dirname( __FILE__ ) . '/post-form-templates/the_events_calendar.php';
 
-        $integrations['WPUF_Post_Form_Template_WooCommerce'] = new WPUF_Post_Form_Template_WooCommerce();
+        $integrations['WPUF_Post_Form_Template_WooCommerce']        = new WPUF_Post_Form_Template_WooCommerce();
+        $integrations['WPUF_Post_Form_Template_Events_Calendar']    = new WPUF_Post_Form_Template_Events_Calendar();
 
         return $integrations;
     }
 }
-
-new WPUF_Free_Loader();

@@ -44,7 +44,7 @@ class WPUF_Admin_Form_Template {
             return;
         }
 
-        wp_enqueue_style( 'wpuf-formbuilder', WPUF_ASSET_URI . '/css/formbuilder.css' );
+        wp_enqueue_style( 'wpuf-formbuilder', WPUF_ASSET_URI . '/css/wpuf-form-builder.css' );
     }
 
     /**
@@ -57,7 +57,10 @@ class WPUF_Admin_Form_Template {
             return;
         }
 
-        $registry = wpuf_get_post_form_templates();
+        $registry       = wpuf_get_post_form_templates();
+        $blank_form_url = admin_url( 'admin.php?page=wpuf-post-forms&action=add-new' );
+        $action_name    = 'wpuf_post_form_template';
+        $footer_help    = sprintf( __( 'Want a new integration? <a href="%s" target="_blank">Let us know</a>.', 'wp-user-frontend'), 'mailto:support@wedevs.com?subject=WPUF Custom Post Template Integration Request' );
 
         if ( ! $registry ) {
             return;
@@ -111,7 +114,6 @@ class WPUF_Admin_Form_Template {
             return;
         }
 
-        // var_dump( $template_object ); die();
         $current_user = get_current_user_id();
 
         $form_post_data = array(
@@ -129,6 +131,7 @@ class WPUF_Admin_Form_Template {
 
         // form has been created, lets setup
         update_post_meta( $form_id, 'wpuf_form_settings', $template_object->get_form_settings() );
+        update_post_meta( $form_id, 'wpuf_form_version', WPUF_VERSION );
 
         $form_fields = $template_object->get_form_fields();
 
@@ -163,10 +166,10 @@ class WPUF_Admin_Form_Template {
         $selected = isset( $form_settings['form_template'] ) ? $form_settings['form_template'] : '';
         ?>
         <tr>
-            <th><?php _e( 'Form Template', 'wpuf' ); ?></th>
+            <th><?php _e( 'Form Template', 'wp-user-frontend' ); ?></th>
             <td>
                 <select name="wpuf_settings[form_template]">
-                    <option value=""><?php echo __( '&mdash; No Template &mdash;', 'wpuf' ); ?></option>
+                    <option value=""><?php echo __( '&mdash; No Template &mdash;', 'wp-user-frontend' ); ?></option>
                     <?php
                     if ( $registry ) {
                         foreach ($registry as $key => $template) {
@@ -175,7 +178,7 @@ class WPUF_Admin_Form_Template {
                     }
                     ?>
                 </select>
-                <p class="description"><?php _e( 'If selected a form template, it will try to execute that integration options when new post created and updated.', 'wpuf' ); ?></p>
+                <p class="description"><?php _e( 'If selected a form template, it will try to execute that integration options when new post created and updated.', 'wp-user-frontend' ); ?></p>
             </td>
         </tr>
         <?php

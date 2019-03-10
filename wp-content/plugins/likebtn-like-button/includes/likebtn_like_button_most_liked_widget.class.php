@@ -20,6 +20,7 @@ class LikeBtnLikeButtonMostLikedWidget extends WP_Widget {
         'number' => self::NUMBER_OF_ITEMS,
         'order' => 'likes',
         'time_range' => 'all',
+        'vote_time_range' => 'all',
         'title_length' => LIKEBTN_WIDGET_TITLE_LENGTH,
         'thumbnail_size' => 'thumbnail',
         'show_likes' => '',
@@ -31,7 +32,8 @@ class LikeBtnLikeButtonMostLikedWidget extends WP_Widget {
         'show_author' => '',
         'show_button' => '',
         'show_button_use_entity' => '',
-        'voter' => ''
+        'voter' => '',
+        'empty_text' => 'No items liked yet.'
     );
 
     function __construct() {
@@ -136,11 +138,17 @@ class LikeBtnLikeButtonMostLikedWidget extends WP_Widget {
         if (empty($instance['time_range'])) {
             $instance['time_range'] = self::$instance_default['time_range'];
         }
+        if (empty($instance['vote_time_range'])) {
+            $instance['vote_time_range'] = self::$instance_default['vote_time_range'];
+        }
         if (empty($instance['thumbnail_size'])) {
             $instance['thumbnail_size'] = self::$instance_default['thumbnail_size'];
         }
         if (empty($instance['title_length'])) {
             $instance['title_length'] = self::$instance_default['title_length'];
+        }
+        if (empty($instance['empty_text'])) {
+            $instance['empty_text'] = __(self::$instance_default['empty_text'], LIKEBTN_I18N_DOMAIN);
         }
 
         ?>
@@ -219,10 +227,18 @@ class LikeBtnLikeButtonMostLikedWidget extends WP_Widget {
                 </select>
             </p>
             <p>
-                <label for="<?php echo $this->get_field_id('time_range'); ?>"><?php _e('Time range:', LIKEBTN_I18N_DOMAIN); ?></label>
+                <label for="<?php echo $this->get_field_id('time_range'); ?>"><?php _e('Item publication period:', LIKEBTN_I18N_DOMAIN); ?></label>
                 <select name="<?php echo $this->get_field_name('time_range'); ?>" id="<?php echo $this->get_field_id('time_range'); ?>" data-property="time_range" >
                     <?php foreach ($time_range_list as $time_range_value => $time_range_name): ?>
                         <option value="<?php echo $time_range_value; ?>" <?php selected($time_range_value, $instance['time_range']); ?> ><?php _e($time_range_name, LIKEBTN_I18N_DOMAIN); ?></option>
+                    <?php endforeach ?>
+                </select>
+            </p>
+            <p>
+                <label for="<?php echo $this->get_field_id('vote_time_range'); ?>"><?php _e('Votes period:', LIKEBTN_I18N_DOMAIN); ?></label>
+                <select name="<?php echo $this->get_field_name('vote_time_range'); ?>" id="<?php echo $this->get_field_id('vote_time_range'); ?>" data-property="vote_time_range" >
+                    <?php foreach ($time_range_list as $time_range_value => $time_range_name): ?>
+                        <option value="<?php echo $time_range_value; ?>" <?php selected($time_range_value, $instance['vote_time_range']); ?> ><?php _e($time_range_name, LIKEBTN_I18N_DOMAIN); ?></option>
                     <?php endforeach ?>
                 </select>
             </p>
@@ -267,6 +283,10 @@ class LikeBtnLikeButtonMostLikedWidget extends WP_Widget {
                         <option value="<?php echo $entity_name_value; ?>" <?php selected($entity_name_value, $instance['show_button_use_entity']); ?> ><?php _e($entity_title, LIKEBTN_I18N_DOMAIN); ?></option>
                     <?php endforeach ?>
                 </select>
+            </p>
+            <p>
+                <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Text when there are no items', LIKEBTN_I18N_DOMAIN); ?>:</label>
+                <input class="widefat" type="text" id="<?php echo $this->get_field_id('empty_text'); ?>" name="<?php echo $this->get_field_name('empty_text'); ?>" value="<?php echo $instance['empty_text']; ?>" data-property="empty_text" />
             </p>
             <p>
                 <a href="javascript:likebtnPopup('<?php echo __('http://likebtn.com/en/', LIKEBTN_I18N_DOMAIN); ?>wordpress-like-button-plugin#most_liked_template');void(0);"><?php _e('Need a custom template?', LIKEBTN_I18N_DOMAIN); ?></a> | 
@@ -328,6 +348,7 @@ class LikeBtnLikeButtonMostLikedByUserWidget extends LikeBtnLikeButtonMostLikedW
         'number' => self::NUMBER_OF_ITEMS,
         'order' => 'vote_date',
         'time_range' => 'all',
+        'vote_time_range' => 'all',
         'title_length' => LIKEBTN_WIDGET_TITLE_LENGTH,
         'thumbnail_size' => 'thumbnail',
         'show_likes' => '',
@@ -739,15 +760,44 @@ class LikeBtnLikeButtonMostLiked {
             $post_types_count++;
         }
 
-        if ($post_types_count > 1 || (int)$instance['voter']) {
+        if ((int)$instance['voter'] && !empty($instance['vote_time_range']) && $instance['vote_time_range'] != 'all') {
+        
+            $query = "
+                SELECT 
+                    post_id, post_title, post_date, post_type, post_mime_type, url,
+                    count(case v.type when 1 then 1 else null end) as likes,
+                    count(case v.type when -1 then 1 else null end) as dislikes,
+                    sum(v.type) as likes_minus_dislikes,
+                    v.created_at,
+                    v.type
+                FROM (".$query. ") main_query
+            ";
+            $query .= " 
+                    INNER JOIN ".$wpdb->prefix.LIKEBTN_TABLE_VOTE." v ON v.identifier = CONCAT(main_query.post_type, '_', main_query.post_id) AND v.user_id = ".(int)$instance['voter']. " AND v.created_at >= '" . $this->timeRangeToDateTime($instance['vote_time_range']) . "' 
+                    GROUP BY v.identifier
+                ";
+        } else if (!empty($instance['vote_time_range']) && $instance['vote_time_range'] != 'all') {
+        
+            $query = "
+                SELECT 
+                    post_id, post_title, post_date, post_type, post_mime_type, url,
+                    count(case v.type when 1 then 1 else null end) as likes,
+                    count(case v.type when -1 then 1 else null end) as dislikes,
+                    sum(v.type) as likes_minus_dislikes
+                FROM (".$query. ") main_query
+            ";
+            $query .= " 
+                    INNER JOIN ".$wpdb->prefix.LIKEBTN_TABLE_VOTE." v ON v.identifier = CONCAT(main_query.post_type, '_', main_query.post_id) AND v.created_at >= '" . $this->timeRangeToDateTime($instance['vote_time_range']) . "' 
+                    GROUP BY v.identifier
+                ";
+        } else if ((int)$instance['voter']) {
             $query = "SELECT * FROM (".$query. ") main_query";
-        }
-
-        if ((int)$instance['voter']) {
             $query .= " 
                 INNER JOIN ".$wpdb->prefix.LIKEBTN_TABLE_VOTE." v ON v.identifier = CONCAT(main_query.post_type, '_', main_query.post_id) AND v.user_id = ".(int)$instance['voter']. " 
                 GROUP BY v.identifier
             ";
+        } else if ($post_types_count > 1) {
+            $query = "SELECT * FROM (".$query. ") main_query";
         }
 
         $query .= "
@@ -771,10 +821,13 @@ class LikeBtnLikeButtonMostLiked {
                 $query .= " v.created_at ";
                 break;
         }
+
         $query .= " DESC";
 
         $query .= " {$query_limit}";
-
+// echo "<pre>";
+// print_r($query);
+// exit();
 // if ($wpdb->last_error) {
 //     echo 'last_error';
 //     print_r($wpdb->last_error);

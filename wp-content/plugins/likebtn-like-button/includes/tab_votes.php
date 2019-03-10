@@ -170,7 +170,11 @@ function likebtn_admin_votes() {
         <br/>
 
         <div class="tablenav">
+
             <button type="button" class="button-secondary" onclick="likebtnVg('<?php _e('Votes Graph', LIKEBTN_I18N_DOMAIN); ?>', '<?php echo get_option('likebtn_plan') ?>')" ><img src="<?php echo _likebtn_get_public_url(); ?>img/graph.png" class="likebtn-btn-img"/> <?php _e('Votes Graph', LIKEBTN_I18N_DOMAIN); ?></button>
+
+            <button type="button" class="button-secondary" onclick="likebtnVotesExport('<?php _e('Export to CSV', LIKEBTN_I18N_DOMAIN); ?>')"><?php _e('Export to CSV', LIKEBTN_I18N_DOMAIN); ?></button>
+
         </div>
 
         <form method="post" action="" id="votes_actions_form">
@@ -252,7 +256,13 @@ function likebtn_admin_votes() {
                                 <?php echo __('Anonymous', LIKEBTN_I18N_DOMAIN); ?>
                             <?php endif ?>
                         </td>
-                        <td><a href="javascript:likebtnIpInfo('<?php echo $votes_item->ip; ?>');" class="likebtn_ttip" title="<?php _e('View IP info', LIKEBTN_I18N_DOMAIN) ?>"><?php echo $votes_item->ip; ?></a></td>
+                        <td>
+                            <?php if (likebtn_is_real_ip($votes_item->ip)): ?>
+                                <a href="javascript:likebtnIpInfo('<?php echo $votes_item->ip; ?>');" class="likebtn_ttip" title="<?php _e('View IP info', LIKEBTN_I18N_DOMAIN) ?>"><?php echo $votes_item->ip; ?></a>
+                            <?php else: ?>
+                                <a href="<?php echo admin_url() ?>admin.php?page=likebtn_settings#gdpr" class="likebtn_ttip" title="<?php _e('Viewing info for this IP is not available as GDPR compliance mode is enabled (click to change)', LIKEBTN_I18N_DOMAIN) ?>" target="blank"><?php echo $votes_item->ip; ?></a>
+                            <?php endif ?>
+                        </td>
                         <td><?php echo date("Y.m.d H:i:s", strtotime($votes_item->created_at)); ?></td>
                         <td>
                             <img src="<?php echo _likebtn_get_public_url()?>img/thumb/<?php echo $entity_vote_type; ?>.png" alt="<?php _e(ucfirst($entity_vote_type), LIKEBTN_I18N_DOMAIN) ?>" title="<?php _e(ucfirst($entity_vote_type), LIKEBTN_I18N_DOMAIN) ?>" class="likebtn_ttip" />
@@ -609,6 +619,43 @@ function likebtn_admin_votes() {
             jQuery('.highcharts-container:visible:first .highcharts-button:eq(3)').hide();
         };
     </script>
+
+    <div id="likebtn_export" class="likebtn_export hidden">
+        <form action="<?php echo admin_url('admin-ajax.php') ?>?action=likebtn_export_votes&<?php echo $_SERVER['QUERY_STRING'] ?>" method="post" target="_blank">
+            <input type="hidden" name="export" value="1" />
+            <strong><?php _e('Data to export', LIKEBTN_I18N_DOMAIN); ?>:</strong><br/>
+            <label><input type="checkbox" name="fields[]" value="user" checked="checked" /> <?php _e('User Name', LIKEBTN_I18N_DOMAIN); ?></label><br/>
+            <label><input type="checkbox" name="fields[]" value="user_email" checked="checked" /> <?php _e('User Email', LIKEBTN_I18N_DOMAIN); ?></label><br/>
+            <label><input type="checkbox" name="fields[]" value="ip" checked="checked" /> <?php _e('IP', LIKEBTN_I18N_DOMAIN); ?></label><br/>
+            <label><input type="checkbox" name="fields[]" value="country" checked="checked" /> <?php _e('Country', LIKEBTN_I18N_DOMAIN); ?></label><br/>
+            <label><input type="checkbox" name="fields[]" value="date" checked="checked" /> <?php _e('Date', LIKEBTN_I18N_DOMAIN); ?></label><br/>
+            <label><input type="checkbox" name="fields[]" value="type" checked="checked" /> <?php _e('Vote type', LIKEBTN_I18N_DOMAIN); ?></label><br/>
+            <label><input type="checkbox" name="fields[]" value="item" checked="checked" /> <?php _e('Item', LIKEBTN_I18N_DOMAIN); ?></label><br/><br/>
+            <strong><?php _e('Encoding', LIKEBTN_I18N_DOMAIN); ?>:</strong> 
+            <select name="encoding">
+                <option value="UCS-2LE">UTF-16LE (UCS-2LE) - <?php _e('Recommended'); ?></option>
+                <option value="UTF-8">UTF-8</option>
+                <option value="Windows-1251">ANSI (Windows-1251)</option>
+                <option value="Windows-1252">ANSI (Windows-1252)</option>
+            </select>
+            <br/><br/>
+            <strong><?php _e('Field Separator', LIKEBTN_I18N_DOMAIN); ?>:</strong> 
+            <select name="separator">
+                <option value="TAB">Tab (\t) - <?php _e('Recommended'); ?></option>
+                <option value=",">Comma (,)</option>
+                <option value=";">Semicolon (;)</option>
+                <option value="|">Pipe (|)</option>
+                <option value="&">Ampersand (&)</option>
+            </select>
+            <br/><br/>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <div class="ui-dialog-buttonset">
+                    <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only button-primary likebtn-button-close" role="button"><span class="ui-button-text"><?php _e('Export', LIKEBTN_I18N_DOMAIN); ?></span></button>
+                    <button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only button-secondary likebtn-button-close" role="button"><span class="ui-button-text"><?php _e('Close', LIKEBTN_I18N_DOMAIN); ?></span></button>
+                </div>
+            </div>
+        </form>
+    </div>
 
     <?php
 

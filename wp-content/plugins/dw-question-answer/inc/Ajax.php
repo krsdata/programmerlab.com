@@ -26,15 +26,15 @@ class DWQA_Ajax {
 
 	public function delete_comment() {
 		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( $_GET['_wpnonce'] ), '_dwqa_delete_comment' ) ) {
-			wp_die( __( 'Are you cheating huh?', 'dwqa' ) );
+			wp_die( __( 'Are you cheating huh?', 'dw-question-answer' ) );
 		}
 
 		if ( !dwqa_current_user_can( 'delete_comment' ) ) {
-			wp_die( __( 'You do not have permission to edit comment.', 'dwqa' ) );
+			wp_die( __( 'You do not have permission to edit comment.', 'dw-question-answer' ) );
 		}
 
 		if ( ! isset( $_GET['comment_id'] ) ) {
-			wp_die( __( 'Comment ID must be showed.', 'dwqa' ) );
+			wp_die( __( 'Comment ID must be showed.', 'dw-question-answer' ) );
 		}
 
 		wp_delete_comment( intval( $_GET['comment_id'] ) );
@@ -43,47 +43,53 @@ class DWQA_Ajax {
 	}
 
 	function delete_answer() {
-		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], '_dwqa_action_remove_answer_nonce' ) || 'dwqa_delete_answer' !== sanitize_text_field( $_GET['action'] ) ) {
-			wp_die( __( 'Are you cheating huh?', 'dwqa' ) );
+		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( $_GET['_wpnonce'] ), '_dwqa_action_remove_answer_nonce' ) || 'dwqa_delete_answer' !== $_GET['action'] ) {
+			wp_die( __( 'Are you cheating huh?', 'dw-question-answer' ) );
 		}
 
 		if ( ! isset( $_GET['answer_id'] ) ) {
-			wp_die( __( 'Answer is missing.', 'dwqa' ), 'error' );
+			wp_die( __( 'Answer is missing.', 'dw-question-answer' ), 'error' );
 		}
 
-		if ( 'dwqa-answer' !== get_post_type( intval( $_GET['answer_id'] ) ) ) {
-			wp_die( __( 'This post is not answer.', 'dwqa' ) );
+		$answer_id = absint( $_GET['answer_id'] );
+
+		if ( 'dwqa-answer' !== get_post_type( $answer_id ) ) {
+			wp_die( __( 'This post is not answer.', 'dw-question-answer' ) );
 		}
 
-		if ( !dwqa_current_user_can( 'delete_answer' ) ) {
-			wp_die( __( 'You do not have permission to delete this post.', 'dwqa' ) );
+		if ( !dwqa_current_user_can( 'delete_answer', $answer_id ) && !dwqa_current_user_can( 'edit_posts' ) ) {
+			wp_die( __( 'You do not have permission to delete this post.', 'dw-question-answer' ) );
 		}
 
-		do_action( 'dwqa_prepare_delete_answer', intval( $_GET['answer_id'] ) );
+		do_action( 'dwqa_prepare_delete_answer', $answer_id );
 
-		$question_id = get_post_meta( intval( $_GET['answer_id'] ), '_question', true );
+		$question_id = dwqa_get_post_parent_id( $answer_id );
 		
-		$id = wp_delete_post( intval( $_GET['answer_id'] ) );
+		$id = wp_trash_post( $answer_id );
 
 		if ( is_wp_error( $id ) ) {
 			wp_die( $id->get_error_message() );
 		}
 
 		$answer_count = get_post_meta( $question_id, '_dwqa_answers_count', true );
-		update_post_meta( $question_id, '_dwqa_answers_count', (int) $answer_count - 1 );
+		$new_answer_count = (int) $answer_count - 1;
+		if ( (int) $new_answer_count < 0 ) {
+			$new_answer_count = intval( 0 );
+		}
+		update_post_meta( $question_id, '_dwqa_answers_count', $new_answer_count );
 
-		do_action( 'dwqa_delete_answer', intval( $_GET['answer_id'] ), $question_id );
+		do_action( 'dwqa_delete_answer', $answer_id, $question_id );
 
 		wp_redirect( get_permalink( $question_id ) );
-		exit();
+		die();
 	}
 
 	public function flag_answer() {
 		if ( ! isset( $_POST['wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( $_POST['wpnonce'] ), '_dwqa_action_flag_answer_nonce' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Are you cheating huh?', 'dwqa' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Are you cheating huh?', 'dw-question-answer' ) ) );
 		}
 		if ( ! isset( $_POST['answer_id'] ) ) {
-			wp_send_json_error( array( 'message' => __( 'Missing id of answer', 'dwqa' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Missing id of answer', 'dw-question-answer' ) ) );
 		}
 		global $current_user;
 		$answer_id = intval( $_POST['answer_id'] );
@@ -110,56 +116,60 @@ class DWQA_Ajax {
 	public function vote_best_answer() {
 		global $current_user;
 		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], '_dwqa_vote_best_answer' ) ) {
-			wp_die( __( 'Are you cheating huh?', 'dwqa' ) );
+			wp_die( __( 'Are you cheating huh?', 'dw-question-answer' ) );
 		}
 		if ( ! isset( $_GET['answer'] ) ) {
 			exit( 0 );
 		}
 		$answer_id = intval( $_GET['answer'] );
-		$q = get_post_meta( $answer_id, '_question', true );
-		$question = get_post( $q );
+
+		$question_id = dwqa_get_post_parent_id( $answer_id );
+		$question = get_post( $question_id );
+
 		if ( $current_user->ID == $question->post_author || current_user_can( 'edit_posts' ) ) {
 			do_action( 'dwqa_vote_best_answer', $answer_id );
-			update_post_meta( $q, '_dwqa_best_answer', $answer_id );
+			update_post_meta( $question_id, '_dwqa_best_answer', $answer_id );
 		}
 
-		wp_safe_redirect( get_permalink( $q ) );
+		wp_redirect( get_permalink( $question_id ) );
+		exit;
 	}
 
 	public function unvote_best_answer() {
 		global $current_user;
 		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], '_dwqa_vote_best_answer' ) ) {
-			wp_die( __( 'Are you cheating huh?', 'dwqa' ) );
+			wp_die( __( 'Are you cheating huh?', 'dw-question-answer' ) );
 		}
 		if ( ! isset( $_GET['answer'] ) ) {
 			exit( 0 );
 		}
 		$answer_id = intval( $_GET['answer'] );
-		$q = get_post_meta( $answer_id, '_question', true );
-		$question = get_post( $q );
+		$question_id = dwqa_get_post_parent_id( $answer_id );
+		$question = get_post( $question_id );
 		if ( $current_user->ID == $question->post_author || current_user_can( 'edit_posts' ) ) {
 			do_action( 'dwqa_unvote_best_answer', $answer_id );
-			delete_post_meta( $q, '_dwqa_best_answer' );
+			delete_post_meta( $question_id, '_dwqa_best_answer' );
 		}
-		wp_safe_redirect( get_permalink( $q ) );
+		wp_redirect( get_permalink( $question_id ) );
+		exit;
 	}
 
 	public function delete_question() {
 		global $dwqa_general_settings;
 		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( $_GET['_wpnonce'] ), '_dwqa_action_remove_question_nonce' ) || 'dwqa_delete_question' !== $_GET['action'] ) {
-			wp_die( __( 'Are you cheating huh?', 'dwqa' ) );
+			wp_die( __( 'Are you cheating huh?', 'dw-question-answer' ) );
 		}
 
 		if ( ! isset( $_GET['question_id'] ) ) {
-			wp_die( __( 'Question is missing.', 'dwqa' ), 'error' );
+			wp_die( __( 'Question is missing.', 'dw-question-answer' ), 'error' );
 		}
 
 		if ( 'dwqa-question' !== get_post_type( intval( $_GET['question_id'] ) ) ) {
-			wp_die( __( 'This post is not question.', 'dwqa' ) );
+			wp_die( __( 'This post is not question.', 'dw-question-answer' ) );
 		}
 
 		if ( !dwqa_current_user_can( 'delete_answer' ) ) {
-			wp_die( __( 'You do not have permission to delete this post.', 'dwqa' ) );
+			wp_die( __( 'You do not have permission to delete this post.', 'dw-question-answer' ) );
 		}
 
 		do_action( 'before_delete_post', intval( $_GET['question_id'] ) );
@@ -203,7 +213,7 @@ class DWQA_Ajax {
 			}
 		} else {
 			wp_send_json_error( array(
-				'message'   => __( 'You do not have permission to edit question status', 'dwqa' )
+				'message'   => __( 'You do not have permission to edit question status', 'dw-question-answer' )
 			) );
 		}
 	}
@@ -212,7 +222,7 @@ class DWQA_Ajax {
 		if ( ! isset( $_POST['nonce'])  ) {
 			wp_send_json_error( array( array( 
 				'error' => 'sercurity',
-				'message' => __( 'Are you cheating huh?', 'dwqa' ) 
+				'message' => __( 'Are you cheating huh?', 'dw-question-answer' ) 
 			) ) );
 		}
 		check_ajax_referer( '_dwqa_filter_nonce', 'nonce' );
@@ -220,7 +230,7 @@ class DWQA_Ajax {
 		if ( ! isset( $_POST['title'] ) ) {
 			wp_send_json_error( array( array( 
 				'error' => 'empty title',
-				'message' => __( 'Not Found!!!', 'dwqa' ), 
+				'message' => __( 'Not Found!!!', 'dw-question-answer' ), 
 			) ) );
 		}
 
@@ -270,7 +280,7 @@ class DWQA_Ajax {
 			wp_send_json_success( $results );
 		} else {
 			wp_reset_query();
-			wp_send_json_error( array( array( 'error' => 'not found', 'message' => __( 'Not Found!!!', 'dwqa' ) ) ) );
+			wp_send_json_error( array( array( 'error' => 'not found', 'message' => __( 'Not Found!!!', 'dw-question-answer' ) ) ) );
 		}
 	}
 

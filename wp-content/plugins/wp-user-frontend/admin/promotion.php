@@ -7,7 +7,9 @@ class WPUF_Admin_Promotion {
 
     public function __construct() {
         add_action( 'admin_notices', array( $this, 'promotional_offer' ) );
+        add_action( 'admin_notices' , array( $this, 'wpuf_review_notice_message' ) );
         add_action( 'wp_ajax_wpuf-dismiss-promotional-offer-notice', array( $this, 'dismiss_promotional_offer' ) );
+        add_action( 'wp_ajax_wpuf-dismiss-review-notice', array( $this, 'dismiss_review_notice' ) );
     }
 
     /**
@@ -23,8 +25,8 @@ class WPUF_Admin_Promotion {
             return;
         }
 
-        // 2017-03-22 23:59:00
-        if ( time() > 1490227140 ) {
+        // 2018-03-26 23:59:00
+        if ( time() > 1543276740 ) {
             return;
         }
 
@@ -35,10 +37,16 @@ class WPUF_Admin_Promotion {
             return;
         }
 
-        $product_text = ( ! wpuf()->is_pro() ) ? __( 'Pro upgrade and all extensions, ', 'wpuf' ) : __( 'all extensions, ', 'wpuf' );
+        // $product_text = (  wpuf()->is_pro() ) ? __( 'Pro upgrade and all extensions, ', 'wpuf' ) : __( 'all extensions, ', 'wpuf' );
 
-        $offer_msg  = __( '<h2><span class="dashicons dashicons-awards"></span> weDevs 4th Year Anniversary Offer</h2>', 'erp' );
-        $offer_msg .= sprintf( __( '<p>Get <strong class="highlight-text">44&#37; discount</strong> on %2$s also <a target="_blank" href="%1$s"><strong>WIN any product</strong></a> from our 4th year anniversary giveaway. Offer ending soon!</p>', 'wpuf' ), 'https://wedevs.com/in/4years/?utm_source=freeplugin&utm_medium=prompt&utm_term=wpuf_plugin&utm_content=textlink&utm_campaign=wedevs_4_years', $product_text );
+        // $offer_msg  = __( '<h2><span class="dashicons dashicons-awards"></span> weDevs 5th Birthday Offer</h2>', 'wpuf' );
+        $offer_msg = __( '<p>
+                                        <strong class="highlight-text" style="font-size: 18px">33&#37; flat discount on all our products</strong><br>
+                                        Save money this holiday season while supercharging your WordPress site with plugins that were made to empower you.
+                                        <br>
+                                        Offer ending soon!
+                                    </p>', 'wp-user-frontend' );
+
         ?>
             <div class="notice is-dismissible" id="wpuf-promotional-offer-notice">
                 <table>
@@ -55,11 +63,13 @@ class WPUF_Admin_Promotion {
                 </table>
 
                 <span class="dashicons dashicons-megaphone"></span>
+                <a href="https://wedevs.com/coupons/?utm_campaign=black_friday_cyber_monday&utm_medium=banner&utm_source=inside_plugin" class="button button-primary promo-btn" target="_blank"><?php _e( 'Get the Offer', 'wp-user-frontend' ); ?></a>
             </div><!-- #wpuf-promotional-offer-notice -->
 
             <style>
                 #wpuf-promotional-offer-notice {
-                    background-color: #4caf50;
+                    background-image: url("<?php echo WPUF_ASSET_URI . '/images/promotional-offer/bg.png' ?>");
+                    background-size: cover;
                     border: 0px;
                     padding: 0;
                     opacity: 0;
@@ -137,10 +147,27 @@ class WPUF_Admin_Promotion {
                 #wpuf-promotional-offer-notice span.dashicons-megaphone {
                     position: absolute;
                     bottom: 46px;
-                    right: 119px;
+                    right: 248px;
                     color: rgba(253, 253, 253, 0.29);
                     font-size: 96px;
                     transform: rotate(-21deg);
+                }
+
+                #wpuf-promotional-offer-notice a.promo-btn{
+                    background: #fff;
+                    border-color: #fafafa #fafafa #fafafa;
+                    box-shadow: 0 1px 0 #fafafa;
+                    color: #4caf4f;
+                    text-decoration: none;
+                    text-shadow: none;
+                    position: absolute;
+                    top: 30px;
+                    right: 26px;
+                    height: 40px;
+                    line-height: 40px;
+                    width: 130px;
+                    text-align: center;
+                    font-weight: 600;
                 }
 
             </style>
@@ -157,6 +184,130 @@ class WPUF_Admin_Promotion {
         <?php
     }
 
+    /**
+     *
+     * @since 3.1.0
+     *
+     * @return void
+     **/
+    public function wpuf_review_notice_message() {
+        // Show only to Admins
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
+        $dismiss_notice  = get_option( 'wpuf_review_notice_dismiss', 'no' );
+        $activation_time = get_option( 'wpuf_installed' );
+
+        // check if it has already been dismissed
+        // and don't show notice in 15 days of installation, 1296000 = 15 Days in seconds
+        if ( 'yes' == $dismiss_notice ) {
+            return;
+        }
+
+        if ( time() - $activation_time < 1296000 ) {
+            return;
+        }
+
+        ?>
+            <div id="wpuf-review-notice" class="wpuf-review-notice">
+                <div class="wpuf-review-thumbnail">
+                    <img src="<?php echo WPUF_ASSET_URI . '/images/icon-128x128.png' ?>" alt="">
+                </div>
+                <div class="wpuf-review-text">
+                        <h3><?php _e( 'Enjoying <strong>WP User Frontend</strong>?', 'wp-user-frontend' ) ?></h3>
+                        <p><?php _e( 'Hope that you had a neat and snappy experience with the tool. Would you please show us a little love by rating us in the <a href="https://wordpress.org/support/plugin/wp-user-frontend/reviews/#new-post" target="_blank"><strong>WordPress.org</strong></a>?', 'wp-user-frontend' ) ?></p>
+
+                    <ul class="wpuf-review-ul">
+                        <li><a href="https://wordpress.org/support/plugin/wp-user-frontend/reviews/#new-post" target="_blank"><span class="dashicons dashicons-external"></span><?php _e( 'Sure! I\'d love to!', 'wp-user-frontend' ) ?></a></li>
+                        <li><a href="#" class="notice-dismiss"><span class="dashicons dashicons-smiley"></span><?php _e( 'I\'ve already left a review', 'wp-user-frontend' ) ?></a></li>
+                        <li><a href="#" class="notice-dismiss"><span class="dashicons dashicons-dismiss"></span><?php _e( 'Never show again', 'wp-user-frontend' ) ?></a></li>
+                     </ul>
+                </div>
+            </div>
+            <style type="text/css">
+                #wpuf-review-notice .notice-dismiss{
+                    padding: 0 0 0 26px;
+                }
+
+                #wpuf-review-notice .notice-dismiss:before{
+                    display: none;
+                }
+
+                #wpuf-review-notice.wpuf-review-notice {
+                    padding: 15px 15px 15px 0;
+                    background-color: #fff;
+                    border-radius: 3px;
+                    margin: 20px 20px 0 0;
+                    border-left: 4px solid transparent;
+                }
+
+                #wpuf-review-notice .wpuf-review-thumbnail {
+                    width: 114px;
+                    float: left;
+                    line-height: 80px;
+                    text-align: center;
+                    border-right: 4px solid transparent;
+                }
+
+                #wpuf-review-notice .wpuf-review-thumbnail img {
+                    width: 60px;
+                    vertical-align: middle;
+                }
+
+                #wpuf-review-notice .wpuf-review-text {
+                    overflow: hidden;
+                }
+
+                #wpuf-review-notice .wpuf-review-text h3 {
+                    font-size: 24px;
+                    margin: 0 0 5px;
+                    font-weight: 400;
+                    line-height: 1.3;
+                }
+
+                #wpuf-review-notice .wpuf-review-text p {
+                    font-size: 13px;
+                    margin: 0 0 5px;
+                }
+
+                #wpuf-review-notice .wpuf-review-ul {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                #wpuf-review-notice .wpuf-review-ul li {
+                    display: inline-block;
+                    margin-right: 15px;
+                }
+
+                #wpuf-review-notice .wpuf-review-ul li a {
+                    display: inline-block;
+                    color: #82C776;
+                    text-decoration: none;
+                    padding-left: 26px;
+                    position: relative;
+                }
+
+                #wpuf-review-notice .wpuf-review-ul li a span {
+                    position: absolute;
+                    left: 0;
+                    top: -2px;
+                }
+            </style>
+            <script type='text/javascript'>
+                jQuery('body').on('click', '#wpuf-review-notice .notice-dismiss', function(e) {
+                    e.preventDefault();
+                    jQuery("#wpuf-review-notice").hide();
+
+                    wp.ajax.post('wpuf-dismiss-review-notice', {
+                        dismissed: true
+                    });
+                });
+            </script>
+        <?php
+
+    }
 
    /**
     * Dismiss promotion notice
@@ -169,6 +320,19 @@ class WPUF_Admin_Promotion {
         if ( ! empty( $_POST['dismissed'] ) ) {
             $offer_key = 'wpuf_promotional_offer_notice';
             update_option( $offer_key, 'hide' );
+        }
+    }
+
+    /**
+    * Dismiss review notice
+    *
+    * @since  3.1.0
+    *
+    * @return void
+    **/
+   public function dismiss_review_notice() {
+        if ( ! empty( $_POST['dismissed'] ) ) {
+            update_option( 'wpuf_review_notice_dismiss', 'yes' );
         }
     }
 }

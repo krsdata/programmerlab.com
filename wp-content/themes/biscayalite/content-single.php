@@ -9,6 +9,9 @@
 	<div class="headerdivider"></div>
 
 	<div class="entry-content">
+        <?php if ( has_post_thumbnail() ) { ?>
+           <p class="featimage"><?php the_post_thumbnail(); ?></p>
+        <?php } ?>
 		<?php the_content(); ?>
 		<?php
 			wp_link_pages( array(
@@ -38,7 +41,6 @@
 
 
 	<footer class="entry-meta">
-		<div class="tagcloud"><?php echo get_the_tag_list(' ',' ','');?></div>
-		<?php edit_post_link( __( 'Edit this post', 'biscayalite' ), '<span class="clearfix edit-link">', '</span>' ); ?>
+		<div class="tagcloud"><?php echo get_the_tag_list(' ',' ','');?></div>		
 	</footer><!-- .entry-meta -->
 </article><!-- #post-## -->

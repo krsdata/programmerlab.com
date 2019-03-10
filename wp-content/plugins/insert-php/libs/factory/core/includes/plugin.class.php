@@ -14,76 +14,23 @@
 		exit;
 	}
 	
-	if( !class_exists('Wbcr_Factory404_Plugin') ) {
+	if( !class_exists('Wbcr_Factory410_Plugin') ) {
 		
-		abstract class Wbcr_Factory404_Plugin extends Wbcr_Factory404_Base {
-
-			/**
-			 * Is a current page one of the admin pages?
-			 *
-			 * @since 1.0.0
-			 * @var bool
-			 */
-			public $is_admin;
+		abstract class Wbcr_Factory410_Plugin extends Wbcr_Factory410_Base {
 
 			/**
 			 * The Bootstrap Manager class.n.
 			 *
-			 * @var Wbcr_FactoryBootstrap404_Manager
+			 * @var Wbcr_FactoryBootstrap410_Manager
 			 */
 			public $bootstrap;
 
 			/**
 			 * The Bootstrap Manager class.n.
 			 *
-			 * @var Wbcr_FactoryForms405_Manager
+			 * @var Wbcr_FactoryForms411_Manager
 			 */
 			public $forms;
-
-			/**
-			 * @var string
-			 */
-			protected $plugin_title;
-
-			/**
-			 * @var string
-			 */
-			protected $plugin_name;
-
-			/**
-			 * @var string
-			 */
-			protected $plugin_version;
-
-			/**
-			 * @var string
-			 */
-			protected $plugin_build;
-
-			/**
-			 * @var string
-			 */
-			protected $plugin_assembly;
-
-			/**
-			 * @var string
-			 */
-			protected $main_file;
-
-			/**
-			 * @var string
-			 */
-			protected $plugin_root;
-
-			/**
-			 * @var string
-			 */
-			protected $relative_path;
-
-			/**
-			 * @var string
-			 */
-			protected $plugin_url;
 
 			/**
 			 * A class name of an activator to activate the plugin.
@@ -93,12 +40,16 @@
 			protected $activator_class = array();
 
 			/**
+			 * Путь к директории миграций. В этой директории хранятся миграции для разных версий плагина.
+			 * По умолчанию plugin_dir/updates
 			 * @var string
 			 */
 			protected $updates;
 
 			/**
-			 * @var array[] Wbcr_Factory404_Plugin
+			 * Подключенные компоненнты плагина
+			 *
+			 * @var array[] Wbcr_Factory410_Plugin
 			 */
 			private $plugin_addons;
 
@@ -121,28 +72,9 @@
 
 				parent::__construct($plugin_path, $data);
 
-				foreach((array)$data as $option_name => $option_value) {
-					if( !isset($this->$option_name) ) {
-						$this->$option_name = $option_value;
-					}
+				if( empty($this->updates) && file_exists($this->plugin_root . '/updates') ) {
+					$this->updates = $this->plugin_root . '/updates';
 				}
-
-				$this->is_admin = is_admin();
-				
-				if( empty($this->prefix) || empty($this->plugin_title) || empty($this->plugin_version) || empty($this->plugin_build) ) {
-					throw new Exception('One of the required attributes has not been passed (prefix,plugin_title,plugin_name,plugin_version,plugin_build).');
-				}
-
-				// saves plugin basic paramaters
-				$this->main_file = $plugin_path;
-				$this->plugin_root = dirname($plugin_path);
-				$this->relative_path = plugin_basename($plugin_path);
-				$this->plugin_url = plugins_url(null, $plugin_path);
-				
-				// used only in the module 'updates'
-				$this->plugin_slug = !empty($this->plugin_name)
-					? $this->plugin_name
-					: basename($plugin_path);
 
 				// init actions
 				$this->setupActions();
@@ -219,27 +151,89 @@
 			}
 
 			/**
-			 * @param Wbcr_FactoryBootstrap404_Manager $bootstrap
+			 * @param $attr_name
+			 * @return null
 			 */
-			public function setBootstap(Wbcr_FactoryBootstrap404_Manager $bootstrap)
+			public function getPluginInfoAttr($attr_name)
+			{
+				if( isset($this->plugin_data[$attr_name]) ) {
+					return $this->plugin_data[$attr_name];
+				}
+
+				return null;
+			}
+
+			/**
+			 * @return object
+			 */
+			public function getPluginInfo()
+			{
+				return (object)$this->plugin_data;
+			}
+
+			/**
+			 * Возвращает ссылку на внутреннюю страницу плагина
+			 *
+			 * @param string $page_id
+			 * @sicne: 4.0.8
+			 * @return string|void
+			 */
+			public function getPluginPageUrl($page_id, $args = array())
+			{
+				if( !class_exists('Wbcr_FactoryPages411') ) {
+					throw new Exception('The factory_pages_411 module is not included.');
+				}
+
+				if( !is_admin() ) {
+					_doing_it_wrong(__METHOD__, __('You cannot use this feature on the frontend.'), '4.0.8');
+
+					return null;
+				}
+
+				return Wbcr_FactoryPages411::getPageUrl($this, $page_id, $args);
+			}
+
+			/**
+			 * @param Wbcr_FactoryBootstrap410_Manager $bootstrap
+			 */
+			public function setBootstap(Wbcr_FactoryBootstrap410_Manager $bootstrap)
 			{
 				$this->bootstrap = $bootstrap;
 			}
 
 			/**
-			 * @param Wbcr_FactoryForms405_Manager $forms
+			 * @param Wbcr_FactoryForms411_Manager $forms
 			 */
-			public function setForms(Wbcr_FactoryForms405_Manager $forms)
+			public function setForms(Wbcr_FactoryForms411_Manager $forms)
 			{
 				$this->forms = $forms;
 			}
 
 			/**
-			 * @param string $class_name
-			 * @param string $path
+			 * Устанавливает текстовый домен для плагина
+			 */
+			public function setTextDomain($domain, $plugin_dir)
+			{
+				$locale = apply_filters('plugin_locale', is_admin() ? get_user_locale() : get_locale(), $domain);
+
+				$mofile = $domain . '-' . $locale . '.mo';
+
+				if( !load_textdomain($domain, $plugin_dir . '/languages/' . $mofile) ) {
+					load_muplugin_textdomain($domain);
+				}
+			}
+
+			/**
+			 * @param $class_name
+			 * @param $file_path
+			 *
+			 * @throws Exception
 			 */
 			public function registerPage($class_name, $file_path)
 			{
+				/*if( $this->isNetworkActive() && !is_network_admin() ) {
+					return;
+				}*/
 
 				if( !file_exists($file_path) ) {
 					throw new Exception('The page file was not found by the path {' . $file_path . '} you set.');
@@ -251,11 +245,11 @@
 					throw new Exception('A class with this name {' . $class_name . '} does not exist.');
 				}
 
-				if( !class_exists('Wbcr_FactoryPages405') ) {
-					throw new Exception('The factory_pages_405 module is not included.');
+				if( !class_exists('Wbcr_FactoryPages411') ) {
+					throw new Exception('The factory_pages_411 module is not included.');
 				}
 
-				Wbcr_FactoryPages405::register($this, $class_name);
+				Wbcr_FactoryPages411::register($this, $class_name);
 			}
 
 			/**
@@ -275,11 +269,11 @@
 					throw new Exception('A class with this name {' . $class_name . '} does not exist.');
 				}
 
-				if( !class_exists('Wbcr_FactoryTypes404') ) {
-					throw new Exception('The factory_types_404 module is not included.');
+				if( !class_exists('Wbcr_FactoryTypes405') ) {
+					throw new Exception('The factory_types_405 module is not included.');
 				}
 
-				Wbcr_FactoryTypes404::register($class_name, $this);
+				Wbcr_FactoryTypes405::register($class_name, $this);
 			}
 
 			/**
@@ -295,7 +289,7 @@
 					$this->loadModule($module);
 				}
 				
-				do_action('wbcr_factory_404_core_modules_loaded-' . $this->plugin_name);
+				do_action('wbcr_factory_410_core_modules_loaded-' . $this->plugin_name);
 			}
 
 			/**
@@ -319,7 +313,7 @@
 
 						// При подключении аддона, мы объявляем константу, что такой аддон уже загружен
 						// $addon_name индентификатор аддона в вверхнем регистре
-						$const_name = strtoupper('LOADING_' . $addon_name . '_AS_ADDON');
+						$const_name = strtoupper('LOADING_' . str_replace('-', '_', $addon_name) . '_AS_ADDON');
 
 						if( !defined($const_name) ) {
 							define($const_name, true);
@@ -338,7 +332,9 @@
 						$plugin_data['plugin_parent'] = $this;
 
 						// Создаем экземпляр класса аддона и записываем его в список загруженных аддонов
-						$this->plugin_addons[$addon_name] = new $addon_path[0]($this->main_file, $plugin_data);
+						if( class_exists($addon_path[0]) ) {
+							$this->plugin_addons[$addon_name] = new $addon_path[0]($this->main_file, $plugin_data);
+						}
 					}
 				}
 			}
@@ -348,7 +344,7 @@
 			 *
 			 * @since 3.2.0
 			 * @param array $module - массив с информацией о загружаемом модуле,
-			 * пример array('libs/factory/bootstrap', 'factory_bootstrap_404', 'admin'),
+			 * пример array('libs/factory/bootstrap', 'factory_bootstrap_410', 'admin'),
 			 * $module[0] - относительный путь к директории модуля
 			 * $module[1] - идентификатор модуля с префиксом 000
 			 * $module[2] - область применения,
@@ -359,9 +355,7 @@
 			 */
 			protected function loadModule($module)
 			{
-				$scope = isset($module[2])
-					? $module[2]
-					: 'all';
+				$scope = isset($module[2]) ? $module[2] : 'all';
 				
 				if( $scope == 'all' || (is_admin() && $scope == 'admin') || (!is_admin() && $scope == 'public') ) {
 
@@ -395,12 +389,8 @@
 			{
 				add_action('init', array($this, 'checkPluginVersioninDatabase'));
 
-				if( $this->is_admin ) {
-					add_action('admin_init', array($this, 'customizePluginRow'), 20);
-					/*add_action('wbcr_factory_404_core_modules_loaded-' . $this->plugin_name, array(
-						$this,
-						'modulesLoaded'
-					));*/
+				if( is_admin() ) {
+					add_filter('wbcr_factory_410_core_admin_allow_multisite', '__return_true');
 				}
 			}
 			
@@ -417,7 +407,7 @@
 			{
 
 				// checks whether the plugin needs to run updates.
-				if( $this->is_admin ) {
+				if( is_admin() ) {
 					$plugin_version = $this->getPluginVersionFromDatabase();
 
 					if( $plugin_version != $this->plugin_build . '-' . $this->plugin_version ) {
@@ -432,12 +422,16 @@
 			 * @since 1.0.0
 			 * @return string|null The plugin version registered in the database.
 			 */
+			//todo: изменить название опции, проверять версию плагинов для компонентов
 			public function getPluginVersionFromDatabase()
 			{
-				$plugin_versions = get_option('factory_plugin_versions', array());
-				$plugin_version = isset ($plugin_versions[$this->plugin_name])
-					? $plugin_versions[$this->plugin_name]
-					: null;
+				if( $this->isNetworkActive() ) {
+					$plugin_versions = get_site_option('factory_plugin_versions', array());
+				} else {
+					$plugin_versions = get_option('factory_plugin_versions', array());
+				}
+
+				$plugin_version = isset($plugin_versions[$this->plugin_name]) ? $plugin_versions[$this->plugin_name] : null;
 
 				return $plugin_version;
 			}
@@ -448,27 +442,25 @@
 			 * @since 1.0.0
 			 * @return void
 			 */
+
+			//todo: изменить название опции, проверять версию плагинов для компонентов
 			public function updatePluginVersionInDatabase()
 			{
-				$plugin_versions = get_option('factory_plugin_versions', array());
+				if( $this->isNetworkActive() ) {
+					$plugin_versions = get_site_option('factory_plugin_versions', array());
+				} else {
+					$plugin_versions = get_option('factory_plugin_versions', array());
+				}
+
 				$plugin_versions[$this->plugin_name] = $this->plugin_build . '-' . $this->plugin_version;
-				update_option('factory_plugin_versions', $plugin_versions);
+
+				if( $this->isNetworkActive() ) {
+					update_site_option('factory_plugin_versions', $plugin_versions);
+				} else {
+					update_option('factory_plugin_versions', $plugin_versions);
+				}
 			}
-			
-			/**
-			 * Customize the plugin row (on the page plugins.php).
-			 *
-			 * Calls on the hook "admin_init".
-			 *
-			 * @since 1.0.0
-			 * @return void
-			 */
-			public function customizePluginRow()
-			{
-				remove_action("after_plugin_row_" . $this->relative_path, 'wp_plugin_update_row');
-				add_action("after_plugin_row_" . $this->relative_path, array($this, 'showCustomPluginRow'), 10, 2);
-			}
-			
+
 			public function activate()
 			{
 				$this->forceActivationHook();
@@ -501,7 +493,7 @@
 			{
 				
 				$db_version = $this->getPluginVersionFromDatabase();
-				do_action('wbcr_factory_404_plugin_activation_or_update_' . $this->plugin_name, $force_activation, $db_version, $this);
+				do_action('wbcr_factory_410_plugin_activation_or_update_' . $this->plugin_name, $force_activation, $db_version, $this);
 				
 				// there are not any previous version of the plugin in the past
 				if( !$db_version ) {
@@ -550,7 +542,7 @@
 			 */
 			public function activationHook()
 			{
-				$cancelled = apply_filters('wbcr_factory_404_cancel_plugin_activation_' . $this->plugin_name, false);
+				$cancelled = apply_filters('wbcr_factory_410_cancel_plugin_activation_' . $this->plugin_name, false);
 
 				if( $cancelled ) {
 					return;
@@ -563,14 +555,14 @@
 					}
 				}
 				
-				do_action('wbcr_factory_404_plugin_activation', $this);
-				do_action('wbcr_factory_404_plugin_activation_' . $this->plugin_name, $this);
-				
+				do_action('wbcr_factory_410_plugin_activation', $this);
+				do_action('wbcr_factory_410_plugin_activation_' . $this->plugin_name, $this);
+
 				// just time to know when the plugin was activated the first time
-				$activated = $this->getOption('factory_404_plugin_activated_' . $this->plugin_name, 0);
-				
+				$activated = $this->getPopulateOption('plugin_activated', 0);
+
 				if( !$activated ) {
-					$this->updateOption('factory_404_plugin_activated_' . $this->plugin_name, time());
+					$this->updatePopulateOption('plugin_activated', time());
 				}
 			}
 			
@@ -582,14 +574,14 @@
 			 */
 			public function deactivationHook()
 			{
-				$cancelled = apply_filters('wbcr_factory_404_cancel_plugin_deactivation_' . $this->plugin_name, false);
+				$cancelled = apply_filters('wbcr_factory_410_cancel_plugin_deactivation_' . $this->plugin_name, false);
 				
 				if( $cancelled ) {
 					return;
 				}
 				
-				do_action('wbcr_factory_404_plugin_deactivation', $this);
-				do_action('wbcr_factory_404_plugin_deactivation_' . $this->plugin_name, $this);
+				do_action('wbcr_factory_410_plugin_deactivation', $this);
+				do_action('wbcr_factory_410_plugin_deactivation_' . $this->plugin_name, $this);
 				
 				if( !empty($this->activator_class) ) {
 					foreach((array)$this->activator_class as $activator_class) {
@@ -632,7 +624,6 @@
 			 */
 			public function updateHook($old, $new)
 			{
-				
 				// converts versions like 0.0.0 to 000000
 				$old_number = $this->getVersionNumber($old);
 				$new_number = $this->getVersionNumber($new);
@@ -651,8 +642,8 @@
 					}
 					
 					$item_number = intval($item['name']);
+
 					if( $item_number > $old_number && $item_number <= $new_number ) {
-						
 						$classes = $this->getClasses($item['path']);
 						if( count($classes) == 0 ) {
 							return;
@@ -666,13 +657,6 @@
 							$update->install();
 						}
 					}
-				}
-				
-				// just time to know when the plugin was activated the first time
-				$activated = $this->getOption('factory_404_plugin_activated_' . $this->plugin_name, 0);
-
-				if( !$activated ) {
-					$this->updateOption('factory_404_plugin_activated_' . $this->plugin_name, time());
 				}
 			}
 			
@@ -691,65 +675,13 @@
 				}
 				
 				$number = '';
-				$number .= (strlen($matches[1]) == 1)
-					? '0' . $matches[1]
-					: $matches[1];
-				$number .= (strlen($matches[2]) == 1)
-					? '0' . $matches[2]
-					: $matches[2];
-				$number .= (strlen($matches[3]) == 1)
-					? '0' . $matches[3]
-					: $matches[3];
+				$number .= (strlen($matches[1]) == 1) ? '0' . $matches[1] : $matches[1];
+				$number .= (strlen($matches[2]) == 1) ? '0' . $matches[2] : $matches[2];
+				$number .= (strlen($matches[3]) == 1) ? '0' . $matches[3] : $matches[3];
 				
 				return intval($number);
 			}
-			
-			/**
-			 * Forces modules.
-			 *
-			 * @since 1.0.0
-			 * @return void
-			 */
-			//public function modulesLoaded()
-			//{
-			// factory_core_000_modules_loaded( $this );
-			//}
 
-			// ----------------------------------------------------------------------
-			// Plugin row on plugins.php page
-			// ----------------------------------------------------------------------
-			
-			public function showCustomPluginRow($file, $plugin_data)
-			{
-				if( !is_network_admin() && is_multisite() ) {
-					return;
-				}
-				
-				$messages = apply_filters('wbcr_factory_404_plugin_row_' . $this->plugin_name, array(), $file, $plugin_data);
-				
-				// if nothign to show then, use default handle
-				/*if( count($messages) == 0 ) {
-					wp_plugin_update_row($file, $plugin_data);
-
-					return;
-				}*/
-				
-				if( empty($messages) ) {
-					return;
-				}
-				
-				$wp_list_table = _get_list_table('WP_Plugins_List_Table');
-				
-				foreach($messages as $message) {
-					echo '<tr class="plugin-update-tr active">';
-					echo '<td colspan="' . $wp_list_table->get_column_count() . '" class="plugin-update colspanchange">';
-					echo '<div class="update-message notice inline notice-error notice-alt">';
-					echo '<p>' . $message . '</p>';
-					echo '</div>';
-					echo '</td></tr>';
-				}
-			}
-			
 			// ----------------------------------------------------------------------
 			// Finding files
 			// ----------------------------------------------------------------------
@@ -798,9 +730,7 @@
 					if( ($areFiles && is_file($filename)) || (!$areFiles && is_dir($filename)) ) {
 						$files[] = array(
 							'path' => str_replace("\\", "/", $filename),
-							'name' => $areFiles
-								? str_replace('.php', '', $entryName)
-								: $entryName
+							'name' => $areFiles ? str_replace('.php', '', $entryName) : $entryName
 						);
 					}
 				}
@@ -855,12 +785,12 @@
 			
 			public function newScriptList()
 			{
-				return new Wbcr_Factory404_ScriptList($this);
+				return new Wbcr_Factory410_ScriptList($this);
 			}
 			
 			public function newStyleList()
 			{
-				return new Wbcr_Factory404_StyleList($this);
+				return new Wbcr_Factory410_StyleList($this);
 			}
 		}
 	}

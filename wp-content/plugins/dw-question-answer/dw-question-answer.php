@@ -4,15 +4,15 @@
  *  Description: A WordPress plugin was make by DesignWall.com to build an Question Answer system for support, asking and comunitcate with your customer
  *  Author: DesignWall
  *  Author URI: http://www.designwall.com
- *  Version: 1.4.5
- *  Text Domain: dwqa
+ *  Version: 1.5.5
+ *  Text Domain: dw-question-answer
  *  @since 1.4.0
  */
 
 if ( !class_exists( 'DW_Question_Answer' ) ) :
 
 class DW_Question_Answer {
-	private $last_update = 180720161352; //last update time of the plugin
+	private $last_update = 180720161356; //last update time of the plugin
 
 	public function __construct() {
 		$this->define_constants();
@@ -25,7 +25,7 @@ class DW_Question_Answer {
 		$this->stylesheet_dir = DWQA_STYLESHEET_DIR;
 		$this->stylesheet_uri = DWQA_STYLESHEET_URL;
 
-		$this->version = '1.4.5';
+		$this->version = '1.5.5';
 
 		// load posttype
 		$this->question = new DWQA_Posts_Question();
@@ -41,6 +41,10 @@ class DW_Question_Answer {
 		$this->editor = new DWQA_Editor();
 		$this->user = new DWQA_User();
 		$this->notifications = new DWQA_Notifications();
+		
+		$this->akismet = new DWQA_Akismet();
+		$this->autoclosure = new DWQA_Autoclosure();
+		
 		$this->filter = new DWQA_Filter();
 		$this->session = new DWQA_Session();
 
@@ -59,6 +63,16 @@ class DW_Question_Answer {
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_rows_meta' ), 10, 2 );
 		register_activation_hook( __FILE__, array( $this, 'activate_hook' ) );
 		register_deactivation_hook( __FILE__, array( $this, 'deactivate_hook' ) );
+		
+		add_action( 'bp_include', array($this,'dwqa_setup_buddypress'), 10 );
+	}
+	
+	public function dwqa_setup_buddypress(){
+		// Include the BuddyPress Component
+		require( DWQA_DIR . 'inc/extend/buddypress/loader.php' );
+		
+		// Instantiate BuddyPress for bbPress
+		$this->DWQA_Buddypress = new DWQA_QA_Component();	
 	}
 
 	public static function instance() {
@@ -120,7 +134,16 @@ class DW_Question_Answer {
 
 		$active_template = $this->template->get_template();
 		//Load translate text domain
-		load_plugin_textdomain( 'dwqa', false,  plugin_basename( dirname( __FILE__ ) )  . '/languages' );
+		// load_plugin_textdomain( 'dw-question-answer', false,  plugin_basename( dirname( __FILE__ ) )  . '/languages' );
+		// load_plugin_textdomain( 'dw-question-answer');
+
+		$locale = get_locale();
+		$mo = 'dw-question-answer-' . $locale . '.mo';
+		
+		load_textdomain( 'dw-question-answer', WP_LANG_DIR . '/dw-question-answer/' . $mo );
+		load_textdomain( 'dw-question-answer', plugin_dir_path( __FILE__ ) . 'languages/' . $mo );
+		load_plugin_textdomain( 'dw-question-answer' );
+
 		//Scripts var
 
 		$question_category_rewrite = $dwqa_general_settings['question-category-rewrite'];
@@ -142,9 +165,9 @@ class DW_Question_Answer {
 		//Auto create question page
 		$options = get_option( 'dwqa_options' );
 
-		if ( ! isset( $options['pages']['archive-question'] ) || ( isset( $options['pages']['archive-question'] ) && ! get_page( $options['pages']['archive-question'] ) ) ) {
+		if ( ! isset( $options['pages']['archive-question'] ) || ( isset( $options['pages']['archive-question'] ) && ! get_post( $options['pages']['archive-question'] ) ) ) {
 			$args = array(
-				'post_title' => __( 'DWQA Questions', 'dwqa' ),
+				'post_title' => __( 'DWQA Questions', 'dw-question-answer' ),
 				'post_type' => 'page',
 				'post_status' => 'publish',
 				'post_content'  => '[dwqa-list-questions]',
@@ -158,10 +181,10 @@ class DW_Question_Answer {
 			}
 		}
 
-		if ( ! isset( $options['pages']['submit-question'] ) || ( isset( $options['pages']['submit-question'] ) && ! get_page( $options['pages']['submit-question'] ) ) ) {
+		if ( ! isset( $options['pages']['submit-question'] ) || ( isset( $options['pages']['submit-question'] ) && ! get_post( $options['pages']['submit-question'] ) ) ) {
 
 			$args = array(
-				'post_title' => __( 'DWQA Ask Question', 'dwqa' ),
+				'post_title' => __( 'DWQA Ask Question', 'dw-question-answer' ),
 				'post_type' => 'page',
 				'post_status' => 'publish',
 				'post_content'  => '[dwqa-submit-question-form]',
@@ -198,6 +221,9 @@ class DW_Question_Answer {
 		update_option( 'dwqa_options', $options );
 		update_option( 'dwqa_plugin_activated', true );
 		// dwqa_posttype_init();
+
+		//update option delay email
+		update_option('dwqa_enable_email_delay', true);
 	}
 
 	public function deactivate_hook() {

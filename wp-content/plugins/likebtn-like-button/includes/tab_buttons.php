@@ -13,6 +13,8 @@ function likebtn_admin_buttons()
     global $likebtn_fonts;
     global $likebtn_fstyles;
     global $user_logged_in_alert_default;
+    global $likebtn_buttons_options_shortcode;
+    global $likebtn_voting_effects;
 
     // Enque scripts
     wp_register_script('select2-likebtn', _likebtn_get_public_url().'js/jquery/select2/select2.js', array('jquery'), LIKEBTN_VERSION, true);
@@ -112,6 +114,8 @@ function likebtn_admin_buttons()
     }
 
     likebtn_admin_header();
+
+    likebtn_check_max_vars();
     ?>
     
     <script>(function(d, e, s) {a = d.createElement(e);m = d.getElementsByTagName(e)[0];a.async = 1;a.src = s;m.parentNode.insertBefore(a, m)})(document, 'script', '//<?php echo LIKEBTN_WEBSITE_DOMAIN; ?>/<?php echo $likebtn_website_locale ?>/js/donate_generator.js');
@@ -132,6 +136,13 @@ function likebtn_admin_buttons()
     <?php endforeach ?>
     <?php foreach ($likebtn_settings as $option_name => $option_info): ?>
         reset_settings['settings_<?php echo $option_name ?>'] = '<?php echo $option_info['default'] ?>';
+    <?php endforeach ?>
+        var likebtn_sci = [];
+    <?php foreach ($likebtn_buttons_options_shortcode as $option_name => $option_value): ?>
+        <?php if (is_array($option_value)): ?>
+            <?php $option_value = array_shift($option_value); ?>
+        <?php endif ?>
+        likebtn_sci['<?php echo $option_value ?>'] = '';
     <?php endforeach ?>
 
     <?php /*
@@ -310,7 +321,7 @@ function likebtn_admin_buttons()
                                                     <br/><br/>
                                                     <label>
                                                         <input type="radio" name="likebtn_theme_type_<?php echo $entity_name; ?>" class="theme_type_radio" value="<?php echo LIKEBTN_THEME_TYPE_CUSTOM; ?>" <?php if (LIKEBTN_THEME_TYPE_CUSTOM == get_option('likebtn_theme_type_' . $entity_name)): ?>checked="checked"<?php endif ?> /> 
-                                                        <?php _e('Custom theme', LIKEBTN_I18N_DOMAIN); ?>
+                                                        <?php _e('Custom theme & image', LIKEBTN_I18N_DOMAIN); ?>
                                                     </label>
                                                     <input type="hidden" name="likebtn_settings_theme_<?php echo $entity_name; ?>" id="settings_theme_custom" value="custom" <?php if (LIKEBTN_THEME_TYPE_CUSTOM != get_option('likebtn_theme_type_' . $entity_name)): ?> class="disabled" disabled="disabled"<?php endif ?> />
                                                 </td>
@@ -466,6 +477,12 @@ function likebtn_admin_buttons()
                                                 </td>
                                             </tr>
                                             <tr valign="top" class="likebtn_custom hidden">
+                                                <th scope="row"><label><?php _e('Color after voting', LIKEBTN_I18N_DOMAIN); ?></label></th>
+                                                <td>
+                                                    <input type="text" name="likebtn_settings_bg_c_v_<?php echo $entity_name; ?>" value="<?php echo (get_option('likebtn_settings_bg_c_v_' . $entity_name) ? get_option('likebtn_settings_bg_c_v_' . $entity_name) : $likebtn_settings['bg_c_v']['default']); ?>" data-alpha="true" class="likebtn_input likebtn_i_sm likebtn_cp"/>
+                                                </td>
+                                            </tr>
+                                            <tr valign="top" class="likebtn_custom hidden">
                                                 <th scope="row"><label><?php _e('Border color', LIKEBTN_I18N_DOMAIN); ?></label></th>
                                                 <td>
                                                     <input type="text" name="likebtn_settings_brdr_c_<?php echo $entity_name; ?>" value="<?php echo (get_option('likebtn_settings_brdr_c_' . $entity_name) ? get_option('likebtn_settings_brdr_c_' . $entity_name) : $likebtn_settings['brdr_c']['default']); ?>" data-alpha="true" class="likebtn_input likebtn_i_sm likebtn_cp"/>
@@ -553,6 +570,12 @@ function likebtn_admin_buttons()
                                                 </td>
                                             </tr>
                                             <tr valign="top">
+                                                <th scope="row"><label><?php _e('Vertical layout', LIKEBTN_I18N_DOMAIN); ?></label></th>
+                                                <td>
+                                                    <input type="checkbox" name="likebtn_settings_vert_<?php echo $entity_name; ?>" value="1" <?php checked('1', get_option('likebtn_settings_vert_' . $entity_name)); ?> />
+                                                </td>
+                                            </tr>
+                                            <tr valign="top">
                                                 <th scope="row"><label><?php _e('Show tooltips', LIKEBTN_I18N_DOMAIN); ?></label></th>
                                                 <td>
                                                     <input type="checkbox" name="likebtn_settings_tooltip_enabled_<?php echo $entity_name; ?>" value="1" <?php checked('1', get_option('likebtn_settings_tooltip_enabled_' . $entity_name)); ?> />
@@ -568,6 +591,17 @@ function likebtn_admin_buttons()
                                                 <th scope="row"><label><?php _e('Dislike button text', LIKEBTN_I18N_DOMAIN); ?></label></th>
                                                 <td>
                                                     <input type="text" name="likebtn_settings_i18n_dislike_<?php echo $entity_name; ?>" value="<?php echo get_option('likebtn_settings_i18n_dislike_' . $entity_name); ?>" class="likebtn_input likebtn_placeholder" placeholder="<?php _e('Dislike', LIKEBTN_I18N_DOMAIN); ?>" />
+                                                </td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <th scope="row"><label><?php _e('Voting animation', LIKEBTN_I18N_DOMAIN); ?></label></th>
+                                                <td>
+                                                    <select name="likebtn_settings_ef_voting_<?php echo $entity_name; ?>" id="settings_ef_voting" class="likebtn_i_sm">
+                                                        <option value=""></option>
+                                                        <?php foreach ($likebtn_voting_effects as $voting_effect): ?>
+                                                            <option value="<?php echo $voting_effect; ?>" <?php selected($voting_effect, get_option('likebtn_settings_ef_voting_' . $entity_name)); ?>><?php echo $voting_effect; ?></option>
+                                                        <?php endforeach ?>
+                                                    </select>
                                                 </td>
                                             </tr>
                                             <tr valign="top" class="plan_dependent plan_vip">
@@ -1075,7 +1109,7 @@ function likebtn_admin_buttons()
                                                             </select>
                                                             <div class="param_voting_period param_vp_date hidden">
                                                                 <br/>
-                                                                <?php _e('Date', LIKEBTN_I18N_DOMAIN); ?>: <input type="text" name="likebtn_voting_date_<?php echo $entity_name; ?>" value="<?php echo get_option('likebtn_voting_date_' . $entity_name); ?>" id="likebtn_voting_date" size="16" />
+                                                                <?php _e('Date', LIKEBTN_I18N_DOMAIN); ?>: <input type="text" name="likebtn_voting_date_<?php echo $entity_name; ?>" value="<?php echo get_option('likebtn_voting_date_' . $entity_name); ?>" id="likebtn_voting_date" size="16" class="disabled" />
                                                                 <p class="description">
                                                                     <?php _e('Keep in mind that you have to specify your server date and time.', LIKEBTN_I18N_DOMAIN); ?><br/><?php _e('Current server date and time:', LIKEBTN_I18N_DOMAIN); ?> <?php echo date("Y/m/d H:i") ?>
                                                                 </p>
@@ -1083,7 +1117,7 @@ function likebtn_admin_buttons()
                                                             <div class="param_voting_period param_vp_created hidden">
                                                                 <br/>
                                                                 <div id="likebtn_voting_created_cntr"></div>
-                                                                <input type="number" name="likebtn_voting_created_<?php echo $entity_name; ?>" value="<?php echo get_option('likebtn_voting_created_' . $entity_name); ?>" id="likebtn_voting_created" class="hidden" />
+                                                                <input type="number" name="likebtn_voting_created_<?php echo $entity_name; ?>" value="<?php echo get_option('likebtn_voting_created_' . $entity_name); ?>" id="likebtn_voting_created" class="hidden disabled" />
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -1120,7 +1154,7 @@ function likebtn_admin_buttons()
                                                         <td>
                                                             <select name="likebtn_settings_counter_frmt_<?php echo $entity_name; ?>">
                                                                 <option value="" <?php selected('', get_option('likebtn_settings_counter_frmt_' . $entity_name)); ?> ><?php _e('Without thousands separator', LIKEBTN_I18N_DOMAIN); ?> (3700)</option>
-                                                                <option value="space" <?php selected('space', get_option('likebtn_settings_counter_frmt_' . $entity_name)); ?> ><?php _e('Comma as thousands separator', LIKEBTN_I18N_DOMAIN); ?> (3,700)</option>
+                                                                <option value="space" <?php selected('space', get_option('likebtn_settings_counter_frmt_' . $entity_name)); ?> ><?php _e('Space as thousands separator', LIKEBTN_I18N_DOMAIN); ?> (3 700)</option>
                                                                 <option value="comma" <?php selected('comma', get_option('likebtn_settings_counter_frmt_' . $entity_name)); ?> ><?php _e('Comma as thousands separator', LIKEBTN_I18N_DOMAIN); ?> (3,700)</option>
                                                                 <option value="period" <?php selected('period', get_option('likebtn_settings_counter_frmt_' . $entity_name)); ?> ><?php _e('Period as thousands separator', LIKEBTN_I18N_DOMAIN); ?> (3.700)</option>
                                                                 <option value="apo" <?php selected('apo', get_option('likebtn_settings_counter_frmt_' . $entity_name)); ?> ><?php _e('Apostrophe as thousands separator', LIKEBTN_I18N_DOMAIN); ?> (3'700)</option>
@@ -1140,6 +1174,12 @@ function likebtn_admin_buttons()
                                                         <th scope="row"><label><?php _e('Show zero value in counter', LIKEBTN_I18N_DOMAIN); ?></label></th>
                                                         <td>
                                                             <input type="checkbox" name="likebtn_settings_counter_zero_show_<?php echo $entity_name; ?>" value="1" <?php checked('1', get_option('likebtn_settings_counter_zero_show_' . $entity_name)); ?> />
+                                                        </td>
+                                                    </tr>
+                                                    <tr valign="top">
+                                                        <th scope="row"><label><?php _e('Animate number counting', LIKEBTN_I18N_DOMAIN); ?></label></th>
+                                                        <td>
+                                                            <input type="checkbox" name="likebtn_settings_counter_count_<?php echo $entity_name; ?>" value="1" <?php checked('1', get_option('likebtn_settings_counter_count_' . $entity_name)); ?> />
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -1434,6 +1474,18 @@ function likebtn_admin_buttons()
                                                             </p>
                                                         </td>
                                                     </tr>
+                                                    <tr>
+                                                        <th scope="row"><label><?php _e('Show Votes filter in activity stream', LIKEBTN_I18N_DOMAIN); ?></label>
+                                                        </th>
+                                                        <td>
+                                                            <input type="checkbox" name="likebtn_bp_filter" value="1" class="bp_activity" <?php checked('1', get_option('likebtn_bp_filter')) ?> <?php if (!_likebtn_is_bp_active()): ?>disabled="disabled"<?php endif ?> />
+                                                            <br/><p class="description">
+                                                                <?php _e('Global option for all post types', LIKEBTN_I18N_DOMAIN); ?>
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+
+
                                                     <tr class="param_bp_hide_sitewide">
                                                         <th scope="row"><label><?php _e('Hide vote actions from sitewide activity', LIKEBTN_I18N_DOMAIN); ?></label>
                                                             <i class="likebtn_help" title="<?php _e("Activity will be private and only visible for the logged in user when viewing his profile activities", LIKEBTN_I18N_DOMAIN); ?>">&nbsp;</i>
@@ -1442,6 +1494,8 @@ function likebtn_admin_buttons()
                                                             <input type="checkbox" name="likebtn_bp_hide_sitewide_<?php echo $entity_name_clean; ?>" value="1" <?php checked('1', get_option('likebtn_bp_hide_sitewide_' . $entity_name_clean)) ?> <?php if (!_likebtn_is_bp_active()): ?>disabled="disabled"<?php endif ?> />
                                                         </td>
                                                     </tr>
+                                                    
+                                                    <?php if (_likebtn_is_bp_active()): ?>
                                                     <tr class="param_bp_image">
                                                         <th scope="row"><label><?php _e('Include item snippet in activity stream', LIKEBTN_I18N_DOMAIN); ?></label>
                                                         </th>
@@ -1452,7 +1506,7 @@ function likebtn_admin_buttons()
                                                             <br/>
                                                             <textarea name="likebtn_bp_snippet_tpl_<?php echo $entity_name; ?>" class="likebtn_input" rows="7"><?php if (get_option('likebtn_bp_snippet_tpl_' . $entity_name)): ?><?php echo htmlspecialchars(get_option('likebtn_bp_snippet_tpl_' . $entity_name)); ?><?php elseif (isset($likebtn_entities_config['bp_snippet_tpl'][$entity_name]['value'])): ?><?php echo htmlspecialchars($likebtn_entities_config['bp_snippet_tpl'][$entity_name]['value']); ?><?php else: ?><?php echo htmlspecialchars(LIKEBTN_BP_SNIPPET_TPL); ?><?php endif ?></textarea>
                                                             <p class="description">
-                                                                <?php _e('Available placeholders', LIKEBTN_I18N_DOMAIN); ?>: %image_thumbnail%, %title%, %excerpt%, %content%
+                                                                <?php _e('Available placeholders', LIKEBTN_I18N_DOMAIN); ?>: @image_thumbnail@, @title@, @excerpt@, @content@
                                                             </p>
                                                             <br/>
                                                             <img src="<?php echo _likebtn_get_public_url() ?>img/buddypress_activity.png" class="likebtn_input" />
@@ -1476,6 +1530,7 @@ add_filter('bp_activity_allowed_tags', 'custom_bp_activity_allowed_tags');</text
                                                             <small class="description"><a target="_blank" href="https://likebtn.com/en/wordpress-like-button-plugin#bb_activity_snippet_template"><?php _e('How to alter snippet template?', LIKEBTN_I18N_DOMAIN); ?></a></small>*/ ?>
                                                         </td>
                                                     </tr>
+                                                    <?php endif ?>
                                                 </table>
                                             </div>
                                         </div>
@@ -1531,4 +1586,25 @@ add_filter('bp_activity_allowed_tags', 'custom_bp_activity_allowed_tags');</text
     <?php
 
     _likebtn_admin_footer();
+}
+
+function likebtn_check_max_vars()
+{
+    $max_vars = (int)ini_get('max_input_vars');
+    if (!$max_vars || $max_vars >= LIKEBTN_MAX_INPUT_VARS) {
+        return;
+    }
+
+    // Try to set
+    @ini_set('max_input_vars', LIKEBTN_MAX_INPUT_VARS);
+    $max_vars = (int)ini_get('max_input_vars');
+
+    if (!$max_vars || $max_vars >= LIKEBTN_MAX_INPUT_VARS) {
+        return;
+    }
+
+    _likebtn_notice(
+        strtr(__('Value of %tag_start%max_input_vars%tag_end% parameter in your PHP is too low: %current%. You may experience problems saving settings. Make sure to set max_input_vars value to at least %tag_start%%minimum%%tag_end% (contact your hosting provider for help if needed).', LIKEBTN_I18N_DOMAIN), array('%current%' => $max_vars, '%minimum%' => LIKEBTN_MAX_INPUT_VARS, '%tag_start%' => '<strong>', '%tag_end%' => '</strong>')),
+        'error'
+    );
 }

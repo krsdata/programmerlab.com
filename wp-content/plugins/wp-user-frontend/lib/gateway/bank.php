@@ -26,15 +26,15 @@ class WPUF_Gateway_Bank {
 
         $options[] = array(
             'name' => 'gate_instruct_bank',
-            'label' => __( 'Bank Instruction', 'wpuf' ),
+            'label' => __( 'Bank Instruction', 'wp-user-frontend' ),
             'type' => 'textarea',
             'default' => "Make your payment directly into our bank account."
         );
 
         $options[] = array(
             'name' => 'bank_success',
-            'label' => __( 'Bank Payment Success Page', 'wpuf' ),
-            'desc' => __( 'After payment users will be redirected here', 'wpuf' ),
+            'label' => __( 'Bank Payment Success Page', 'wp-user-frontend' ),
+            'desc' => __( 'After payment users will be redirected here', 'wp-user-frontend' ),
             'type' => 'select',
             'options' => $pages
         );
@@ -56,6 +56,16 @@ class WPUF_Gateway_Bank {
             'post_title'  => 'WPUF Bank Order'
         ) );
 
+        $data['price'] = isset( $data['price'] ) ? empty( $data['price'] ) ? 0 : $data['price'] : 0;
+
+        if ( isset( $_POST['coupon_id'] ) && !empty( $_POST['coupon_id'] ) ) {
+            $data['price'] = WPUF_Coupons::init()->discount( $data['price'], $_POST['coupon_id'], $data['item_number'] );
+        }
+
+        $data['subtotal'] = $data['price'];
+        $data['price']    = apply_filters( 'wpuf_payment_amount', $data['price'] );
+        $data['tax']      = $data['price'] - $data['subtotal'];
+
         if ( $order_id ) {
             update_post_meta( $order_id, '_data', $data );
         }
@@ -74,8 +84,8 @@ class WPUF_Gateway_Bank {
      */
     function order_notify_admin() {
 
-        $subject  = sprintf( __( '[%s] New Bank Order Received', 'wpuf' ), get_bloginfo( 'name' ) );
-        $msg      = sprintf( __( 'New bank order received at %s, please check it out: %s', 'wpuf' ), get_bloginfo( 'name' ), admin_url( 'admin.php?page=wpuf_transaction' ) );
+        $subject  = sprintf( __( '[%s] New Bank Order Received', 'wp-user-frontend' ), get_bloginfo( 'name' ) );
+        $msg      = sprintf( __( 'New bank order received at %s, please check it out: %s', 'wp-user-frontend' ), get_bloginfo( 'name' ), admin_url( 'admin.php?page=wpuf_transaction' ) );
 
         $receiver = get_bloginfo( 'admin_email' );
         $subject  = apply_filters( 'wpuf_mail_bank_admin_subject', $subject );
@@ -96,10 +106,10 @@ class WPUF_Gateway_Bank {
             return;
         }
 
-        $subject = sprintf( __( '[%s] Payment Received', 'wpuf' ), get_bloginfo( 'name' ) );
-        $msg     = sprintf( __( 'Hello %s,', 'wpuf' ), $user->display_name ) . "\r\n";
-        $msg     .= __( 'We have received your bank payment.', 'wpuf' ). "\r\n\r\n";
-        $msg     .= __( 'Thanks for being with us.', 'wpuf' ). "\r\n";
+        $subject = sprintf( __( '[%s] Payment Received', 'wp-user-frontend' ), get_bloginfo( 'name' ) );
+        $msg     = sprintf( __( 'Hello %s,', 'wp-user-frontend' ), $user->display_name ) . "\r\n";
+        $msg     .= __( 'We have received your bank payment.', 'wp-user-frontend' ). "\r\n\r\n";
+        $msg     .= __( 'Thanks for being with us.', 'wp-user-frontend' ). "\r\n";
 
         $subject = apply_filters( 'wpuf_mail_bank_user_subject', $subject );
         $msg     = apply_filters( 'wpuf_mail_bank_user_body', $msg );

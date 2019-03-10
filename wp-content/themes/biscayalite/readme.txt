@@ -2,8 +2,8 @@
 
 Contributors: WowThemes.net Team
 Requires at least: WordPress 4.3
-Tested up to: WordPress 4.4
-Version: 2.1.0
+Tested up to: WordPress 4.8.2
+Version: 2.1.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.en.html
 Tags: white,two-columns,right-sidebar,translation-ready,featured-images,custom-background,responsive-layout,custom-menu,editor-style,threaded-comments
@@ -17,7 +17,8 @@ Build your beautiful blog in no time with BiscayaLite,a clean, masonry, responsi
 * Featured Images
 * Masonry Layout
 * Custom Background
-* The GPL v2.0 or later license. :) Use it to make something cool.
+* WooCommerce
+* Love page builders? Biscaya PRO is fully built with Elementor!
 
 == D O C U M E N T A T I O N ==
 
@@ -106,3 +107,7 @@ Source: https://github.com/daneden/animate.css
 Font Awesome v4.0.3 - Copyright @davegandy @fontawesome
 License: Font: SIL OFL 1.1, CSS: MIT
 Source: http://fontawesome.io
+
+Background Image - Photo by Tommy/Unsplash.com, https://unsplash.com/@tommygd12
+License: Free for commercial and noncommercial purposes, https://unsplash.com/license
+Source: https://unsplash.com/photos/pz2wv6w4SIM

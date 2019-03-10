@@ -1,9 +1,9 @@
 ﻿=== DW Question & Answer ===
-Contributors: designwall, oryc9x, Farid-Gh, scheunemann, gciprian, Ahmet Kolcu, Astrotenko Roman, David Robles, Nidhal Naji, developez, markhall1971
+Contributors: designwall, Farid-Gh, scheunemann, gciprian, Ahmet Kolcu, Astrotenko Roman, David Robles, Nidhal Naji, developez, markhall1971
 Tags: question, answer, support, quora, stackoverflow
 Requires at least: 3.0.1
-Tested up to: 4.4.2
-Stable tag: 1.4.5
+Tested up to: 4.9.7
+Stable tag: 1.5.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -84,6 +84,55 @@ Visit our [Github](https://github.com/designwall/dw-question-answer) project or 
 5. Back-end settings
 
 == Changelog ==
+
+= 1.5.5 =
+* Fix: Fix bug email
+* Fix: Fix Permission
+
+= 1.5.4 =
+* Update: Chang text domain to dw-question-answer
+* Update: Update pot file
+* Fix: Fix paginate link shortcode category
+* Fix: Fix count posts
+* Fix: Fix error on singular dwqa answer
+
+= 1.5.3 =
+* Update: Optimize speed
+* Fix: Fix error singular function
+* Fix: Fix human time diff
+
+= 1.5.2 =
+* New: Add option delay email
+
+= 1.5.1 =
+* Fix: Fix search page
+* Fix: Fix notice user
+* Fix: Fix vote best answer
+
+= 1.5.0 =
+* Fix: Fix bug with php 7.2
+
+= 1.4.9 =
+* Fix: Fix bug count vote in post_status private
+* Fix: Fix bug with arabic language
+
+= 1.4.8 =
+* New: Integrate yoast breadscrumb
+* Fix: Fix empty answer integrate buddypress
+* Fix: Fix comment vote
+* Fix: Remove function get_page
+
+= 1.4.7 =
+* New: Integrate Akismet
+* Fix: Fix save permissions
+* Fix: Empty file assets Akismet
+
+= 1.4.6 =
+* New: allows anonymous users to vote
+* New: add Setting time to auto close the questions 
+* New: integrate buddypress plugin
+* New: Update languages RU, IT
+* Fix: fix notification
 
 = 1.4.5 =
 * New: Short-code list question by category [dwqa-list-questions category="question"]

@@ -8,6 +8,7 @@ var likebtn_preview_refresh = 300;
 var likebtn_preview_wait = false;
 var likebtn_pin = false;
 var likebtn_poll_cntr;
+var likebtn_force_deact = false;
 
 // replace all occurences of a string
 String.prototype.replaceAll = function(search, replace){
@@ -80,6 +81,7 @@ function deactivatePoll(event, href)
         var poll_html = 
             '<div id="likebtn_poll">'+
                 '<form id="likebtn_poll_form" onsubmit="return false">'+
+                '<div class="likebtn_poll_offer" style="display:none">'+likebtn_msg_f_offer1+'<div class="likebtn-coupon">'+likebtn_msg_coupon+'</div><center>'+likebtn_msg_f_offer2+'</center></div>'+
                 '<div class="likebtn_poll_intro">'+likebtn_msg_f_intro+'</div>'+
                 '<div class="likebtn_poll_opt"><input type="radio" name="likebtn_reason" value="features" id="likebtn_reason_features" onclick="likebtnPollChoose(this)" required="required"/> <label for="likebtn_reason_features"><strong>'+likebtn_msg_f_features+'</strong></label></div>'+
                 '<div class="likebtn_poll_reason lpr_features">'+
@@ -144,15 +146,27 @@ function deactivatePoll(event, href)
                         return;
                     }
 
-                    // Show loader
-                    jQuery("#likebtn_poll_loader").show();
-                    jQuery("#likebtn_poll_form .ui-dialog-buttonset").hide();
-
                     var data = jQuery("#likebtn_poll_form").serializeArray();
                     var decision = 'keep';
                     if (jQuery(this).attr("data-deactivate") == '1') {
                         decision = 'deactivate';
+
+                        if (jQuery("#likebtn_reason_pricing").is(':checked') && !likebtn_force_deact) {
+                            likebtn_force_deact = true;
+                            jQuery(".likebtn_poll_offer").show();
+                            jQuery(".likebtn_poll_intro").hide();
+                            jQuery(".likebtn_poll_opt").hide();
+                            jQuery(".likebtn_poll_reason").hide();
+                            jQuery("#likebtn_poll_form .ui-dialog-buttonset .likebtn-button-submit:first").hide();
+                            jQuery("#likebtn_poll_form .ui-dialog-buttonset .likebtn-button-submit:eq(1)").removeClass('button-secondary').addClass('button-primary').children('.ui-button-text:first').text(likebtn_msg_f_deact_anyway);
+                            jQuery("#likebtn_poll_form .ui-dialog-buttonset .likebtn-button-close:first").text(likebtn_msg_f_close);
+                            return;
+                        }
                     }
+
+                    // Show loader
+                    jQuery("#likebtn_poll_loader").show();
+                    jQuery("#likebtn_poll_form .ui-dialog-buttonset").hide();
 
                     var email = likebtn_msg_account_email;
                     if (!email) {
@@ -213,7 +227,7 @@ function likebtnPollChoose(radio)
         
         jQuery("#likebtn_poll textarea").removeAttr("required");
 
-        if (jQuery("#likebtn_ta_"+chosen).is(":visible")) {
+        if (jQuery("#likebtn_ta_"+chosen).is(":visible") && chosen != 'other') {
             jQuery("#likebtn_ta_"+chosen).attr("required", "required");
         } else {
             jQuery("#likebtn_ta_"+chosen).removeAttr("required");
@@ -446,9 +460,52 @@ function systemCheck(loader_src)
             } else {
                 jQuery(".likebtn_sc_container:first").css('color', 'green');
             }
+
+            if (typeof(response.result_html) != "undefined") {
+                var sc_win = likebtnPopup("", result_text);
+                sc_win.document.body.innerHTML = response.result_html;
+            }
         },
         error: function(response) {
             jQuery(".likebtn_sc_container:first").html(likebtn_msg_error).css('color', 'red');
+        }
+    });
+}
+
+// Send test vote notification
+function sendTestVoteNotification(loader_src)
+{
+    jQuery(".likebtn_vn_message:first").html('<img src="' + loader_src + '" />');
+
+    jQuery.ajax({
+        type: 'POST',
+        dataType: "json",
+        url: ajaxurl,
+        data: {
+            action: 'likebtn_test_vote_notification',
+            options: {
+                'likebtn_notify_to': jQuery(":input[name='likebtn_notify_to']:first").val(),
+                'likebtn_notify_from': jQuery(":input[name='likebtn_notify_from']:first").val(),
+                'likebtn_notify_subject': jQuery(":input[name='likebtn_notify_subject']:first").val(),
+                'likebtn_notify_text': jQuery(":input[name='likebtn_notify_text']:first").val()
+            }
+        },
+        success: function(response) {
+            var result_text = '';
+            jQuery(".likebtn_vn_message:first").html('');
+            if (typeof(response.result_text) != "undefined") {
+                result_text = response.result_text;
+            }
+            jQuery(".likebtn_vn_container:first").text(result_text);
+            if (typeof(response.result) == "undefined" || response.result != "success") {
+                jQuery(".likebtn_vn_container:first").css('color', 'red');
+            } else {
+                jQuery(".likebtn_vn_container:first").css('color', 'green');
+            }
+        },
+        error: function(response) {
+            jQuery(".likebtn_vn_message:first").html('');
+            jQuery(".likebtn_vn_container:first").html(likebtn_msg_error).css('color', 'red');
         }
     });
 }
@@ -926,8 +983,13 @@ function likebtnRefreshPreview(ignore_timeout)
         var field = jQuery(element);
         var name = field.attr('name');
         var value = field.val();
-
-        if (!name || name.indexOf('likebtn_settings_') == -1 || field.hasClass('disabled')) {
+        if (!name || name.indexOf('[') != -1) {
+            return;
+        }
+        // Cut entity name out
+        entity_regexp = new RegExp("_"+likebtnEscapeRegExp(entity_name)+"$");
+        property_name = name.replace(entity_regexp, '');
+        if ((name.indexOf('likebtn_settings_') == -1 && typeof(likebtn_sci[property_name]) == "undefined") || field.hasClass('disabled') ) {
             return;
         }
 
@@ -940,11 +1002,8 @@ function likebtnRefreshPreview(ignore_timeout)
             return;
         }
 
-        property_name = name.replace(/^likebtn_settings_/, '');
-
-        // Cut entity name out
-        entity_regexp = new RegExp("_"+likebtnEscapeRegExp(entity_name)+"$");
-        property_name = property_name.replace(entity_regexp, '');
+        property_name = property_name.replace(/^likebtn_settings_/, '');
+        property_name = property_name.replace(/^likebtn_/, '');
 
         // Fetch dynamic fields
         if (property_name == 'addthis_service_codes') {
@@ -953,11 +1012,10 @@ function likebtnRefreshPreview(ignore_timeout)
         if (property_name == 'popup_content_order') {
             value = likebtnGetMultipleSelect2Val('#settings_popup_content_order');
         }
-        /*if (property_name == 'theme') {
-            if (jQuery("#settings_theme_custom:checked").size()) {
-                value = 'custom';
-            }
-        }*/
+        var user_logged_in = jQuery("#settings_form .user_logged_in_radio:checked").val();
+        if (property_name == 'user_logged_in_alert' && user_logged_in != 'alert' && user_logged_in != 'alert_btn' && user_logged_in != 'modal') {
+            return;
+        }
 
         // check default
         if (typeof(reset_settings[property_name]) !== "undefined") {
@@ -965,9 +1023,10 @@ function likebtnRefreshPreview(ignore_timeout)
                 value = '';
             }
         }
+
         properties[property_name] = value;
     });
-    
+
     if (typeof(LikeBtn) !== "undefined") {
         wrapper[0].style.lineHeight = '';
         LikeBtn.apply(wrapper[0], properties, ['identifier', 'site_id']);
@@ -1249,6 +1308,36 @@ function likebtnStatsExport(plan)
         alert(likebtn_msg_upgrade_pro);
         return false;
     }
+}
+
+// Export votes
+function likebtnVotesExport(msg_export)
+{
+    var likebtn_export = jQuery("#likebtn_export").clone();
+    likebtn_export.removeClass('hidden');
+    likebtn_export.removeAttr('id');
+
+    likebtn_export.dialog({
+        resizable: false,
+        autoOpen: false,
+        modal: true,
+        width: 430,
+        title: msg_export,
+        draggable: false,
+        show: 'fade',
+        dialogClass: 'likebtn_dlg',
+        open: function() {
+            jQuery('.ui-widget-overlay, .likebtn_export .likebtn-button-close').bind('click', function() {
+                likebtn_export.dialog('close');
+            });
+        },
+        position: { 
+            my: "center", 
+            at: "center" 
+        }
+    });
+
+    likebtn_export.dialog('open');
 }
 
 // Toggle shortcode container
@@ -1966,11 +2055,14 @@ function likebtnOptionChange(event)
     if (!target || target.hasClass('voting_period')) {
         var val = jQuery('#likebtn_voting_period').val();
         jQuery("#settings_form .param_voting_period").addClass('hidden');
+        jQuery("#settings_form .param_voting_period :input").addClass('disabled');
         if (val == 'date') {
             jQuery("#settings_form .param_vp_date:first").removeClass('hidden');
+            jQuery("#settings_form .param_vp_date:first :input").removeClass('disabled');
         }
         if (val == 'created') {
             jQuery("#settings_form .param_vp_created:first").removeClass('hidden');
+            jQuery("#settings_form .param_vp_created:first :input").removeClass('disabled');
         }
     }
     if (!target || target.hasClass('likebtn_wrap')) {

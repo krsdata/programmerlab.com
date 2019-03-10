@@ -19,7 +19,39 @@
 				text: item.title,
 				value: item.id,
 				onclick: function() {
-					editor.selection.setContent('[wbcr_php_snippet id="' + item.id + '" title="' + item.title + '"]');
+					var content = "";
+					var snippet_type = "php";
+					var snippet_name = "wbcr_php_snippet";
+					var selected_content = editor.selection.getContent();
+
+					for( var tag in item ) {
+						if( !item.hasOwnProperty(tag) ) {
+							continue;
+						}
+
+						if( 'type' === tag ) {
+							snippet_type = item[tag];
+						} else if( tag.indexOf('snippet_tags') === -1 ) {
+							if( !('' !== selected_content && 'content' === tag) ) {
+								content += ' ' + tag + '="' + item[tag] + '"';
+							}
+						}
+					}
+
+					if( 'text' === snippet_type ) {
+						snippet_name = "wbcr_text_snippet";
+					} else if( 'universal' === snippet_type ) {
+						snippet_name = "wbcr_snippet";
+					}
+
+					if( '' === selected_content ) {
+						editor.selection.setContent('[' + snippet_name + content + ']');
+					} else {
+						editor.selection.setContent(
+							'[' + snippet_name + content + ']' +
+							selected_content +
+							'[/' + snippet_name + ']');
+					}
 				}
 			});
 		});

@@ -28,13 +28,14 @@
 }
 
 /* General Styles */
-#mm-plugin-options h1 small { font-size: 60%; color: #777; }
+#mm-plugin-options h1 small { line-height: 12px; font-size: 12px; color: #bbb; }
 #mm-plugin-options h2 { margin: 0; padding: 12px 0 12px 15px; font-size: 16px; cursor: pointer; }
 #mm-plugin-options h3 { margin: 20px 15px; font-size: 14px; }
 #mm-plugin-options p { margin-left: 15px; }
 #mm-plugin-options ul { margin: 15px 15px 15px 40px; }
 #mm-plugin-options li { margin: 10px 0; list-style-type: disc; }
 #mm-plugin-options abbr[title] { cursor: help !important; border-bottom: 1px dotted #dfdfdf !important; text-decoration: none !important; }
+#mm-plugin-options pre { width: 90%; overflow: auto; margin: 15px; padding: 15px; font: 14px/18px Consolas,Monaco,monospace; color: #333; background-color: #fafae0; }
 
 /* Table Styles */
 .mm-table-wrap { margin: 15px; }
@@ -55,27 +56,26 @@
 
 /* Form Controls */
 .mm-table-wrap input[type="text"] { width: 80%; font-size: 13px; }
+.mm-table-wrap input[type="checkbox"], .wp-admin p input[type=checkbox] { margin-top: -2px; }
 .mm-table-wrap textarea { width: 90%; font-size: 13px; }
 .mm-table-wrap .input-short[type="text"] { width: 77px; }
-.mm-radio-inputs { margin: 7px 0; }
+.mm-radio-inputs, .mm-checkbox-inputs { margin: 7px 0; }
 .mm-radio-inputs span { padding-left: 5px; }
 .mm-radio-inputs small { padding-left: 5px; color: #777; font-size: 11px; }
 
 /* Code & Captions */
 .mm-item-desc { font-size: 13px; color: #777; }
 .mm-item-caption { margin: 1px 0 0 3px; font-size: 11px; color: #777; }
+textarea + .mm-item-caption { margin: 0 0 0 3px; }
 .mm-item-caption code { font-size: 10px; }
 .mm-code { padding: 5px; background-color: #fafae0; color: #333; font-size: 14px; }
 
 /* Misc. Styles */
 #mm-panel-toggle { margin: 5px 0; }
 #mm-credit-info { margin-top: -5px; }
-#setting-error-settings_updated p { margin-left: 0; }
+#setting-error-settings_updated { margin: 8px 0 15px 0; }
+#setting-error-settings_updated p { margin: 7px 0; }
 #mm-plugin-options .button-primary { margin: 0 0 15px 15px; }
-
-/* Updates & Info */
-#mm-iframe-wrap { width: 100%; height: 250px; overflow: hidden; }
-#mm-iframe-wrap iframe { width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; }
 
 /* Clearfix */
 .clear:before,

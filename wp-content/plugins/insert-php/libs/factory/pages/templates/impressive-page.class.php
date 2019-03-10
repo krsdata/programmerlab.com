@@ -14,15 +14,11 @@
 		exit;
 	}
 	
-	if( !class_exists('Wbcr_FactoryPages405_ImpressiveThemplate') ) {
+	if( !class_exists('Wbcr_FactoryPages411_ImpressiveThemplate') ) {
 		/**
-		 * Class Wbcr_FactoryPages405_ImpressiveThemplate
-		 *
-		 * @method string getInfoWidget() - get widget content information
-		 * @method string getRatingWidget(array $args = array()) - get widget content rating
-		 * @method string getDonateWidget() - get widget content donate
+		 * Class Wbcr_FactoryPages411_ImpressiveThemplate
 		 */
-		abstract class Wbcr_FactoryPages405_ImpressiveThemplate extends Wbcr_FactoryPages405_AdminPage {
+		abstract class Wbcr_FactoryPages411_ImpressiveThemplate extends Wbcr_FactoryPages411_AdminPage {
 			
 			//public $menu_target = 'options-general.php';
 			
@@ -30,97 +26,150 @@
 			 * @var bool
 			 */
 			public $internal = true;
+
+			/**
+			 * @var bool
+			 */
+			public $network = false;
+
+			/**
+			 * @var bool
+			 */
+			public $available_for_multisite = false;
+
+			/**
+			 * @var bool
+			 */
+			//public $only_for_network = false;
 			
 			/**
+			 * Тип страницы
+			 * options - предназначена для создании страниц с набором опций и настроек.
+			 * page - произвольный контент, любой html код
+			 *
 			 * @var string
 			 */
 			public $type = 'options';
 			
 			/**
+			 * ID родительской страницы, если указан, тогда эта страница будет внутренней странтцей
+			 *
 			 * @var string
 			 */
 			public $page_parent_page;
-			
+
 			/**
+			 * Иконка страницы
+			 * Полный список иконок смотреть тут:
+			 * https://developer.wordpress.org/resource/dashicons/#admin-network
+			 *
 			 * @var string
 			 */
 			public $page_menu_dashicon;
-			
+
 			/**
+			 *
+			 * @var
+			 */
+			public $page_menu_short_description;
+
+			/**
+			 * Позиция закладки в меню плагина.
+			 * 0 - в самом конце, 100 - в самом начале
+			 *
 			 * @var int
 			 */
 			public $page_menu_position = 10;
-			
+
 			/**
+			 * Заголовок страницы, также использует в меню, как название закладки
+			 *
 			 * @var bool
 			 */
 			public $show_page_title = true;
-			
+
 			/**
+			 * Показывать правый сайдбар?
+			 * Сайдбар будет показан на внутренних страницах шаблона.
+			 *
 			 * @var bool
 			 */
 			public $show_right_sidebar_in_options = false;
-			
+
 			/**
+			 * Показывать нижний сайдбар?
+			 * Сайдбар будет показан на внутренних страницах шаблона.
+			 *
 			 * @var bool
 			 */
 			public $show_bottom_sidebar = true;
+
+			/**
+			 * @var array
+			 */
+			public $page_menu = array();
 			
 			/**
-			 * @param Wbcr_Factory404_Plugin $plugin
+			 * @param Wbcr_Factory410_Plugin $plugin
 			 */
-			public function __construct(Wbcr_Factory404_Plugin $plugin)
+			public function __construct(Wbcr_Factory410_Plugin $plugin)
 			{
-				$this->menuIcon = FACTORY_PAGES_405_URL . '/templates/assets/img/webcraftic-plugin-icon.png';
-				$this->plugin = $plugin;
+				$this->menuIcon = FACTORY_PAGES_411_URL . '/templates/assets/img/webcraftic-plugin-icon.png';
+				//$allow_multisite = apply_filters('wbcr_factory_410_core_admin_allow_multisite', false);
+
+				if( is_multisite() && $this->available_for_multisite && $plugin->isNetworkActive() ) {
+					$this->network = true;
+					$this->menu_target = 'settings.php';
+					$this->capabilitiy = 'manage_network';
+				}
 
 				parent::__construct($plugin);
 				
+				$this->title_plugin_action_link = __('Settings', 'wbcr_factory_pages_411');
+
+				$this->setPageMenu();
+			}
+
+			/**
+			 * Set page menu item
+			 */
+			public function setPageMenu()
+			{
 				global $factory_impressive_page_menu;
-				
-				$dashicon = (!empty($this->page_menu_dashicon))
-					? ' ' . $this->page_menu_dashicon
-					: '';
-				
-				$this->title_plugin_action_link = __('Settings', 'wbcr_factory_pages_405');
-				
-				//if( $this->type == 'options' ) {
-				//$this->show_right_sidebar_in_options = true;
-				//$this->show_bottom_sidebar = false;
-				//}
-				
+
+				$dashicon = (!empty($this->page_menu_dashicon)) ? ' ' . $this->page_menu_dashicon : '';
+				$short_description = (!empty($this->page_menu_short_description)) ? ' ' . $this->page_menu_short_description : '';
+
+				if( is_multisite() && is_network_admin() && !$this->network ) {
+					return;
+				}
+
 				$factory_impressive_page_menu[$this->getMenuScope()][$this->getResultId()] = array(
 					'type' => $this->type, // page, options
 					'url' => $this->getBaseUrl(),
-					'title' => '<span class="dashicons' . $dashicon . '"></span> ' . $this->getMenuTitle(),
+					'title' => $this->getPageTitle() . ' <span class="dashicons' . $dashicon . '"></span>',
+					'short_description' => $short_description,
 					'position' => $this->page_menu_position,
 					'parent' => $this->page_parent_page
 				);
-
 			}
-			
-			public function __call($name, $arguments)
+
+			/**
+			 * Get page menu items
+			 *
+			 * @return mixed
+			 */
+			public function getPageMenu()
 			{
-				if( substr($name, 0, 3) == 'get' ) {
-					$called_method_name = 'show' . substr($name, 3);
-					if( method_exists($this, $called_method_name) ) {
-						ob_start();
-						
-						$this->$called_method_name($arguments);
-						$content = ob_get_contents();
-						ob_end_clean();
-						
-						return $content;
-					}
-				}
-				
-				return null;
+				global $factory_impressive_page_menu;
+
+				return $factory_impressive_page_menu[$this->getMenuScope()];
 			}
 			
 			/**
 			 * Requests assets (js and css) for the page.
 			 *
-			 * @see FactoryPages405_AdminPage
+			 * @see FactoryPages411_AdminPage
 			 *
 			 * @since 1.0.0
 			 * @return void
@@ -144,47 +193,58 @@
 					'control.checkbox'
 				), 'bootstrap');
 				
-				$this->styles->add(FACTORY_PAGES_405_URL . '/templates/assets/css/impressive.page.template.css');
-				//$this->styles->add('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+				$this->styles->add(FACTORY_PAGES_411_URL . '/templates/assets/css/impressive.page.template.css');
 			}
 
 			/**
-			 * @return string
-			 */
-			public function getMenuScope() {
-				return $this->plugin->getPluginName();
-			}
-			
-			/**
-			 * @return string
-			 */
-			public function getMenuTitle()
-			{
-				return $this->menu_title;
-			}
-
-			/**
-			 * @return string
-			 */
-			public function getPageTitle()
-			{
-				return $this->getMenuTitle();
-			}
-
-			/**
+			 * Получает заголовок плагина (обычно используется для брендинга)
+			 *
 			 * @return string
 			 */
 			public function getPluginTitle()
 			{
-				return $this->plugin->getPluginTitle();
+				/**
+				 * @since 4.0.8 - добавлен
+				 * @since 4.0.9 - является устаревшим
+				 */
+				$plugin_title = wbcr_factory_410_apply_filters_deprecated('wbcr/factory/imppage/plugin_title', array(
+					$this->plugin->getPluginTitle(),
+					$this->plugin->getPluginName()
+				), '4.0.9', 'wbcr/factory/pages/impressive/plugin_title');
+
+				/**
+				 * @since 4.0.9 - является устаревшим
+				 */
+				$plugin_title = apply_filters('wbcr/factory/pages/impressive/plugin_title', $plugin_title, $this->plugin->getPluginName());
+
+				return $plugin_title;
 			}
 
 			/**
+			 * Получает полную ссылку текущей страницы
+			 *
 			 * @return string
 			 */
 			public function getPageUrl()
 			{
-				return $this->getBaseUrl();
+				/**
+				 * @since 4.0.9 - добавлен
+				 */
+				return apply_filters('wbcr/factory/pages/impressive/base_url', $this->getBaseUrl(), $this->plugin->getPluginName(), $this->id);
+			}
+
+			/**
+			 * Пространство имен для меню плагина
+			 * Можно приклеить меню к другому плагину, просто перезаписав этот метод в дочернем классе
+			 *
+			 * @return string
+			 */
+			public function getMenuScope()
+			{
+				/**
+				 * @since 4.0.9 - добавлен
+				 */
+				return apply_filters('wbcr/factory/pages/impressive/menu_scope', $this->plugin->getPluginName(), $this->plugin->getPluginName(), $this->id);
 			}
 			
 			/**
@@ -195,23 +255,11 @@
 			 */
 			public function getOption($option_name, $default = false)
 			{
+				_deprecated_function(__METHOD__, '4.0.9', '$this->plugin->getOption()');
+
 				return $this->plugin->getOption($option_name, $default);
 			}
 
-			/**
-			 * @return string
-			 */
-			protected function getBaseUrl()
-			{
-				$result_id = $this->getResultId();
-				
-				if( $this->menu_target ) {
-					return add_query_arg(array('page' => $result_id), admin_url($this->menu_target));
-				} else {
-					return add_query_arg(array('page' => $result_id), admin_url('admin.php'));
-				}
-			}
-			
 			/**
 			 * Shows a page or options
 			 *
@@ -220,9 +268,8 @@
 			 */
 			public function indexAction()
 			{
-				global $factory_impressive_page_menu;
-				
-				if( 'options' === $factory_impressive_page_menu[$this->plugin->getPluginName()][$this->getResultId()]['type'] ) {
+				$page_menu = $this->getPageMenu();
+				if( 'options' === $page_menu[$this->getResultId()]['type'] ) {
 					$this->showOptions();
 				} else {
 					$this->showPage();
@@ -239,32 +286,49 @@
 			{
 				check_admin_referer('wbcr_factory_' . $this->getResultId() . '_flush_action');
 
-				// todo: test cache control
-				if( function_exists('w3tc_pgcache_flush') ) {
-					w3tc_pgcache_flush();
-				} elseif( function_exists('wp_cache_clear_cache') ) {
-					wp_cache_clear_cache();
-				} elseif( function_exists('rocket_clean_files') ) {
-					rocket_clean_files(esc_url($_SERVER['HTTP_REFERER']));
-				} else if( isset($GLOBALS['wp_fastest_cache']) && method_exists($GLOBALS['wp_fastest_cache'], 'deleteCache') ) {
-					$GLOBALS['wp_fastest_cache']->deleteCache();
+				if( class_exists('WbcrFactoryClearfy000_Helpers') ) {
+					WbcrFactoryClearfy000_Helpers::flushPageCache();
 				}
 
-				wbcr_factory_404_do_action_deprecated('wbcr_factory_404_imppage_flush_cache', array(
+				/**
+				 * @since 4.0.1 - является устаревшим
+				 */
+				wbcr_factory_410_do_action_deprecated('wbcr_factory_410_imppage_flush_cache', array(
 					$this->plugin->getPluginName(),
 					$this->getResultId()
-				), '4.0.1', 'wbcr_factory_404_imppage_after_form_save');
+				), '4.0.1', 'wbcr_factory_410_imppage_after_form_save');
 
 				/**
-				 * @since 4.0.1
+				 * @since 4.0.9 - является устаревшим
 				 */
-				do_action('wbcr_factory_404_imppage_after_form_save', $this->plugin, $this);
+				wbcr_factory_410_do_action_deprecated('wbcr_factory_410_imppage_after_form_save', array(
+					$this->plugin,
+					$this
+				), '4.0.9', 'wbcr/factory/pages/impressive/after_form_save');
+
+				/**
+				 * @since 4.0.1 - добавлен
+				 * @since 4.0.9 - изменено название экшена, без привязки к версии фреймворка
+				 */
+				do_action('wbcr/factory/pages/impressive/after_form_save', $this->plugin, $this);
 
 				$this->afterFormSave();
 
-				$this->redirectToAction('index', apply_filters('wbcr_factory_404_imppage_after_form_save_redirect_args', array(
+				$redirect_args = array(
 					$this->plugin->getPluginName() . '_saved' => 1
-				)));
+				);
+				/**
+				 * @since 4.0.9 - является устаревшим
+				 */
+				$redirect_args = wbcr_factory_410_apply_filters_deprecated('wbcr_factory_410_imppage_after_form_save_redirect_args', array($redirect_args), '4.0.9', 'wbcr/factory/pages/impressive/save_redirect_args');
+
+				/**
+				 * @since 4.0.1 - добавлен
+				 * @since 4.0.9 - изменено название экшена, без привязки к версии фреймворка
+				 */
+				$redirect_args = apply_filters('wbcr/factory/pages/impressive/save_redirect_args', $redirect_args);
+
+				$this->redirectToAction('index', $redirect_args);
 			}
 
 
@@ -274,7 +338,7 @@
 			protected function warningNotice()
 			{
 				/*if( WP_CACHE ) {
-					$this->printWarningNotice(__("It seems that a caching/performance plugin is active on this site. Please manually invalidate that plugin's cache after making any changes to the settings below.", 'wbcr_factory_pages_405'));
+					$this->printWarningNotice(__("It seems that a caching/performance plugin is active on this site. Please manually invalidate that plugin's cache after making any changes to the settings below.", 'wbcr_factory_pages_411'));
 				}*/
 				// Метод предназначен для вызова в дочернем классе
 			}
@@ -340,15 +404,28 @@
 				echo '<div class="alert alert-success wbcr-factory-warning-notice"><p><span class="dashicons dashicons-plus"></span> ' . $message . '</p></div>';
 			}
 
+			/**
+			 * Печатает все зарегистрированные системные уведомления внутри интерфейса плагина
+			 * Типы уведомлений: предупреждения, ошибки, успешные выполнения задач
+			 */
 			protected function printAllNotices()
 			{
 				$this->warningNotice();
 				$this->showActionsNotice();
 
 				/**
-				 * @since 4.0.1
+				 * @since 4.0.9 - является устаревшим
 				 */
-				do_action('wbcr_factory_pages_405_imppage_print_all_notices', $this->plugin, $this);
+				wbcr_factory_410_do_action_deprecated('wbcr_factory_pages_411_imppage_print_all_notices', array(
+					$this->plugin,
+					$this
+				), '4.0.9', 'wbcr/factory/pages/impressive/print_all_notices');
+
+				/**
+				 * @since 4.0.1 - добавлен
+				 * @since 4.0.9 - изменено имя
+				 */
+				do_action('wbcr/factory/pages/impressive/print_all_notices', $this->plugin, $this);
 			}
 
 			private function showActionsNotice()
@@ -359,13 +436,25 @@
 							$this->plugin->getPluginName() . '_saved' => '1'
 						),
 						'type' => 'success',
-						'message' => __('The settings have been updated successfully!', 'wbcr_factory_pages_405') . (WP_CACHE
-								? '<br>' . __("It seems that a caching/performance plugin is active on this site. Please manually invalidate that plugin's cache after making any changes to the settings below.", 'wbcr_factory_pages_405')
-								: '')
+						'message' => __('The settings have been updated successfully!', 'wbcr_factory_pages_411') . (WP_CACHE ? '<br>' . __("It seems that a caching/performance plugin is active on this site. Please manually invalidate that plugin's cache after making any changes to the settings below.", 'wbcr_factory_pages_411') : '')
 					)
 				);
-				
-				$notices = apply_filters('wbcr_factory_pages_405_imppage_actions_notice', $notices, $this->plugin, $this->id);
+
+				/**
+				 * @since 4.0.9 - является устаревшим
+				 */
+				$notices = wbcr_factory_410_apply_filters_deprecated('wbcr_factory_pages_411_imppage_actions_notice', array(
+					$notices,
+					$this->plugin,
+					$this->id
+				), '4.0.9', 'wbcr/factory/pages/impressive/actions_notice');
+
+				/**
+				 * @since 4.0.1 - добавлен
+				 * @since 4.0.9 - изменено имя
+				 */
+				$notices = apply_filters('wbcr/factory/pages/impressive/actions_notice', $notices, $this->plugin, $this->id);
+
 				$notices = $this->getActionNotices($notices);
 				
 				foreach($notices as $key => $notice) {
@@ -382,9 +471,7 @@
 						continue;
 					}
 					
-					$notice_type = isset($notice['type'])
-						? $notice['type']
-						: 'success';
+					$notice_type = isset($notice['type']) ? $notice['type'] : 'success';
 
 					switch( $notice_type ) {
 						case 'success':
@@ -402,18 +489,12 @@
 			
 			protected function showPageMenu()
 			{
-				global $factory_impressive_page_menu;
-				
-				$page_menu = $factory_impressive_page_menu[$this->plugin->getPluginName()];
+				$page_menu = $this->getPageMenu();
 				$self_page_id = $this->getResultId();
-				$current_page = isset($page_menu[$self_page_id])
-					? $page_menu[$self_page_id]
-					: null;
-				
-				$parent_page_id = !empty($current_page['parent'])
-					? $this->getResultId($current_page['parent'])
-					: null;
-				
+				$current_page = isset($page_menu[$self_page_id]) ? $page_menu[$self_page_id] : null;
+
+				$parent_page_id = !empty($current_page['parent']) ? $this->getResultId($current_page['parent']) : null;
+
 				uasort($page_menu, array($this, 'pageMenuSort'));
 				?>
 				<ul>
@@ -428,8 +509,15 @@
 						}
 						?>
 						<li class="wbcr-factory-nav-tab<?= $active_tab ?>">
-							<a href="<?php echo $page['url'] ?>" id="<?= $page_screen ?>-tab">
-								<?php echo $page['title'] ?>
+							<a href="<?php echo $page['url'] ?>" id="<?= $page_screen ?>-tab" class="wbcr-factory-tab__link">
+								<div class="wbcr-factory-tab__title">
+									<?php echo $page['title'] ?>
+								</div>
+								<?php if( !empty($page['short_description']) ): ?>
+									<div class="wbcr-factory-tab__short-description">
+										<?php echo $page['short_description'] ?>
+									</div>
+								<?php endif; ?>
 							</a>
 						</li>
 					<?php endforeach; ?>
@@ -449,12 +537,9 @@
 			
 			protected function showPageSubMenu()
 			{
-				global $factory_impressive_page_menu;
 				$self_page_id = $this->getResultId();
-				$page_menu = $factory_impressive_page_menu[$this->plugin->getPluginName()];
-				$current_page = isset($page_menu[$self_page_id])
-					? $page_menu[$self_page_id]
-					: null;
+				$page_menu = $this->getPageMenu();
+				$current_page = isset($page_menu[$self_page_id]) ? $page_menu[$self_page_id] : null;
 				
 				$page_submenu = array();
 				foreach($page_menu as $page_screen => $page) {
@@ -474,9 +559,7 @@
 				
 				$get_menu_id = null;
 				$has_parent = !empty($current_page) && !empty($current_page['parent']);
-				$parent_page_id = $has_parent
-					? $this->getResultId($current_page['parent'])
-					: null;
+				$parent_page_id = $has_parent ? $this->getResultId($current_page['parent']) : null;
 				
 				if( ($has_parent && isset($page_submenu[$parent_page_id])) ) {
 					$get_menu_id = $parent_page_id;
@@ -516,6 +599,11 @@
 			protected function showHeader()
 			{
 				?>
+				<style>
+					.updated, .notice, .error {
+						display: none !important;
+					}
+				</style>
 				<div class="wbcr-factory-page-header">
 					<div class="wbcr-factory-header-logo"><?= $this->getPluginTitle(); ?>
 						<span class="version"><?= $this->plugin->getPluginVersion() ?> </span>
@@ -526,13 +614,25 @@
 							<h2><?php _e('Page') ?>: <?= $this->getPageTitle() ?></h2>
 						</div>
 					<?php endif; ?>
-					<?php if( $this->type == 'options' ): ?>
-						<div class="wbcr-factory-control">
-						<input name="<?= $this->plugin->getPluginName() ?>_save_action" class="wbcr-factory-type-save" type="submit" value="<?php _e('Save settings', 'wbcr_factory_pages_405'); ?>">
-						<?php wp_nonce_field('wbcr_factory_' . $this->getResultId() . '_save_action'); ?>
-						</div><?php endif; ?>
+
+					<div class="wbcr-factory-control">
+						<?php do_action('wbcr/factory/pages/impressive/header', $this->plugin->getPluginName()) ?>
+
+						<?php if( $this->type == 'options' ): ?>
+							<input name="<?= $this->plugin->getPluginName() ?>_save_action" class="wbcr-factory-button wbcr-factory-type-save" type="submit" value="<?php _e('Save', 'wbcr_factory_pages_411'); ?>">
+
+							<?php wp_nonce_field('wbcr_factory_' . $this->getResultId() . '_save_action'); ?>
+						<?php endif; ?>
+					</div>
 				</div>
 			<?php
+			}
+
+			protected function isShowRightSidebar()
+			{
+				$widgets = $this->getPageWidgets('right');
+
+				return !empty($widgets) && $this->show_right_sidebar_in_options;
 			}
 			
 			protected function showRightSidebar()
@@ -542,7 +642,7 @@
 				if( empty($widgets) ) {
 					return;
 				}
-				
+
 				foreach($widgets as $widget_content):
 					echo $widget_content;
 				endforeach;
@@ -567,64 +667,52 @@
 			<?php
 			}
 
+			/**
+			 * @param string $position
+			 * @return mixed|void
+			 */
 			protected function getPageWidgets($position = 'bottom')
 			{
-				wbcr_factory_404_apply_filters_deprecated('wbcr_factory_pages_405_imppage_right_sidebar_widgets', array(
-					array(
-						'info_widget' => $this->getInfoWidget(),
-						'rating_widget' => $this->getRatingWidget(),
-						'donate_widget' => $this->getDonateWidget()
-					),
-					$this->getResultId()
-				), '4.0.1', 'wbcr_factory_pages_405_imppage_get_widgets');
+				$widgets = array();
 
-				wbcr_factory_404_apply_filters_deprecated('wbcr_factory_pages_405_imppage_bottom_sidebar_widgets', array(
-					array(
-						'info_widget' => $this->getInfoWidget(),
-						'rating_widget' => $this->getRatingWidget(),
-						'donate_widget' => $this->getDonateWidget()
-					),
-					$this->getResultId()
-				), '4.0.1', 'wbcr_factory_pages_405_imppage_get_widgets');
+				/**
+				 * @since 4.0.9 - является устаревшим
+				 */
+				$widgets = wbcr_factory_410_apply_filters_deprecated('wbcr_factory_pages_411_imppage_get_widgets', array(
+					$widgets,
+					$position,
+					$this->plugin,
+					$this
+				), '4.0.9', 'wbcr/factory/pages/impressive/widgets');
 
-				return apply_filters('wbcr_factory_pages_405_imppage_get_widgets', array(
-					'info_widget' => $this->getInfoWidget(),
-					'rating_widget' => $this->getRatingWidget(),
-					'donate_widget' => $this->getDonateWidget()
-				), $position, $this->plugin, $this);
+				/**
+				 * @since 4.0.1 - добавлен
+				 * @since 4.0.9 - изменено имя
+				 */
+				$widgets = apply_filters('wbcr/factory/pages/impressive/widgets', $widgets, $position, $this->plugin, $this);
+
+				return $widgets;
 			}
-			
-			/**
-			 *
-			 */
+
 			protected function showOptions()
 			{
-				
-				global $factory_impressive_page_menu;
-
-				$form = new Wbcr_FactoryForms405_Form(array(
+				$form = new Wbcr_FactoryForms411_Form(array(
 					'scope' => rtrim($this->plugin->getPrefix(), '_'),
 					'name' => $this->getResultId() . "-options"
 				), $this->plugin);
 				
-				$form->setProvider(new Wbcr_FactoryForms405_OptionsValueProvider($this->plugin));
+				$form->setProvider(new Wbcr_FactoryForms411_OptionsValueProvider($this->plugin));
 				
-				$options = $this->getOptions();
+				$options = $this->getPageOptions();
 				
 				if( isset($options[0]) && isset($options[0]['items']) && is_array($options[0]['items']) ) {
-					
-					/*array_unshift($options[0]['items'], array(
-						'type' => 'html',
-						'html' => array($this, 'printAllNotices')
-					));*/
-					
 					foreach($options[0]['items'] as $key => $value) {
 						
 						if( $value['type'] == 'div' ) {
 							if( isset($options[0]['items'][$key]['items']) && !empty($options[0]['items'][$key]['items']) ) {
 								foreach($options[0]['items'][$key]['items'] as $group_key => $group_value) {
-									$options[0]['items'][$key]['items'][$group_key]['layout']['column-left'] = '6';
-									$options[0]['items'][$key]['items'][$group_key]['layout']['column-right'] = '6';
+									$options[0]['items'][$key]['items'][$group_key]['layout']['column-left'] = '4';
+									$options[0]['items'][$key]['items'][$group_key]['layout']['column-right'] = '8';
 								}
 								
 								continue;
@@ -637,10 +725,11 @@
 							'integer',
 							'textbox',
 							'dropdown',
-							'list'
+							'list',
+							'wp-editor'
 						)) ) {
-							$options[0]['items'][$key]['layout']['column-left'] = '6';
-							$options[0]['items'][$key]['layout']['column-right'] = '6';
+							$options[0]['items'][$key]['layout']['column-left'] = '4';
+							$options[0]['items'][$key]['layout']['column-right'] = '8';
 						}
 					}
 				}
@@ -652,27 +741,43 @@
 					check_admin_referer('wbcr_factory_' . $this->getResultId() . '_save_action');
 
 					if( !current_user_can('administrator') && !current_user_can($this->capabilitiy) ) {
-						wp_die(__('You do not have permission to edit page.', 'wbcr_factory_pages_405'));
+						wp_die(__('You do not have permission to edit page.', 'wbcr_factory_pages_411'));
 						exit;
 					}
 
-					wbcr_factory_404_do_action_deprecated('wbcr_factory_404_imppage_before_save', array(
+					/**
+					 * @since 4.0.9 - является устаревшим
+					 */
+					wbcr_factory_410_do_action_deprecated('wbcr_factory_410_imppage_before_form_save', array(
 						$form,
-						$this->plugin->getPluginName()
-					), '4.0.1', 'wbcr_factory_404_imppage_before_form_save');
+						$this->plugin,
+						$this
+					), '4.0.9', 'wbcr/factory/pages/impressive/before_form_save');
 
-					do_action('wbcr_factory_404_imppage_before_form_save', $form, $this->plugin, $this);
+					/**
+					 * @since 4.0.1 - добавлен
+					 * @since 4.0.9 - изменено имя
+					 */
+					do_action('wbcr/factory/pages/impressive/before_form_save', $form, $this->plugin, $this);
 
 					$this->beforeFormSave();
 					
 					$form->save();
 
-					wbcr_factory_404_do_action_deprecated('wbcr_factory_404_imppage_saved', array(
+					/**
+					 * @since 4.0.9 - является устаревшим
+					 */
+					wbcr_factory_410_do_action_deprecated('wbcr_factory_410_imppage_form_saved', array(
 						$form,
-						$this->plugin->getPluginName()
-					), '4.0.1', 'wbcr_factory_404_imppage_form_saved');
-					
-					do_action('wbcr_factory_404_imppage_form_saved', $form, $this->plugin, $this);
+						$this->plugin,
+						$this
+					), '4.0.9', 'wbcr/factory/pages/impressive/form_saved');
+
+					/**
+					 * @since 4.0.1 - добавлен
+					 * @since 4.0.9 - изменено имя
+					 */
+					do_action('wbcr/factory/pages/impressive/form_saved', $form, $this->plugin, $this);
 
 					$this->formSaved();
 					
@@ -683,21 +788,21 @@
 				
 				?>
 				<div id="WBCR" class="wrap">
-					<div class="wbcr-factory-pages-405-impressive-page-template factory-bootstrap-404 factory-fontawesome-000">
+					<div class="wbcr-factory-pages-411-impressive-page-template factory-bootstrap-410 factory-fontawesome-000">
 						<div class="wbcr-factory-options wbcr-factory-options-<?= esc_attr($this->id) ?>">
 							<div class="wbcr-factory-left-navigation-bar">
 								<?php $this->showPageMenu() ?>
 							</div>
 							<?php
 								$min_height = 0;
-								foreach($factory_impressive_page_menu[$this->plugin->getPluginName()] as $page) {
+								foreach($this->getPageMenu() as $page) {
 									if( !isset($page['parent']) || empty($page['parent']) ) {
-										$min_height += 61;
+										$min_height += 77;
 									}
 								}
 							?>
 							<div class="wbcr-factory-page-inner-wrap">
-								<div class="wbcr-factory-content-section<?php if( !$this->show_right_sidebar_in_options ): echo ' wbcr-fullwidth'; endif ?>">
+								<div class="wbcr-factory-content-section<?php if( !$this->isShowRightSidebar() ): echo ' wbcr-fullwidth'; endif ?>">
 									<?php $this->showPageSubMenu() ?>
 									<div class="wbcr-factory-content" style="min-height:<?= $min_height ?>px">
 										<form method="post" class="form-horizontal">
@@ -707,7 +812,7 @@
 										</form>
 									</div>
 								</div>
-								<?php if( $this->show_right_sidebar_in_options ): ?>
+								<?php if( $this->isShowRightSidebar() ): ?>
 									<div class="wbcr-factory-right-sidebar-section">
 										<?php $this->showRightSidebar(); ?>
 									</div>
@@ -728,12 +833,10 @@
 			<?php
 			}
 			
-			protected function showPage()
-			{
-				global $factory_impressive_page_menu;
-				?>
+			protected function showPage($content = null)
+			{ ?>
 				<div id="WBCR" class="wrap">
-					<div class="wbcr-factory-pages-405-impressive-page-template factory-bootstrap-404 factory-fontawesome-000">
+					<div class="wbcr-factory-pages-411-impressive-page-template factory-bootstrap-410 factory-fontawesome-000">
 						<div class="wbcr-factory-page wbcr-factory-page-<?= $this->id ?>">
 							<?php $this->showHeader(); ?>
 							
@@ -742,20 +845,30 @@
 							</div>
 							<?php
 								$min_height = 0;
-								foreach($factory_impressive_page_menu[$this->plugin->getPluginName()] as $page) {
+								foreach($this->getPageMenu() as $page) {
 									if( !isset($page['parent']) || empty($page['parent']) ) {
-										$min_height += 61;
+										$min_height += 77;
 									}
 								}
 							?>
 							<div class="wbcr-factory-page-inner-wrap">
-								<div class="wbcr-factory-content-section<?php if( !$this->show_right_sidebar_in_options ): echo ' wbcr-fullwidth'; endif ?>">
+								<div class="wbcr-factory-content-section<?php if( !$this->isShowRightSidebar() ): echo ' wbcr-fullwidth'; endif ?>">
 									<?php $this->showPageSubMenu() ?>
 									<div class="wbcr-factory-content" style="min-height:<?= $min_height ?>px">
 										<?php $this->printAllNotices(); ?>
-										<?php $this->showPageContent() ?>
+										<?php if( empty($content) ): ?>
+											<?php $this->showPageContent() ?>
+										<?php else: ?>
+											<?php echo $content; ?>
+										<?php endif; ?>
 									</div>
 								</div>
+
+								<?php if( $this->isShowRightSidebar() ): ?>
+									<div class="wbcr-factory-right-sidebar-section" style="min-height:<?= $min_height ?>px">
+										<?php $this->showRightSidebar(); ?>
+									</div>
+								<?php endif; ?>
 							</div>
 						</div>
 						<div class="clearfix"></div>
@@ -764,6 +877,14 @@
 				</div>
 			<?php
 			}
+
+			/**
+			 * @return array
+			 */
+			public function getPageOptions()
+			{
+				// используется в классе потомке
+			}
 			
 			/**
 			 * @return void
@@ -771,91 +892,6 @@
 			public function showPageContent()
 			{
 				// используется в классе потомке
-			}
-			
-			
-			public function showInfoWidget()
-			{
-				?>
-				<div class="wbcr-factory-sidebar-widget">
-					<ul>
-						<li>
-						<span class="wbcr-factory-hint-icon-simple wbcr-factory-simple-red">
-							<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAQAAABKmM6bAAAAUUlEQVQIHU3BsQ1AQABA0X/komIrnQHYwyhqQ1hBo9KZRKL9CBfeAwy2ri42JA4mPQ9rJ6OVt0BisFM3Po7qbEliru7m/FkY+TN64ZVxEzh4ndrMN7+Z+jXCAAAAAElFTkSuQmCC" alt=""/>
-						</span>
-							- <?php _e('A neutral setting that can not harm your site, but you must be sure that you need to use it.', 'wbcr_factory_pages_405'); ?>
-						</li>
-						<li>
-						<span class="wbcr-factory-hint-icon-simple wbcr-factory-simple-grey">
-							<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAQAAABKmM6bAAAAUUlEQVQIHU3BsQ1AQABA0X/komIrnQHYwyhqQ1hBo9KZRKL9CBfeAwy2ri42JA4mPQ9rJ6OVt0BisFM3Po7qbEliru7m/FkY+TN64ZVxEzh4ndrMN7+Z+jXCAAAAAElFTkSuQmCC" alt=""/>
-						</span>
-							- <?php _e('When set this option, you must be careful. Plugins and themes may depend on this function. You must be sure that you can disable this feature for the site.', 'wbcr_factory_pages_405'); ?>
-						</li>
-						<li>
-						<span class="wbcr-factory-hint-icon-simple wbcr-factory-simple-green">
-							<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAQAAABKmM6bAAAAUUlEQVQIHU3BsQ1AQABA0X/komIrnQHYwyhqQ1hBo9KZRKL9CBfeAwy2ri42JA4mPQ9rJ6OVt0BisFM3Po7qbEliru7m/FkY+TN64ZVxEzh4ndrMN7+Z+jXCAAAAAElFTkSuQmCC" alt=""/>
-						</span>
-							- <?php _e('Absolutely safe setting, We recommend to use.', 'wbcr_factory_pages_405'); ?>
-						</li>
-					</ul>
-					----------<br>
-					
-					<p><?php _e('Hover to the icon to get help for the feature you selected.', 'wbcr_factory_pages_405'); ?></p>
-				</div>
-			<?php
-			}
-			
-			public function showRatingWidget(array $args)
-			{
-				if( !isset($args[0]) || empty($args[0]) ) {
-					$page_url = "https://goo.gl/tETE2X";
-				} else {
-					$page_url = $args[0];
-				}
-				
-				$page_url = apply_filters('wbcr_factory_pages_405_imppage_rating_widget_url', $page_url, $this->plugin->getPluginName(), $this->getResultId());
-				
-				?>
-				<div class="wbcr-factory-sidebar-widget">
-					<p>
-						<strong><?php _e('Do you want the plugin to improved and update?', 'wbcr_factory_pages_405'); ?></strong>
-					</p>
-					
-					<p><?php _e('Help the author, leave a review on wordpress.org. Thanks to feedback, I will know that the plugin is really useful to you and is needed.', 'wbcr_factory_pages_405'); ?></p>
-					
-					<p><?php _e('And also write your ideas on how to extend or improve the plugin.', 'wbcr_factory_pages_405'); ?></p>
-					
-					<p>
-						<i class="wbcr-factory-icon-5stars"></i>
-						<a href="<?= $page_url ?>" title="Go rate us" target="_blank">
-							<strong><?php _e('Go rate us and push ideas', 'wbcr_factory_pages_405'); ?></strong>
-						</a>
-					</p>
-				</div>
-			<?php
-			}
-			
-			public function showDonateWidget()
-			{
-				?>
-				<div class="wbcr-factory-sidebar-widget">
-					<p>
-						<strong><?php _e('Donation for plugin development', 'wbcr_factory_pages_405'); ?></strong>
-					</p>
-					
-					<?php if( get_locale() !== 'ru_RU' ): ?>
-						<form id="wbcr-factory-paypal-donation-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-							<input type="hidden" name="cmd" value="_s-xclick">
-							<input type="hidden" name="hosted_button_id" value="VDX7JNTQPNPFW">
-							
-							<div class="wbcr-factory-donation-price">5$</div>
-							<input type="image" src="<?= FACTORY_PAGES_405_URL ?>/templates/assets/img/paypal-donate.png" border="0" name="submit" alt="PayPal – The safer, easier way to pay online!">
-						</form>
-					<?php else: ?>
-						<iframe frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/donate.xml?account=410011242846510&quickpay=donate&payment-type-choice=on&mobile-payment-type-choice=on&default-sum=300&targets=%D0%9D%D0%B0+%D0%BF%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D1%83+%D0%BF%D0%BB%D0%B0%D0%B3%D0%B8%D0%BD%D0%B0+%D0%B8+%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83+%D0%BD%D0%BE%D0%B2%D1%8B%D1%85+%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B9.+&target-visibility=on&project-name=Webcraftic&project-site=&button-text=05&comment=on&hint=%D0%9A%D0%B0%D0%BA%D1%83%D1%8E+%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D1%8E+%D0%BD%D1%83%D0%B6%D0%BD%D0%BE+%D0%B4%D0%BE%D0%B1%D0%B0%D0%B2%D0%B8%D1%82%D1%8C+%D0%B2+%D0%BF%D0%BB%D0%B0%D0%B3%D0%B8%D0%BD%3F&mail=on&successURL=" width="508" height="187"></iframe>
-					<?php endif; ?>
-				</div>
-			<?php
 			}
 			
 			/**
@@ -868,7 +904,7 @@
 			{
 				?>
 				<div id="WBCR" class="wrap">
-					<div class="wbcr-factory-pages-405-impressive-page-template factory-bootstrap-404 factory-fontawesome-000">
+					<div class="wbcr-factory-pages-411-impressive-page-template factory-bootstrap-410 factory-fontawesome-000">
 						<div id="wbcr-factory-confirm-dialog">
 							<h2><?php echo $data['title'] ?></h2>
 							

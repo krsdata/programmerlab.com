@@ -2,50 +2,54 @@
 
 if (!defined('ABSPATH')) die();
 
-
-
 function usp_auto_display_images($content) {
 	
 	global $usp_options;
 	
-	$location = isset($usp_options['auto_display_images']) ? $usp_options['auto_display_images'] : '';
-	$markup   = isset($usp_options['auto_image_markup'])   ? $usp_options['auto_image_markup'] : '';
+	$enable = isset($usp_options['auto_display_images']) ? $usp_options['auto_display_images'] : 'disable';
 	
-	apply_filters('usp_image_args', $args = array(
-			'post_type'   => 'attachment',
-			'post_parent' => get_the_ID(),
-			'numberposts' => -1,
-		)
-	);
-	
-	$attachments = get_posts($args);
-	
-	if ($attachments) {
+	if (usp_is_public_submission() && ($enable === 'before' || $enable === 'after')) {
 		
-		$images = '<p>';
+		$markup = isset($usp_options['auto_image_markup']) ? $usp_options['auto_image_markup'] : '';
+		$author = get_post_meta(get_the_ID(), 'user_submit_name', true);
 		
-		foreach ($attachments as $attachment) {
-			
-			$title  = apply_filters('usp_image_title',  $attachment->post_title);
-			
-			$thumb  = apply_filters('usp_image_thumb',  wp_get_attachment_image_src($attachment->ID, 'thumbnail', false));
-			$medium = apply_filters('usp_image_medium', wp_get_attachment_image_src($attachment->ID, 'medium', false));
-			$large  = apply_filters('usp_image_large',  wp_get_attachment_image_src($attachment->ID, 'large', false));
-			$full   = apply_filters('usp_image_full',   wp_get_attachment_image_src($attachment->ID, 'full', false));
-			
-			$custom_size = apply_filters('usp_image_custom_size', 'custom');
-			$custom = apply_filters('usp_image_custom', wp_get_attachment_image_src($attachment->ID, $custom_size, false));
-			
-			$images .= usp_replace_image_vars($markup, $title, $thumb, $medium, $large, $full, $custom);
-			
-		}
+		$args = array(
+				'post_type'   => 'attachment',
+				'post_parent' => get_the_ID(),
+				'numberposts' => -1,
+		);
 		
-		$images .= '</p>';
+		$args = apply_filters('usp_image_args', $args);
 		
-		if (usp_is_public_submission()) {
+		$attachments = get_posts($args);
+		
+		if ($attachments) {
 			
-			if     ($location === 'before') $content = $images . $content;
-			elseif ($location === 'after')  $content = $content . $images;
+			$images = '<p>';
+			
+			foreach ($attachments as $attachment) {
+				
+				$title  = apply_filters('usp_image_title',  $attachment->post_title);
+				
+				$thumb  = apply_filters('usp_image_thumb',  wp_get_attachment_image_src($attachment->ID, 'thumbnail', false));
+				$medium = apply_filters('usp_image_medium', wp_get_attachment_image_src($attachment->ID, 'medium', false));
+				$large  = apply_filters('usp_image_large',  wp_get_attachment_image_src($attachment->ID, 'large', false));
+				$full   = apply_filters('usp_image_full',   wp_get_attachment_image_src($attachment->ID, 'full', false));
+				
+				$custom_size = apply_filters('usp_image_custom_size', 'custom');
+				$custom = apply_filters('usp_image_custom', wp_get_attachment_image_src($attachment->ID, $custom_size, false));
+				
+				$parent_id = wp_get_post_parent_id($attachment->ID);
+				$parent_title = get_the_title($parent_id);
+				
+				$images .= usp_replace_image_vars($markup, $title, $thumb, $medium, $large, $full, $custom, $parent_title, $author);
+				
+			}
+			
+			$images .= '</p>';
+			
+			if     ($enable === 'before') $content = $images . $content;
+			elseif ($enable === 'after')  $content = $content . $images;
 			
 		}
 		
@@ -58,7 +62,7 @@ add_filter('the_content', 'usp_auto_display_images');
 
 
 
-function usp_replace_image_vars($markup, $title, $thumb, $medium, $large, $full, $custom) {
+function usp_replace_image_vars($markup, $title, $thumb, $medium, $large, $full, $custom, $parent_title, $author) {
 	
 	$patterns = array();
 	$patterns[0] = "/%%title%%/";
@@ -69,6 +73,8 @@ function usp_replace_image_vars($markup, $title, $thumb, $medium, $large, $full,
 	$patterns[5] = "/%%custom%%/";
 	$patterns[6] = "/%%width%%/";
 	$patterns[7] = "/%%height%%/";
+	$patterns[8] = "/%%title_parent%%/";
+	$patterns[9] = "/%%author%%/";
 	
 	$replacements = array();
 	$replacements[0] = $title;
@@ -104,6 +110,9 @@ function usp_replace_image_vars($markup, $title, $thumb, $medium, $large, $full,
 		$replacements[7] = $custom[2];
 	}
 	
+	$replacements[8] = $parent_title;
+	$replacements[9] = $author;
+	
 	$image = preg_replace($patterns, $replacements, $markup);
 	
 	return $image;
@@ -116,19 +125,31 @@ function usp_auto_display_email($content) {
 	
 	global $usp_options;
 	
-	$location = isset($usp_options['auto_display_email']) ? $usp_options['auto_display_email'] : '';
-	$markup   = isset($usp_options['auto_email_markup'])  ? $usp_options['auto_email_markup'] : '';
+	$enable = isset($usp_options['auto_display_email']) ? $usp_options['auto_display_email'] : 'disable';
 	
-	$email = apply_filters('usp_email_custom_field', get_post_meta(get_the_ID(), 'user_submit_email', true));
-	
-	if (!empty($email)) {
+	if (usp_is_public_submission() && ($enable === 'before' || $enable === 'after')) {
 		
-		$markup = preg_replace('/%%email%%/', $email, $markup);
+		$markup = isset($usp_options['auto_email_markup']) ? $usp_options['auto_email_markup'] : '';
+		$author = apply_filters('usp_author_custom_field', get_post_meta(get_the_ID(), 'user_submit_name', true));
+		$email  = apply_filters('usp_email_custom_field', get_post_meta(get_the_ID(), 'user_submit_email', true));
+		$title  = get_the_title(get_the_ID());
 		
-		if (usp_is_public_submission()) {
+		if (!empty($email)) {
 			
-			if     ($location === 'before') $content = $markup . $content;
-			elseif ($location === 'after')  $content = $content . $markup;
+			$patterns = array();
+			$patterns[0] = "/%%author%%/";
+			$patterns[1] = "/%%email%%/";
+			$patterns[2] = "/%%title%%/";
+			
+			$replacements = array();
+			$replacements[0] = $author;
+			$replacements[1] = $email;
+			$replacements[2] = $title;
+			
+			$markup = preg_replace($patterns, $replacements, $markup);
+			
+			if     ($enable === 'before') $content = $markup . $content;
+			elseif ($enable === 'after')  $content = $content . $markup;
 			
 		}
 		
@@ -145,19 +166,31 @@ function usp_auto_display_url($content) {
 	
 	global $usp_options;
 	
-	$location = isset($usp_options['auto_display_url']) ? $usp_options['auto_display_url'] : '';
-	$markup   = isset($usp_options['auto_url_markup'])  ? $usp_options['auto_url_markup'] : '';
+	$enable = isset($usp_options['auto_display_url']) ? $usp_options['auto_display_url'] : 'disable';
 	
-	$url = apply_filters('usp_url_custom_field', get_post_meta(get_the_ID(), 'user_submit_url', true));
-	
-	if (!empty($url)) {
+	if (usp_is_public_submission() && ($enable === 'before' || $enable === 'after')) {
 		
-		$markup = preg_replace('/%%url%%/', $url, $markup);
+		$markup = isset($usp_options['auto_url_markup']) ? $usp_options['auto_url_markup'] : '';
+		$author = apply_filters('usp_author_custom_field', get_post_meta(get_the_ID(), 'user_submit_name', true));
+		$url    = apply_filters('usp_url_custom_field', get_post_meta(get_the_ID(), 'user_submit_url', true));
+		$title  = get_the_title(get_the_ID());
 		
-		if (usp_is_public_submission()) {
+		if (!empty($url)) {
 			
-			if     ($location === 'before') $content = $markup . $content;
-			elseif ($location === 'after')  $content = $content . $markup;
+			$patterns = array();
+			$patterns[0] = "/%%author%%/";
+			$patterns[1] = "/%%url%%/";
+			$patterns[2] = "/%%title%%/";
+			
+			$replacements = array();
+			$replacements[0] = $author;
+			$replacements[1] = $url;
+			$replacements[2] = $title;
+			
+			$markup = preg_replace($patterns, $replacements, $markup);
+			
+			if     ($enable === 'before') $content = $markup . $content;
+			elseif ($enable === 'after')  $content = $content . $markup;
 			
 		}
 		
@@ -169,3 +202,84 @@ function usp_auto_display_url($content) {
 add_filter('the_content', 'usp_auto_display_url');
 
 
+
+function usp_auto_display_custom($content) {
+	
+	global $usp_options;
+	
+	$enable = isset($usp_options['auto_display_custom']) ? $usp_options['auto_display_custom'] : 'disable';
+	
+	if (usp_is_public_submission() && ($enable === 'before' || $enable === 'after')) {
+		
+		$markup = isset($usp_options['auto_custom_markup']) ? $usp_options['auto_custom_markup'] : '';
+		$label  = isset($usp_options['custom_label'])       ? $usp_options['custom_label']       : __('Custom Field', 'usp');
+		$name   = isset($usp_options['custom_name'])        ? $usp_options['custom_name']        : 'usp_custom_field';
+		
+		$author = apply_filters('usp_author_custom_field', get_post_meta(get_the_ID(), 'user_submit_name', true));
+		$value  = apply_filters('usp_custom_custom_field', get_post_meta(get_the_ID(), $name, true));
+		$title  = get_the_title(get_the_ID());
+		
+		if (!empty($value)) {
+			
+			$value = htmlspecialchars_decode($value);
+			$value = nl2br($value);
+			
+			$patterns = array();
+			$patterns[0] = "/%%author%%/";
+			$patterns[1] = "/%%custom_label%%/";
+			$patterns[2] = "/%%custom_name%%/";
+			$patterns[3] = "/%%custom_value%%/";
+			$patterns[4] = "/%%title%%/";
+			
+			$replacements = array();
+			$replacements[0] = $author;
+			$replacements[1] = $label;
+			$replacements[2] = $name;
+			$replacements[3] = $value;
+			$replacements[4] = $title;
+			
+			$markup = preg_replace($patterns, $replacements, $markup);
+			
+			if     ($enable === 'before') $content = $markup . $content;
+			elseif ($enable === 'after')  $content = $content . $markup;
+			
+		}
+		
+	}
+	
+	return $content;
+	
+}
+add_filter('the_content', 'usp_auto_display_custom');
+
+
+
+function usp_display_custom_checkbox() {
+	
+	global $usp_options;
+	
+	$enable   = (isset($usp_options['custom_checkbox'])  && !empty($usp_options['custom_checkbox']))  ? true  : false;
+	$required = (isset($usp_options['disable_required']) && !empty($usp_options['disable_required'])) ? false : true;
+	
+	$name   = isset($usp_options['custom_checkbox_name']) ? $usp_options['custom_checkbox_name'] : null;
+	$text   = isset($usp_options['custom_checkbox_text']) ? $usp_options['custom_checkbox_text'] : '';
+	
+	$output = '';
+	
+	if ($enable && $name) {
+		
+		$text = str_replace("{", "<", $text);
+		$text = str_replace("}", ">", $text);
+		
+		$required_markup = $required ? ' data-required="true" required' : '';
+		
+		$output .= '<fieldset class="usp-checkbox">';
+		$output .= '<input id="user-submitted-checkbox" name="'. esc_attr($name) .'" type="checkbox" value=""'. $required_markup .'> ';
+		$output .= '<label for="user-submitted-checkbox">'. $text .'</label>';
+		$output .= '</fieldset>';
+		
+	}
+	
+	return $output;
+	
+}

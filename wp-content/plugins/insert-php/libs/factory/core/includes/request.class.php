@@ -4,8 +4,8 @@
 		exit;
 	}
 
-	if( !class_exists('Wbcr_Factory404_Request') ) {
-		class Wbcr_Factory404_Request {
+	if( !class_exists('Wbcr_Factory410_Request') ) {
+		class Wbcr_Factory410_Request {
 
 			/**
 			 * @param null $param
@@ -42,22 +42,40 @@
 				if( !empty($param) ) {
 					if( isset($method[$param]) && !empty($method[$param]) ) {
 						if( is_array($method[$param]) ) {
-							return !empty($sanitize)
-								? array_map($sanitize_function_name, $method[$param])
-								: $method[$param];
+							return !empty($sanitize) ? $this->recursiveArrayMap($sanitize_function_name, $method[$param]) : $method[$param];
 						} else {
-							return !empty($sanitize)
-								? call_user_func($sanitize_function_name, $method[$param])
-								: $method[$param];
+							return !empty($sanitize) ? call_user_func($sanitize_function_name, $method[$param]) : $method[$param];
 						}
 					}
 
 					return $default;
 				}
 
-				return !empty($sanitize)
-					? array_map($sanitize_function_name, $method)
-					: $method;
+				return !empty($sanitize) ? array_map($sanitize_function_name, $method) : $method;
+			}
+
+			/**
+			 * Recursive sanitation for an array
+			 *
+			 * @param string $function_name
+			 * @param $array
+			 * @return mixed
+			 */
+			public function recursiveArrayMap($function_name, $array)
+			{
+				foreach($array as $key => &$value) {
+					if( is_array($value) ) {
+						$value = $this->recursiveArrayMap($function_name, $value);
+					} else {
+						if( !function_exists($function_name) ) {
+							throw new Exception('Function ' . $function_name . 'is undefined.');
+						}
+
+						$value = $function_name($value);
+					}
+				}
+
+				return $array;
 			}
 
 			/**
