@@ -1,0 +1,22 @@
+.widget-content .image-preview-wrap img {
+    max-width: 100%;
+    margin: 20px auto 0;
+}
+
+#setting-error-tgmpa {
+    clear: both;
+    display: block;
+}
+.field-mm-megamenu, .field-mm-column-divider, 
+.menu-item-depth-0 .field-mm-featured-image, 
+.menu-item-depth-0 .field-mm-divider, 
+.menu-item-depth-0 .field-mm-description{
+	display: none !important;
+}
+.menu-item-depth-0 .field-mm-megamenu, 
+.menu-item-depth-1 .field-mm-column-divider, 
+.field-mm-featured-image, 
+.field-mm-divider, 
+.field-mm-description{
+	display: block !important;
+}

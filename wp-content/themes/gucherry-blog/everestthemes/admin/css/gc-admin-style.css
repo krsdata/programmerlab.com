@@ -1,0 +1,12 @@
+/*
+Widget at Apperence > widgets 
+*/
+
+.widgets-holder-wrap [id*="gucherry-blog-"] .widget-top {
+
+    background: #fffbe4;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+

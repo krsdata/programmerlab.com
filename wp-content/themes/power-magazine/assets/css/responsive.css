@@ -1,0 +1,201 @@
+/*  12.0 ===== Medias/Responsive =====   */
+/*
+ * Does the same thing as <meta name="viewport" content="width=device-width">,
+ * but in the future W3C standard way. -ms- prefix is required for IE10+ to
+ * render responsive styling in Windows 8 "snapped" views; IE10+ does not honor
+ * the meta tag. See https://core.trac.wordpress.org/ticket/25888.
+ */
+@-ms-viewport {
+  width: device-width;
+}
+@viewport {
+  width: device-width;
+}
+@media only screen and (max-width: 1300px) {
+
+}
+/* All Tablet Portrait size smaller than standard 1199 (devices and browsers) */
+@media only screen and (max-width: 1199px) {
+
+}
+@media only screen and (max-width: 1140px) {
+
+}
+/* All Tablet Portrait size smaller than standard 1023 (devices and browsers) */
+@media only screen and (max-width: 1023px) {
+	#primary{
+		width: 60%;
+	}
+	#secondary{
+		width:40%;
+	}
+}
+@media only screen and (max-width: 992px) {
+
+}
+@media only screen and (max-width: 840px) {
+	#primary,
+	#secondary,
+	body.left-sidebar #primary,
+	body.right-sidebar #primary{
+		width: 100%;
+		float: none;
+	}
+	.popular-posts article figure img, .recent-posts article figure img,
+	.trending-and-latest-tab-section article figure img{
+		width: 100%;
+		object-fit: cover;
+	}
+}
+/* All Mobile Portrait size smaller than 768 (devices and browsers) */
+@media only screen and (max-width: 768px) {
+	.custom-col-1,  
+	.custom-col-2,  
+	.custom-col-3,  
+	.custom-col-4,  
+	.custom-col-5, 
+	.custom-col-6,  
+	.custom-col-7,  
+	.custom-col-8, 
+	.custom-col-9,  
+	.custom-col-10,  
+	.custom-col-11,  
+	.custom-col-12 {
+	    float: none;
+	    width: 100%;
+	}
+	.header-info-bar .social-links{
+		border-top:1px solid #d7d7d7;
+	}
+	.header-info-bar .header-info-bar-left,.header-info-bar .social-links{
+		width: 100%;
+		text-align: left;
+	}
+	.site-header-middle .row{
+		display: block;
+	}
+	.site-branding{
+		margin-bottom: 10px;
+		text-align:center;
+	}
+	.site-branding a{
+		display: inline-block;
+	}
+	.main-slider .slick-dots li button[type=button]{
+		width: 20px;
+	}
+	.main-slider .slick-dots li button[type=button]:hover, 
+	.main-slider .slick-dots li.slick-active button[type=button]{
+		width:40px;
+	}
+	.site-header .search-section{
+		position: relative;
+		clear: left;
+		height: 50px;
+	}
+
+}
+@media only screen and (max-width: 640px){
+	.sport-section article, 
+	.business-section article,
+	.grid-layout .post-item-wrapper article, 
+	.related-post-wrap article{
+		width: 100%;
+	}
+	.grid-layout .post-item-wrapper article, .related-post-wrap article{
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.sport-section article figure img, 
+	.business-section article figure img,
+	.trending-and-latest-tab-section .featured-post figure img, 
+	.popular-posts article figure img, 
+	.recent-posts article figure img,
+	.video-section article figure img,
+	figure.gallery-item img,
+	.trending-and-latest-tab-section .featured-post figure img 
+	{
+		width:100%;
+		object-fit:cover;
+	}
+	.list-layout .post-item-wrapper article figure,
+	.list-layout .post-item-wrapper article figure + .post-content{
+		width: 100%;
+		padding-left:0;
+	}
+	.grid-layout .post-item-wrapper, .related-post-wrap{
+		margin:0;
+	}
+	.comment-navigation .nav-previous, .posts-navigation .nav-previous, .post-navigation .nav-previous{
+		margin-top:10px;
+	}
+	.comment-navigation .nav-previous, .posts-navigation .nav-previous, .post-navigation .nav-previous,
+	.comment-navigation .nav-next, .posts-navigation .nav-next, .post-navigation .nav-next{
+		width: 100%;
+		float: left;
+		text-align: left;
+	}
+	.comment-respond .comment-form-comment ,
+	.comment-respond .comment-form-author, .comment-respond .comment-form-email {
+	    float: none;
+	    width: 100%;
+	    padding-right: 0;
+	    padding-left: 0px;
+	}
+	.contact-form .your-name, 
+	.contact-form .your-phone, 
+	.contact-form .your-email, 
+	.contact-form .your-address {
+	    width:100%;
+	    float: none;
+	    padding-left: 0;
+	    padding-right: 0;
+	}
+	.error-404 h2{
+		font-size:94px;
+	}
+	.error-404 h4{
+		font-size:20px; 
+	}
+	.fashion-section .grid-item {
+	    width: 100%;
+	    margin: 0 0;
+	    text-align: center;
+	}
+	.fashion-section .grid-item article{
+		max-width: 400px;
+		display: inline-block;
+		text-align: left;
+	}
+}
+@media only screen and (max-width: 540px){
+	.lifestyle-section article {
+	    width: 100%;
+	    margin-right: 0;
+	}
+	.lifestyle-section article figure img{
+		width: 100%;
+	}
+	.lifestyle-section article:nth-child(4n+1) figure,
+	.lifestyle-section article:nth-child(4n+2) figure,
+	.lifestyle-section article figure{
+		width: 100%;
+	}
+	.lifestyle-section article figure + .post-content,
+	.lifestyle-section article:nth-child(4n+1) figure + .post-content,
+	.lifestyle-section article:nth-child(4n+2) figure + .post-content{
+		width: 100%;
+		padding-left:0;
+	}
+}
+/* All Mobile size smaller than standard 479 (devices and browsers) */
+@media only screen and (max-width: 480px) {
+	h2{
+		font-size:18px;
+	}
+	.absolute-content .featured-post figure + .post-content{
+		padding:0 10px 10px;
+	}
+
+}
+

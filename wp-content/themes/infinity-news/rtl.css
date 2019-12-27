@@ -1,0 +1,135 @@
+/*
+Theme Name: Infinity News
+
+Adding support for languages written in a Right To Left (RTL) direction is easy -
+it's just a matter of overwriting all the horizontal positioning attributes
+of your CSS stylesheet in a separate stylesheet file named rtl.css.
+
+https://codex.wordpress.org/Right-to-Left_Language_Support
+
+*/
+
+body {
+    direction: rtl;
+    unicode-bidi: embed;
+}
+
+.twp-row .column {
+    float: right;
+}
+
+.site-branding {
+    margin-left: 20px;
+    margin-right: 0;
+}
+
+.site #hamburger-one span {
+    left: inherit;
+    right: 14px;
+}
+
+#hamburger-one span:before {
+    left: inherit;
+    right: -14px;
+}
+
+#hamburger-one.active span:before {
+    left: inherit;
+    right: 0;
+}
+
+.offcanvas-navigation li a i {
+    left: 0;
+    right: inherit;
+}
+
+.widget-title:after {
+    left: inherit;
+    right: 0;
+}
+
+.main-navigation .menu ul ul a:before,
+.breadcrumbs ul li span:before,
+#comments .comment-reply-link:after,
+.slide-icon-1{
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+.scroll-up {
+    left: 20px;
+    right: inherit;
+}
+
+.article-wraper > article {
+    float: right;
+}
+
+.no-offcanvas .main-navigation .menu ul {
+    margin-right: 0;
+}
+
+.main-navigation .menu ul > li {
+    float: right;
+}
+
+.main-navigation .menu ul li i {
+    padding-left: 0;
+    padding-right: 5px;
+}
+
+.main-navigation .nav-right {
+    left: 0;
+    right: inherit;
+    text-align: left;
+}
+
+.search-bar .search-form input {
+    padding-left: 60px;
+    padding-right: 15px;
+}
+
+.search-bar .search-form input[type="submit"],
+.site .search-bar .search-form:before {
+    left: 0;
+    right: inherit;
+}
+
+.twp-minicart .minicart-title-handle {
+    padding-right: 15px;
+    padding-left: 0;
+}
+
+.twp-minicart .minicart-content {
+    left: 0;
+    right: inherit;
+}
+
+.archive-like-share .twp-like-dislike-button {
+    float: left;
+}
+
+.post-wrapper .post-thumbnail .twp-like-dislike-button, .post-thumb .twp-like-dislike-button {
+    left: inherit;
+    right: 20px;
+}
+
+.twp-like-dislike-button .twp-like-count, .twp-like-dislike-button .twp-dislike-count {
+    margin-right: -10px;
+    margin-left: 8px;
+}
+
+@media only screen and (min-width: 992px) {
+    .main-navigation .menu > ul > li > ul {
+        left: inherit;
+        right: 0;
+    }
+    .main-navigation .menu > ul > li > ul:before{
+        right: 22px;
+        left: inherit;
+    }
+    .main-navigation .menu > ul > li > ul:after{
+        right: 23px;
+        left: inherit;
+    }
+}

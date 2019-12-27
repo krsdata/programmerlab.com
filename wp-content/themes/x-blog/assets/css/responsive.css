@@ -1,0 +1,90 @@
+/* Medium Layout: 1280px. */
+@media only screen and (min-width: 992px) and (max-width: 1200px) { 
+.baby-container{ 
+    width:960px;
+}
+div.kc_tabs > .kc_wrapper > .kc_tabs_nav {
+    padding: 0;
+} 
+    
+}
+
+/* Tablet Layout: 768px. */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+.baby-container{ 
+    width:760px;
+}
+
+}
+
+/* Mobile Layout: 320px. */
+@media only screen and (max-width: 767px) {
+.baby-container{ 
+    width:300px;
+}
+.slicknav_menu{ 
+    display:block;
+}
+h1 {
+    font-size: 35px;
+}
+h1.page-title {
+    font-size: 20px;
+}
+h2 {
+    font-size: 28px;
+}
+.site-main article,
+.site-main section,
+.comments-area,
+.site-footer 
+.site-info, 
+.page-header {
+    padding: 20px 5px;
+}
+.site-content .widget-area {
+  width: auto;
+  float: inherit;
+}
+nav#site-navigation {
+    display:none;
+}
+html body ul.slicknav_nav li a {
+    text-decoration: none;
+    color: #ffffff;
+}
+.content-area {
+    float: inherit;
+    margin: 0 auto;
+    width: auto;
+}
+section.not-found .page-content .widget {
+    width: auto;
+    float: inherit;
+    margin: auto;
+}
+section.footer-widget {
+    width: auto;
+    float: inherit;
+    margin: 30px 0;
+    border: 1px solid #fff;
+}
+
+}
+
+/* Wide Mobile Layout: 480px. */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+.baby-container{ 
+    width:90%;
+}
+h1 {
+    font-size: 35px;
+}
+h1.page-title {
+    font-size: 24px;
+}
+h2 {
+    font-size: 30px;
+}
+
+}

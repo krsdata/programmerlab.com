@@ -1,0 +1,9 @@
+.widget-content .image-preview-wrap img {
+    max-width: 100%;
+    margin: 20px auto 0;
+}
+
+#setting-error-twp.update-nag{
+    clear: both;
+    display: block;
+}

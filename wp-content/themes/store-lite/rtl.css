@@ -1,0 +1,87 @@
+/*
+Theme Name: Store Lite
+
+Adding support for languages written in a Right To Left (RTL) direction is easy -
+it's just a matter of overwriting all the horizontal positioning attributes
+of your CSS stylesheet in a separate stylesheet file named rtl.css.
+
+https://codex.wordpress.org/Right-to-Left_Language_Support
+
+*/
+
+body {
+	direction: rtl;
+	unicode-bidi: embed;
+}
+
+.twp-row .column {
+    float: right;
+}
+
+.site-branding {
+    margin-left: 20px;
+    margin-right: 0;
+}
+
+.site .main-navigation .icon-sidr {
+    left: inherit;
+    right: 0;
+    text-align: right;
+}
+
+.site #hamburger-one span {
+    left: inherit;
+    right: 14px;
+}
+
+#hamburger-one span:before {
+    left: inherit;
+    right: -14px;
+}
+
+.offcanvas-navigation li a i {
+    left: 0;
+    right: inherit;
+}
+
+.widget-title:after {
+    left: inherit;
+    right: 0;
+}
+
+.twp-banner-details .post-thumbnail-corner {
+    border-width: 40px 40px 0 0;
+    border-color: #fff transparent transparent transparent;
+    left: 0;
+    right: inherit;
+}
+
+.entry-meta-category a:after {
+    right: 0;
+    left: inherit;
+    border-right-width: 0;
+    border-left: 4px solid;
+    border-bottom: 4px solid transparent;
+    border-left-color: #000;
+}
+
+.main-navigation .menu ul ul a:before,
+.breadcrumbs ul li span:before,
+#comments .comment-reply-link:after {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+.scroll-up {
+    left: 20px;
+    right: inherit;
+}
+
+.twp-main-container > article {
+    float: right;
+}
+
+.twp-currency-switcher .woocommerce-currency-switcher-form .dd-container {
+    margin-left: 0;
+    margin-right: 10px;
+}

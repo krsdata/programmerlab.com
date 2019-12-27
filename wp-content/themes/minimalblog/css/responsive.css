@@ -1,0 +1,432 @@
+    @media only screen and (min-width: 1400px) {}
+
+    @media only screen and (min-width: 992px) and (max-width: 1200px) {
+        .blog-single-featured-block .post-thumnail {
+            height: 400px;
+        }
+
+        #cssmenu #menu-button {
+            text-align: left;
+            padding: 12px 25px 8px 25px
+        }
+
+        #cssmenu #menu-button::before {
+            top: 24px;
+        }
+
+        #cssmenu #menu-button::after {
+            height: 7px;
+            top: 14px;
+        }
+
+        nav.navbararea {
+            padding-bottom: 7px;
+        }
+
+        span.ajax-loader {
+            display: none !important;
+        }
+
+        nav.navbararea #cssmenu {
+            width: 73%;
+            padding-top: 0 !important;
+            padding-bottom: 5px;
+            background: #FBC0D4;
+            margin-top: 5px !important
+        }
+
+        nav.navbararea .searchbox {
+            width: 27%
+        }
+
+        .minimalblog-entry-content>a h2 {
+            font-size: 24px
+        }
+
+        nav.navigation.posts-navigation {
+            margin-top: 50px;
+        }
+
+        div#cssmenu ul>li>a {
+            color: #fff
+        }
+
+        #cssmenu>ul>li:before {
+            display: none;
+        }
+
+        .news-latter-form input[type="email"] {
+            margin-bottom: 10px;
+        }
+
+        .blog-single-featured-block .no-post-thumbnail {
+            height: 400px
+        }
+
+        div.boxlayout {
+            margin: 40px 40px;
+        }
+
+        .site.boxlayout .menu-area.sticky-menu {
+            width: calc(100% - 80px);
+            left: 40px;
+        }
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 991px) {
+        #cssmenu #menu-button {
+            text-align: left;
+        }
+
+        nav.navbararea #cssmenu {
+            width: 64%;
+            padding-top: 0 !important;
+            padding-bottom: 5px;
+            background: #FBC0D4;
+            margin-top: 5px !important
+        }
+
+        nav.navbararea .searchbox {
+            width: 36%
+        }
+
+        #cssmenu #menu-button::before {
+            top: 23px;
+        }
+
+        #cssmenu #menu-button::after {
+            top: 12px;
+            height: 7px;
+        }
+
+        #cssmenu #menu-button {
+            padding-bottom: 10px;
+            padding-top: 10px;
+        }
+
+        nav.navbararea {
+            padding-bottom: 6px;
+        }
+
+        div#cssmenu ul>li>a {
+            color: #fff
+        }
+
+        #cssmenu>ul>li:before {
+            display: none;
+        }
+
+        .blog-single-featured-block .post-thumnail {
+            height: 400px;
+        }
+
+        span.ajax-loader {
+            display: block !important;
+        }
+
+        .news-latter-comment h2 {
+            font-size: 23px;
+        }
+
+        .news-latter-form input[type="email"] {
+            margin-bottom: 10px;
+        }
+
+        .news-latter-form {
+            margin-top: 20px;
+        }
+
+        .blog-single-featured-block .no-post-thumbnail {
+            height: 400px;
+        }
+
+        .featured-area {
+            padding-bottom: 0;
+        }
+
+        .blog-single-featured-block {
+            margin-bottom: 30px;
+        }
+
+        .single-popular-post {
+            margin-bottom: 30px;
+        }
+
+        div.boxlayout {
+            width: 100%;
+            margin: 0;
+        }
+
+        .site.boxlayout .menu-area.sticky-menu {
+            width: 100%;
+            left: 0
+        }
+
+        .header-three .social-link-top a:first-child {
+            margin-left: 0;
+        }
+
+        .header-three .social-link-top {
+            margin-top: 0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .stellarnav.mobile.light ul {
+            text-align: left;
+        }
+
+        .logo-area {
+            padding: 20px;
+        }
+        .widget-title, .widgettitle{
+            font-size: 15px;
+        }
+    }
+
+    @media only screen and (max-width: 767px) {
+        .navbararea #cssmenu {
+            width: 100% !important;
+            padding-top: 0 !important;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            z-index: 5;
+        }
+
+        .social-link-top {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .social-link-top a {
+            color: #000;
+        }
+
+        .navbararea #cssmenu #menu-button {
+            text-align: left !important;
+            width: 100% !important;
+        }
+
+        nav.navbararea .searchbox {
+            display: none !important;
+        }
+
+        #cssmenu #menu-button::after {
+            height: 7px;
+        }
+
+        nav.navbararea {
+            position: relative;
+        }
+
+        #cssmenu>ul>li {
+            text-align: left;
+        }
+
+        div#cssmenu>ul>li a {
+            color: #fff !important;
+            padding-left: 22px;
+            padding-top: 10px;
+            padding-bottom: 10px
+        }
+
+        #cssmenu>ul>li.has-sub>a::after {
+            display: block;
+        }
+
+        .nav-links div.nav-next a:before {
+            width: 32px;
+        }
+
+        .nav-links div.nav-next a {
+            font-size: 12px;
+            padding-right: 40px;
+        }
+
+        .nav-previous a {
+            font-size: 12px;
+            padding-left: 0;
+        }
+
+        .nav-previous a:before {
+            width: 32px
+        }
+
+        .nav-links {
+            margin-bottom: 30px
+        }
+
+        h2 {
+            font-size: 26px;
+        }
+
+        h1.entry-title {
+            font-size: 30px;
+        }
+
+        .minimalblog-entry-content>a h2 {
+            font-size: 26px
+        }
+
+        .widget-area {
+            margin-top: 0;
+        }
+
+        .blog-post-section {
+            padding-bottom: 30px;
+        }
+
+        section.error-404.not-found {
+            margin-bottom: 50px;
+        }
+
+        ol.comment-list ol {
+            padding-left: 0;
+        }
+
+        .comment-meta.media {
+            display: block;
+        }
+
+        .comment-meta.media .media-left {
+            float: none;
+            margin-right: 0;
+            margin-bottom: 20px;
+        }
+
+        /*start Featuerd layout Responsive Design*/
+        .blog-single-featured-block .post-thumnail {
+            height: 330px;
+        }
+
+        .single-popular-post {
+            margin-bottom: 40px;
+        }
+
+        .minimalblog_popular_post_area {
+            padding-bottom: 30px;
+        }
+
+        .featured-area {
+            padding-bottom: 20px;
+        }
+
+        .post-date {
+            margin-bottom: 10px
+        }
+
+        /*end of featured layout responsive design */
+        .newsletter-image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .news-latter-comment h2 {
+            font-size: 24px;
+        }
+
+        .news-latter-form {
+            margin-top: 0;
+        }
+
+        .news-latter-form input[type="email"] {
+            width: 100%;
+            margin-bottom: 10px
+        }
+
+        .news-latter-section {
+            padding-bottom: 30px;
+        }
+
+        span.ajax-loader {
+            display: block !important;
+            width: 100%;
+            text-align: center;
+        }
+
+        .single-comment .commnenter-details {
+            padding-left: 0
+        }
+
+        .post-author {
+            min-height: 140px;
+        }
+
+        #cssmenu>ul>li.has-sub>a::after {
+            border-top-color: #fff
+        }
+
+        .blog-single-featured-block {
+            margin-bottom: 20px;
+        }
+
+        .static_icon {
+            top: 0;
+        }
+
+        .footer-menu ul {
+            text-align: center;
+        }
+
+        .site-info {
+            text-align: center;
+        }
+
+        .post-description {
+            padding: 20px;
+        }
+
+        div.boxlayout {
+            margin: 0;
+        }
+
+        .header-three .logo-area {
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .header-three .site-branding {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .site.boxlayout .menu-area.sticky-menu {
+            width: 100%;
+            left: 0
+        }
+
+        header.site-header.header-layout-two .stellarnav.light.mobile {
+            text-align: center;
+        }
+
+        header.site-header.header-layout-two .stellarnav.mobile.light ul {
+            text-align: left;
+        }
+
+        .logo-area {
+            padding: 20px;
+        }
+
+        .author-image {
+            width: 100%;
+            float: none;
+            text-align: left;
+            overflow: inherit;
+            margin-bottom: 20px;
+        }
+
+        .post-author .author-about {
+            padding-left: 0;
+        }.footer-area .widget {
+            margin-bottom: 50px;
+        }
+        .footer-area.section-padding{
+            padding-bottom: 30px;
+        }
+        .footer-area .widget .widget-title{
+            margin-bottom: 20px;
+        }
+    }
+
+    @media only screen and (min-width: 480px) and (max-width: 767px) {}

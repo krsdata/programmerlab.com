@@ -1,0 +1,917 @@
+/*
+Theme Name: Intuitive
+Description: Used to style the TinyMCE editor.
+*/
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Typography
+# Elements
+# Padding/Margin
+# Forms
+# Navigation
+	## Links
+# Alignments
+# Posts and pages
+# Media
+	## Captions
+	## Galleries
+	## Transition
+# Media Queries
+	## >= 568px (iPhone 5, 5S, 5C and 5SE : Landscape)
+	## >= 667px (iPhone 6, 6S, 7 and 8 : Landscape)
+	## >= 1024px (iPad 1, 2, 3, 4, Mini, Air, Pro 9.7" : Landscape)
+	## >= 1600px (Kindle Fire HD 8.9" : Landscape)
+# Colors
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# Body
+--------------------------------------------------------------*/
+
+body {
+	background-color: #fff;
+	margin: 35px;
+	max-width: 1060px;
+	vertical-align: baseline;
+}
+
+/*--------------------------------------------------------------
+# Typography
+--------------------------------------------------------------*/
+
+body,
+button,
+input,
+select,
+optgroup,
+textarea  {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 18px;
+	font-size: 1.125rem;
+	font-style: normal;
+	font-stretch: normal;
+	font-weight: 400;
+	letter-spacing: normal;
+	line-height: 1.67;
+}
+
+h1 {
+	font-size: 28px;
+	font-size: 1.75rem;
+	line-height: 1.166666666666667;
+}
+
+h1 {
+	margin-bottom: 0.6666666666666667em;
+	margin-top: 1.333333333333333em;
+}
+
+h2 {
+	font-size: 26px;
+	font-size: 1.625rem;
+}
+
+h2 {
+	margin-bottom: 0.8em;
+	margin-top: 1.6em;
+	line-height: 1.2;
+}
+
+h3 {
+	font-size: 24px;
+	font-size: 1.5rem;
+	line-height: 1.25;
+	margin-bottom: 1em;
+	margin-top: 2em;
+}
+
+h4 {
+	font-size: 22px;
+	font-size: 1.375rem;
+	line-height: 1.458333333333333;
+	margin-bottom: 1.166666666666667em;
+	margin-top: 2.333333333333333em;
+}
+
+h5 {
+	font-size: 20px;
+	font-size: 1.25rem;
+	line-height: 1.4;
+	margin-bottom: 1.4em;
+	margin-top: 2.8em;
+}
+
+h6 {
+	font-size: 16px;
+	font-size: 1rem;
+	line-height: 1.75;
+}
+
+h6 {
+	margin-bottom: 1.75em;
+	margin-top: 3.5em;
+}
+
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child {
+	margin-top: 0;
+}
+
+blockquote {
+		font-size: 18px;
+		font-size: 1.125rem;
+}
+
+cite {
+	font-size: 13px;
+	font-size: 0.8125rem;
+	line-height: 1.62;
+}
+
+.drop-cap:first-letter {
+  	float: left;
+  	font-size: 100px;
+  	font-size: 6.25rem;
+  	font-weight: 500;
+  	line-height: 0.6;
+  	margin: 11px 14px 0 -10px;
+}
+
+p {
+	margin-top: 0;
+}
+
+p,
+input[type="text"],
+input[type="email"],
+textarea {
+	margin-bottom: 1.555555555555556em;
+}
+
+b,
+strong {
+	font-weight: 600;
+}
+
+dfn,
+cite,
+em,
+i {
+	font-style: italic;
+}
+
+cite {
+	font-style: normal;
+	font-weight: 400;
+}
+
+blockquote {
+	font-weight: 700;
+	line-height: 1.4;
+	margin: 0 0 1.75em;
+	border: 0 solid;
+	border-left-width: 5px;
+	padding: 0 0 0 1.4em;
+}
+
+blockquote p {
+	margin-bottom: 1.166666666666667em;
+}
+
+address {
+	margin: 0 0 1.555555555555556em;
+}
+
+pre {
+	margin-bottom: 1.555555555555556em;
+	max-width: 100%;
+	overflow: auto;
+	padding: 1.555555555555556em;
+	white-space: pre-wrap;
+}
+
+code,
+kbd,
+tt,
+var {
+	font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+}
+
+abbr,
+acronym {
+	border-bottom: 1px dotted;
+	cursor: help;
+}
+
+mark,
+ins {
+	padding: 7px;
+	text-decoration: none;
+}
+
+big {
+	font-size: 125%;
+}
+
+/*--------------------------------------------------------------
+# Elements
+--------------------------------------------------------------*/
+
+html {
+	box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after { /* Inherit box-sizing to make it easier to change the property for components that leverage other behavior; see http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+	box-sizing: inherit;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: "";
+}
+
+blockquote,
+q {
+	quotes: "" "";
+}
+
+hr {
+	border: 0;
+	height: 1px;
+	margin-bottom: 1.555555555555556em;
+}
+
+ul,
+ol {
+	margin: 0 0 1.555555555555556em 2em;
+	padding: 0;
+}
+
+ul {
+	list-style: disc;
+}
+
+ol {
+	list-style: decimal;
+}
+
+li > ul,
+li > ol {
+	margin-bottom: 0;
+	margin-left: 1.555555555555556em;
+}
+
+dt {
+	font-weight: 600;
+}
+
+dd {
+	margin: 0 1.555555555555556em 1.555555555555556em;
+}
+
+img {
+	height: auto; /* Make sure images are scaled correctly. */
+	max-width: 100%; /* Adhere to container width. */
+}
+
+figure {
+	margin: 0; /* Extra wide images within figure tags don't overflow the content area. */
+}
+
+table {
+	table-layout: fixed;
+	width: 100%;
+	border-spacing: 0;
+	margin: 0 0 1.75em;
+}
+
+table,
+th,
+td {
+	border: 1px solid;
+}
+
+.widget_calendar td,
+.widget_calendar th {
+    line-height: 2.5625;
+    padding: 0;
+}
+
+table a {
+	font-weight: 400;
+}
+
+table caption {
+	padding-bottom: 21px;
+}
+
+thead th {
+	font-weight: 700;
+}
+
+th {
+	text-align: left;
+}
+
+th,
+td {
+	padding: 0.7777777777777778em 1.555555555555556em;
+}
+
+/*--------------------------------------------------------------
+# Padding/Margin
+--------------------------------------------------------------*/
+
+blockquote > :last-child,
+form input:last-of-type,
+.post-password-form >:last-child,
+.form-submit,
+form p:last-of-type {
+	margin-bottom: 0;
+}
+
+/*--------------------------------------------------------------
+# Forms
+--------------------------------------------------------------*/
+
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+.button {
+	font-size: 15px;
+	font-size: 0.9375rem;
+	line-height: 1.4;
+}
+
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+.button {
+	border: 0;
+	-webkit-border-radius: 27px;
+	border-radius: 27px;
+	font-weight: 700;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	text-decoration: none;
+	display: inline-block;
+	padding: 16px 35px;
+}
+
+.more-link {
+	text-decoration: none;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="tel"],
+input[type="range"],
+input[type="date"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="color"],
+textarea,
+select {
+	border: 1px solid;
+	padding: 11px 14px;
+	width: 100%;
+}
+
+textarea {
+	width: 100%;
+}
+
+.post-password-form {
+	margin-bottom: 1.75em;
+}
+
+.post-password-form label {
+	display: block;
+	letter-spacing: 0.076923077em;
+	margin-bottom: 1.75em;
+	text-transform: uppercase;
+}
+
+.post-password-form input[type="password"] {
+	width: 100%;
+}
+
+.post-password-form > :last-child {
+	margin-bottom: 0;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+	max-width: 100%;
+	width: 100%;
+}
+
+/*--------------------------------------------------------------
+# Navigation
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+## Links
+--------------------------------------------------------------*/
+
+table  a,
+.button {
+	text-decoration: none;
+}
+
+a:focus {
+	outline: thin dotted;
+}
+
+a:hover,
+a:active {
+	outline: 0;
+	text-decoration: none;
+}
+
+/*--------------------------------------------------------------
+# Accessibility
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# Alignments
+--------------------------------------------------------------*/
+
+.alignleft {
+	display: inline;
+	float: left;
+	margin: 0.375em 2.222222222222222em 1.75em 0;
+}
+
+.alignright {
+	display: inline;
+	float: right;
+	margin: 0.375em 0 1.75em 2.222222222222222em;
+}
+
+.aligncenter {
+	clear: both;
+	display: block;
+	margin: 0 auto 1.75em;
+}
+
+.form-submit,
+.gallery-item,
+.wp-caption-text {
+	text-align: center;
+}
+
+/*--------------------------------------------------------------
+# Content
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+## Footer
+--------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------
+## Posts and pages
+--------------------------------------------------------------*/
+
+.wp-post-image:hover {
+	opacity: 0.85;
+}
+
+/*--------------------------------------------------------------
+# Media
+--------------------------------------------------------------*/
+
+/* Make sure embeds and iframes fit their containers. */
+embed,
+iframe,
+object {
+	max-width: 100%;
+	vertical-align: middle;
+}
+
+
+/*--------------------------------------------------------------
+## Captions
+--------------------------------------------------------------*/
+
+.wp-caption {
+	margin-bottom: 1.555555555555556em;
+	max-width: 100%;
+}
+
+.wp-caption img[class*="wp-image-"] {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+figcaption,
+.wp-caption .wp-caption-text {
+	font-size: 15px;
+	font-style: 0.9375rem;
+	line-height: 1.4;
+    font-style: italic;
+    padding: 14px;
+}
+
+/*--------------------------------------------------------------
+## Galleries
+--------------------------------------------------------------*/
+
+.gallery {
+	margin-bottom: 1.555555555555556em;
+}
+
+.gallery-item {
+	display: inline-block;
+	max-width: 33.33%;
+	padding: 0 1.1400652% 2.2801304%;
+	vertical-align: top;
+	width: 100%;
+}
+
+.gallery-columns-2 .gallery-item {
+	max-width: 50%;
+}
+
+.gallery-columns-3 .gallery-item {
+	max-width: 33.33333%;
+}
+
+.gallery-columns-4 .gallery-item {
+	max-width: 25%;
+}
+
+.gallery-columns-5 .gallery-item {
+	max-width: 20%;
+}
+
+.gallery-columns-6 .gallery-item {
+	max-width: 16.66667%;
+}
+
+.gallery-columns-7 .gallery-item {
+	max-width: 14.28571%;
+}
+
+.gallery-columns-8 .gallery-item {
+	max-width: 12.5%;
+}
+
+.gallery-columns-9 .gallery-item {
+	max-width: 11.11111%;
+}
+
+.gallery-caption {
+	display: block;
+	font-style: italic;
+	padding-top: 0.5384615385em;
+}
+
+/*--------------------------------------------------------------
+## Transition
+--------------------------------------------------------------*/
+
+a,
+table a,
+input,
+textarea {
+	-webkit-transition: .5s ease;
+	-moz-transition: .5s ease;
+	-o-transition: .5s ease;
+	-ms-transition: .5s ease;
+	transition: .5s ease;
+}
+
+/*--------------------------------------------------------------
+# Media Queries
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+## >= 568px
+--------------------------------------------------------------*/
+
+@media screen and (min-width: 35.5em) {
+	blockquote.alignleft,
+	blockquote.alignright {
+	    width: -webkit-calc(50% - 0.736842105em);
+	    width: calc(50% - 0.736842105em);
+	}
+}
+
+/*--------------------------------------------------------------
+## >= 1024px
+--------------------------------------------------------------*/
+
+@media screen and (min-width: 64em) {
+	h1 {
+		font-size: 35px;
+		font-size: 2.1875rem;
+	}
+
+	h2 {
+		font-size: 30px;
+		font-size: 1.875rem;
+	}
+
+	h3 {
+		font-size: 26px;
+		font-size: 1.625rem;
+	}
+
+	h4 {
+		font-size: 24px;
+		font-size: 1.5rem;
+	}
+}
+
+/*--------------------------------------------------------------
+## >= 1600px
+--------------------------------------------------------------*/
+
+@media screen and (min-width: 100em) {
+	body {
+		font-size: 21px;
+		font-size: 1.3125rem;
+	}
+
+	h1 {
+		font-size: 42px;
+		font-size: 2.625rem;
+	}
+
+	h2 {
+		font-size: 35px;
+		font-size: 2.1875rem;
+	}
+
+	h3 {
+		font-size: 28px;
+		font-size: 1.75rem;
+	}
+
+	blockquote {
+		font-size: 20px;
+		font-size: 1.25rem;
+	}
+}
+
+/*--------------------------------------------------------------
+# Colors
+--------------------------------------------------------------*/
+
+/* Background Color */
+body  {
+	background-color: #fff;
+}
+
+/* Page Background Color */
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="tel"],
+input[type="range"],
+input[type="date"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="color"],
+textarea,
+select {
+	background-color: #fff;
+}
+
+/* Secondary Background Color */
+hr,
+pre,
+table thead,
+mark,
+ins {
+	background-color: #f8f9fb;
+}
+
+/* Main Text Color */
+body,
+input,
+select,
+optgroup,
+textarea {
+	color: #333;
+}
+
+/* Heading Text Color */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: #111;
+}
+
+
+/* Link Color */
+a,
+.more-link {
+	color: #111;
+}
+
+/* Link Hover Color */
+a:hover,
+a:focus,
+.more-link:hover,
+.more-link:focus,
+blockquote:before {
+	color: #4ca2cd;
+}
+
+blockquote {
+	border-color: #4ca2cd;
+}
+
+/* Secondary Link Color */
+figcaption,
+.wp-caption .wp-caption-text,
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="tel"],
+input[type="range"],
+input[type="date"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="color"],
+textarea,
+select {
+	color: #999;
+}
+
+/* Button Background Color */
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+.button {
+	background-color: #4ca2cd;
+}
+
+/* Button Text Color */
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+.button {
+	color: #fff;
+}
+
+/* Button Hover Background Color */
+input[type="button"]:hover,
+input[type="button"]:focus,
+input[type="reset"]:hover,
+input[type="reset"]:focus,
+input[type="submit"]:hover,
+input[type="submit"]:focus,
+.button:hover,
+.button:focus {
+	background-color: #111;
+}
+
+/* Button Hover Text Color */
+input[type="button"]:hover,
+input[type="button"]:focus,
+input[type="reset"]:hover,
+input[type="reset"]:focus,
+input[type="submit"]:hover,
+input[type="submit"]:focus,
+.button:hover,
+.button:focus {
+	color: #fff;
+}
+
+/* Border Color */
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="tel"],
+input[type="range"],
+input[type="date"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="color"],
+textarea,
+select,
+table,
+th,
+td,
+fieldset,
+abbr,
+acronym {
+	border-color: #ebebeb;
+}
+
+/* Slider Text Color */
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus,
+input[type="range"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="week"]:focus,
+input[type="time"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="color"]:focus,
+textarea:focus {
+	color: #111;
+}
+
+/* 43% of Slider Text Color */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus,
+input[type="range"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="week"]:focus,
+input[type="time"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="color"]:focus,
+textarea:focus,
+select:focus {
+	border-color: rgba(17,17,17,0.43);
+}
+
+/**
+ * 13.0 - RTL
+ */
+
+.rtl .drop-cap:first-letter {
+    float: right;
+    margin: 7px  7px -3px  16px;
+}
+
+.rtl blockquote {
+	border-left: 0;
+	border-right: 5px solid #4ca2cd;
+	padding: 0.35em 1.4em 0.35em 0;
+}
+
+.rtl ul,
+.rtl ol {
+	margin: 0 1.647em 1.750em 0;
+}
+
+.rtl li > ul,
+.rtl li > ol {
+    margin-bottom: 0;
+}
+
+.rtl th,
+.rtl .mce-item-table th,
+.rtl td,
+.rtl .mce-item-table td {
+	text-align: right;
+}

@@ -1,0 +1,52 @@
+.overlappable-7-mc h4 {
+	letter-spacing: 0;
+	line-height: 1.3rem;
+	margin: .7rem 0rem 1.2rem;
+}
+
+.overlappable-7-mc p {
+	font-size: .9rem;
+	font-weight: 400;
+	line-height: 1.5rem;
+}
+
+.overlappable-7-mc i.fa.icon {
+	font-size: 4rem;
+	margin-bottom: .5rem;
+}
+
+.overlappable-7-mc .gridContainer .row>[class^="col-"] {
+	padding: 2.5rem 1rem;
+}
+
+@media (min-width: 768px){ 
+
+	.content-section-spacing.overlappable-7-mc {
+		padding-bottom: 20px;
+		padding-top: 0;
+	}
+	
+	.content-section-spacing.overlappable-7-mc .gridContainer {
+		margin-top: -100px;
+	}
+	
+	.overlappable-7-mc .gridContainer .row>[class^="col-"] {
+		border-right: 1px solid #eee;
+	}
+	
+	.overlappable-7-mc .gridContainer .row>[class^="col-"]:last-child {
+		border-right: none;
+	}
+	
+ }
+@media (max-width: 767px){ 
+
+	.overlappable-7-mc .gridContainer .row>[class^="col-"] {
+		border-bottom: 1px solid #eee;
+	}
+	
+	.overlappable-7-mc .gridContainer .row>[class^="col-"]:last-child {
+		border-bottom: none;
+	}
+	
+ }

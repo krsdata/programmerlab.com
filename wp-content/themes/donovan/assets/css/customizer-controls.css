@@ -1,0 +1,70 @@
+/*
+ * Customizer Controls CSS
+ *
+ * Adjusts styling for theme option controls in the Customizer
+ *
+ * @package Donovan
+ */
+
+.customize-control-checkbox {
+	margin-bottom: 4px;
+}
+
+#customize-control-donovan_theme_options-site_description {
+	margin-bottom: 16px;
+}
+
+#customize-control-donovan_theme_options-sidebar_position,
+#customize-control-donovan_theme_options-blog_description,
+#customize-control-donovan_theme_options-blog_layout,
+#customize-control-donovan_theme_options-blog_content,
+#customize-control-donovan_theme_options-excerpt_length,
+#customize-control-donovan_theme_options-read_more_text,
+#customize-control-donovan_theme_options-single_post,
+#customize-control-donovan_theme_options-featured_images {
+	margin-top: 16px;
+}
+
+#customize-control-donovan_theme_options-post_details,
+#customize-control-donovan_theme_options-single_post,
+#customize-control-donovan_theme_options-featured_images {
+	margin-bottom: 0;
+}
+
+#customize-control-donovan_theme_options-blog_content {
+	padding: 0;
+}
+
+#customize-control-donovan_theme_options-blog_description textarea {
+	height: 4em;
+}
+
+#customize-control-donovan_theme_options-pro_version div {
+	margin: 4px 0 16px;
+}
+
+#customize-theme-controls [id$=accordion-panel-donovan_options_panel] .customize-info .customize-help-toggle {
+	top: 24px;
+	right: 4px;
+}
+
+#customize-theme-controls [id$=accordion-panel-donovan_options_panel] .customize-info .customize-help-toggle::before {
+	top: 0;
+	left: 0;
+	padding: 0;
+	color: #a0a5aa;
+	content: "\f333";
+	font-size: 28px;
+}
+
+#customize-theme-controls [id$=accordion-panel-donovan_options_panel] .customize-info .customize-help-toggle[aria-expanded="true"]::before {
+	content: "\f335";
+}
+
+#customize-theme-controls [id$=accordion-panel-donovan_options_panel] .customize-info .customize-help-toggle:hover::before {
+	color: #72777c;
+}
+
+#customize-theme-controls [id$=accordion-panel-donovan_options_panel] .customize-info .customize-help-toggle:focus::before {
+	box-shadow: none;
+}

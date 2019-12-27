@@ -1,0 +1,597 @@
+/*
+Theme Name: Power Magazine
+
+Adding support for languages written in a Right To Left (RTL) direction is easy -
+it's just a matter of overwriting all the horizontal positioning attributes
+of your CSS stylesheet in a separate stylesheet file named rtl.css.
+
+https://codex.wordpress.org/Right-to-Left_Language_Support
+
+*/
+
+/*
+body {
+	direction: rtl;
+	unicode-bidi: embed;
+}
+*/
+
+blockquote{
+    margin: 0 0 1.5em 0 ;
+    text-align: right;
+    border-right: 5px solid #252525;
+}
+
+blockquote cite:before{
+    margin-left: 3px;
+}
+
+ul, ol{
+    margin: 0 3em 1.5em 0 ;
+}
+
+li > ul, li > ol{
+    margin-right: 1.5em;
+}
+
+.subscribe-section input[type="email"]{
+    padding-left: 40px;
+}
+
+.main-navigation{
+    margin-right: -20px;
+    clear: right;
+}
+
+.main-navigation ul{
+    padding-right: 0;
+}
+
+.main-navigation ul.sub-menu{
+    right: 0;
+}
+
+.main-navigation ul ul li:hover > ul, .main-navigation ul ul li.focus > ul{
+    right: 100%;
+}
+
+.main-navigation ul li:hover > ul, .main-navigation ul li.focus > ul{
+    right: auto;
+}
+
+.main-navigation li.menu-item-has-children:before{
+    left: 5px;
+}
+
+.main-navigation a:after{
+    right: 15px;
+    left: 15px;
+}
+
+.comment-navigation .nav-previous, .posts-navigation .nav-previous, .post-navigation .nav-previous{
+    float: right;
+    padding-left: 5px;
+}
+
+.comment-navigation .nav-next, .posts-navigation .nav-next, .post-navigation .nav-next{
+    float: left;
+    text-align: left;
+    padding-right: 5px;
+}
+
+.pagination a.prev:after, .pagination a.next:after{
+    right: 0;
+}
+
+.nav-previous{
+    float: right;
+}
+
+.nav-next{
+    float: left;
+}
+
+.nav-links{
+    padding-left: 15px;
+}
+
+.post-navigation .nav-previous a{
+    padding-right: 35px;
+    padding-left: 10px;
+}
+
+.post-navigation .nav-next a{
+    padding-left: 35px;
+    padding-right: 10px;
+}
+
+.pagination a.prev::before, .nav-previous a::before{
+    right: 0;
+}
+
+.pagination a.next::after, .nav-next a::after{
+    left: 0;
+}
+
+.nav-previous a::before{
+    right: 3px;
+}
+
+.nav-next a::after{
+    left: 3px;
+}
+
+.screen-reader-text:focus{
+    right: 5px;
+}
+
+.alignleft{
+    float: right;
+    margin-left: 1.5em;
+}
+
+.alignright{
+    float: left;
+    margin-right: 1.5em;
+}
+
+.aligncenter{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.search .not-found input[type="submit"], .widget_search input[type="submit"]{
+    left: 0;
+}
+
+.comment-body ol{
+    margin-right: 110px;
+}
+
+.comment-body{
+    padding-right: 110px;
+}
+
+.comment-body .comment-author img{
+    right: 0;
+}
+
+.comment-body .comment-metadata{
+    margin-right: 5px;
+    padding-right: 7px;
+}
+
+.comment-body .comment-metadata:before{
+    right: 0;
+}
+
+.comment-body .reply a{
+    padding-right: 20px;
+}
+
+.comment-body .reply a:before{
+    right: 0;
+}
+
+.wp-caption img[class*="wp-image-"]{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.gallery-item{
+    margin-left: -4px;
+}
+
+#page{
+    border-right: 1px solid #d7d7d7;
+    border-left: 1px solid #d7d7d7;
+}
+
+.container{
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.row{
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.custom-col-1,  .custom-col-2,  .custom-col-3,  .custom-col-4,  .custom-col-5,  .custom-col-6,  .custom-col-7,  .custom-col-8,  .custom-col-9,  .custom-col-10,  .custom-col-11,  .custom-col-12{
+    padding-right: 15px;
+    padding-left: 15px;
+    float: right;
+}
+
+.back-to-top{
+    left: 30px;
+}
+
+.header-info-bar{
+    padding: 0px 0 0 0 ;
+}
+
+.header-info-bar .social-links{
+    text-align: left;
+    margin-right: auto;
+}
+
+.header-info-bar .social-links li{
+    margin-left: -4px;
+}
+
+.header-info-bar .social-links li:last-child{
+    margin-left: 0;
+}
+
+.header-info-bar .social-links a{
+    border-right: 1px solid #d7d7d7;
+}
+
+.header-info-bar-left + ul, .header-info-bar-left + div{
+    margin-right: auto;
+}
+
+.header-info-bar-left div > div, .header-info-bar ul li, .contact-info > div{
+    float: right;
+    border-right: 1px solid #d7d7d7;
+}
+
+.header-info-bar ul li:last-child, .header-info-bar-left div > div:last-child{
+    border-left: 1px solid #d7d7d7;
+}
+
+.header-info-bar .datetime{
+    padding: 13px 36px 13px 18px ;
+}
+
+.header-info-bar .datetime:before, .header-info-bar ul li:before{
+    right: 18px;
+}
+
+.site-header .search-section{
+    margin-right: auto;
+    left: 0;
+}
+
+.site-header .search-section.active{
+    right: 0;
+    left: 0;
+}
+
+.site-header .search-section form input[type=search]{
+    right: 0;
+}
+
+.site-header .search-section form input[type=search]::-webkit-input-placeholder{
+    text-align: right;
+}
+
+.site-header .search-section form input[type=search]::-moz-placeholder{
+    text-align: right;
+}
+
+.site-header .search-section form input[type=search]:-ms-input-placeholder{
+    text-align: right;
+}
+
+.site-header .search-section form input[type=search]:-moz-placeholder{
+    text-align: right;
+}
+
+.site-header .search-toggle, .site-header .search-section form input[type=submit]{
+    left: 0;
+}
+
+.site-header .search-toggle .fa{
+    right: 0;
+    left: 0;
+}
+
+.site-header .search-section form input[type=submit]{
+    margin-right: auto;
+}
+
+.site-header .search-section.active form input[type=submit]{
+    left: 51px;
+}
+
+.site-header .search-section.active form input[type=search]{
+    padding-right: 50px;
+    padding-left: 105px;
+}
+
+.header-banner .site-branding{
+    right: 50%;
+}
+
+.page-title-wrap:before{
+    right: 0;
+    left: 0;
+}
+
+.widget ul{
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.widget.widget_nav_menu ul ul.sub-menu{
+    padding-right: 15px;
+}
+
+.cat-item .cat-item-wrap:before, .tag-item .tag-item-wrap:before, .archieve-item .archieve-item-wrap:before{
+    right: 0;
+    left: 0;
+}
+
+.cat-item-inner, .tag-item-inner, .archieve-item-inner{
+    margin-left: 37px;
+}
+
+.slick-next{
+    left: 5px;
+}
+
+.slick-prev{
+    right: 5px;
+}
+
+.video-section .slick-dots{
+    text-align: right;
+}
+
+.slick-prev:hover:before{
+    margin-left: 5px;
+}
+
+.slick-next:hover:after{
+    margin-right: 5px;
+}
+
+.main-slider .slick-dots{
+    padding-right: 150px;
+}
+
+.main-slider .slick-dots li{
+    float: right;
+}
+
+.heading a.view-more{
+    margin-right: auto;
+    padding-left: 15px;
+}
+
+.heading a.view-more:after{
+    left: 0;
+}
+
+#primary, #secondary{
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#secondary{
+    float: right;
+}
+
+body.left-sidebar #primary{
+    float: left;
+}
+
+body.right-sidebar #primary{
+    float: right;
+}
+
+.absolute-content .featured-post figure + .post-content{
+    right: 0px;
+    left: 0px;
+    padding: 0 40px 32px 40px ;
+    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)) repeat scroll right  0;
+}
+
+.trending-and-latest-tab-section .featured-post figure, .trending-and-latest-tab-section .featured-post figure + .post-content, .lifestyle-section article:nth-child(4n+1) figure, .lifestyle-section article:nth-child(4n+2) figure, .lifestyle-section article:nth-child(4n+1) figure + .post-content, .lifestyle-section article:nth-child(4n+2) figure + .post-content, .sport-section article figure, .sport-section figure + .post-content, .popular-posts article figure, .popular-posts article figure + .post-content, .recent-posts article figure, .recent-posts article figure + .post-content{
+    float: right;
+}
+
+.trending-and-latest-tab-section .featured-post figure + .post-content, .sport-section article figure + .post-content, .popular-posts article figure + .post-content, .recent-posts article figure + .post-content, .widget-area .sport-section .sport-wrap article figure + .post-content{
+    padding: 10px 20px 0px 0 ;
+}
+
+.widget-area .sport-section .sport-wrap article figure, .widget-area .sport-section .sport-wrap article figure + .post-content{
+    float: right;
+}
+
+.trending-and-latest-tab-section .featured-post .post-content, .trending-and-latest-tab-section .featured-post figure + .post-content{
+    padding-left: 7px;
+}
+
+.lifestyle-section article:nth-child(4n+1) figure + .post-content, .lifestyle-section article:nth-child(4n+2) figure + .post-content{
+    padding: 10px 20px 0px 0 ;
+}
+
+.post-cat-list span{
+    float: right;
+    padding-right: 10px;
+    margin-right: 7px;
+}
+
+.post-cat-list span:nth-of-type(1){
+    padding-right: 0px;
+    margin-right: 0px;
+}
+
+.post-cat-list span:before{
+    right: 0;
+}
+
+.entry-meta > div{
+    margin-left: 30px;
+    padding-right: 16px;
+}
+
+.entry-meta > div:before{
+    right: 0;
+}
+
+.lifestyle-section article{
+    margin-left: -4px;
+}
+
+.lifestyle-section article:nth-child(4n+1),  .lifestyle-section article:nth-child(4n+2){
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.sport-section article, .business-section article{
+    float: right;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.business-section article:nth-of-type(2n+1), .sport-section article:nth-of-type(2n){
+    clear: right;
+}
+
+.fashion-section .grid-item{
+    float: right;
+}
+
+.header-tab-button .widget-title{
+    margin: 0 0 30px -4px ;
+}
+
+.trending-and-latest-tab-section .mCSB_outside + .mCSB_scrollTools{
+    left: 0;
+}
+
+a.popup-video, a.popup-video span:before{
+    right: 50%;
+}
+
+.mfp-iframe-holder .mfp-close{
+    padding-left: 0;
+}
+
+.subscribe-section form input[type="submit"]{
+    left: 0;
+}
+
+.site-footer .footer-menu{
+    text-align: left;
+}
+
+.site-footer .footer-menu ul{
+    padding-right: 0;
+}
+
+.site-footer .footer-menu ul li{
+    margin-right: 16px;
+    padding-right: 20px;
+}
+
+.site-footer .footer-menu ul li:before{
+    right: 0;
+}
+
+.site-footer .footer-menu ul li:first-child{
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.widget .address ul li{
+    padding-right: 43px;
+}
+
+.widget .address ul li i{
+    right: 0;
+}
+
+.widget_social_share .social-links ul li a:hover:before{
+    margin-left: 7px;
+}
+
+.list-layout .post-item-wrapper article figure, .list-layout .post-item-wrapper article figure + .post-content{
+    float: right;
+}
+
+.list-layout .post-item-wrapper article figure + .post-content{
+    padding-right: 14px;
+}
+
+.grid-layout .post-item-wrapper article, .related-post-wrap article{
+    float: right;
+}
+
+.contact-form .your-name, .contact-form .your-phone, .contact-form .your-email, .contact-form .your-address{
+    float: right;
+}
+
+.contact-form .your-name, .contact-form .your-phone{
+    padding-left: 15px;
+}
+
+.contact-form .your-email, .contact-form .your-address{
+    padding-right: 15px;
+}
+
+.contact-form input[type=submit]{
+    float: left;
+}
+
+article.single .social-links{
+    padding-right: 20px;
+}
+
+article.single .social-links:before{
+    right: 0;
+}
+
+.widget-post-author figure{
+    float: right;
+}
+
+.widget-post-author .author-details{
+    float: right;
+    padding-right: 17px;
+}
+
+.author-info-wrap .author-info{
+    margin-right: auto;
+}
+
+.comment-respond .comment-form-comment{
+    float: right;
+    padding-left: 15px;
+}
+
+.logged-in .comment-respond .comment-form-comment{
+    padding-left: 0px;
+}
+
+.comment-respond .comment-form-author, .comment-respond .comment-form-email{
+    padding-right: 15px;
+    float: right;
+}
+
+.comment-respond .comment-form-cookies-consent{
+    float: right;
+}
+
+.comment-respond .form-submit{
+    float: right;
+    text-align: left;
+}
+
+.widget.lifestyle-section article:nth-child(4n+1) figure + .post-content,  .widget.lifestyle-section article:nth-child(4n+2) figure + .post-content, .widget.sport-section article figure + .post-content{
+    padding-right: 0;
+}
+
+.widget.lifestyle-section article{
+    margin-left: 0;
+}
+
+.widget_search .search-form .search-field{
+    padding: 0 17px 0 104px ;
+}
+
+

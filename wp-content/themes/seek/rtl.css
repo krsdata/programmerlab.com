@@ -1,0 +1,82 @@
+/*
+Theme Name: Seek
+
+Adding support for languages written in a Right To Left (RTL) direction is easy -
+it's just a matter of overwriting all the horizontal positioning attributes
+of your CSS stylesheet in a separate stylesheet file named rtl.css.
+
+https://codex.wordpress.org/Right-to-Left_Language_Support
+
+*/
+
+/*
+body {
+	direction: rtl;
+	unicode-bidi: embed;
+}
+*/
+.twp-float-left{
+	float: right;
+}
+.twp-float-right{
+	float: left;
+}
+.twp-article-list .twp-article-header .twp-close-icon-section{
+	right: initial;
+	left: 0;
+}
+.twp-post-format-absolute{
+	right: initial;
+	left: 15px;
+}
+.slick-next{
+	padding: 0 15px 0 0;
+}
+.slick-prev{
+	padding: 0 8px 0 0;
+}
+.twp-social-share-section .twp-social-share-layout-2:hover .twp-share-container{
+	left: initial;
+	right: 35px;
+}
+.twp-like-dislike-button .twp-like-count, .twp-like-dislike-button .twp-dislike-count{
+	margin-right: -10px;
+	margin-left: 8px;
+}
+.twp-title-with-dashed, .widget-title,
+.archive .page-header .page-title, .search .page-header .page-title{
+	padding-left: initial;
+	padding-right: 10px;
+}
+.twp-title-with-dashed:before, .widget-title:before,
+.archive .page-header .page-title:before, .search .page-header .page-title:before{
+	left: initial;
+	right: 0;
+}
+.twp-article-post .single-excerpt p{
+	border-left: 0;
+	border-right: 4px solid #FF0036;
+}
+.twp-read-time span:before{
+	left:  initial;
+	right: 0;
+}
+.twp-comments-section .comment-list li .comment-content p:before, .twp-comments-section .comment-list li .comment-meta .comment-metadata .edit-link:before, .twp-comments-section .comment-list li .comment-meta .comment-metadata time:before{
+	left: initial;
+	right: 0;
+}
+.twp-comments-section .comment-list li .comment-meta .comment-metadata .edit-link, .twp-comments-section .comment-list li .comment-meta .comment-metadata time{
+	padding-right: 25px;
+}
+.twp-comments-section .comment-list li .comment-content p{
+	padding-left: 0;
+	padding-right: 20px;
+}
+.twp-comments-section .comment-list li .comment-meta .comment-author img{
+	margin-right: 0;
+	margin-left: 15px;
+}
+.mc4wp-form-fields input[type=checkbox]{
+	margin-right: initial;
+	margin-left: 5px;
+}

@@ -1,0 +1,275 @@
+/*
+Theme Name: Melos News
+Theme URI: https://www.thinkupthemes.com/free/melos-free/
+Author: Think Up Themes
+Author URI: https://www.thinkupthemes.com
+Description: Melos News is the free version of the multi-purpose professional theme (Melos Pro) ideal for a business or blog website. The theme has a responsive layout, HD retina ready and comes with a powerful theme options panel with can be used to make awesome changes without touching any code. The theme also comes with a full width easy to use slider. Easily add a logo to your site and create a beautiful homepage using the built-in homepage layout.
+Template: melos
+Version: 1.0.5
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Tags: one-column, two-columns, three-columns, right-sidebar, left-sidebar, custom-header, custom-menu, full-width-template, theme-options, threaded-comments, featured-images, post-formats, sticky-post, translation-ready, flexible-header, custom-background, grid-layout, footer-widgets, blog, e-commerce, education, entertainment, news, photography, portfolio
+Text Domain: melos-news
+*/
+
+/* Pre-Header Style */
+#pre-header {
+	background-color: #eee;
+}
+#pre-header .header-links li a {
+	background-color: #eee;
+}
+#pre-header .header-links > ul > li > a {
+	border-left: 1px solid #cdcdcd;
+	color: #9a9a9a;
+}
+#pre-header .header-links > ul > li > a:hover {
+	color: #1eaaf1;
+}
+#pre-header .header-links > ul > li:last-child > a {
+	border-right: 1px solid #cdcdcd;
+}
+#pre-header .header-links .sub-menu {
+	border-top: 1px solid #1EAAF1;
+}
+#pre-header .header-links .sub-menu a {
+	background-color: #f7f7f7;
+	-webkit-box-shadow: 0 3px 3px #eee;
+	-moz-box-shadow: 0 3px 3px #eee;
+	-ms-box-shadow: 0 3px 3px #eee;
+	-o-box-shadow: 0 3px 3px #eee;
+	box-shadow: 0 3px 3px #eee;
+}
+#pre-header .header-links .sub-menu a:hover {
+	color: #1EAAF1;
+}
+#pre-header-social li a,
+#pre-header-social li:last-child a {
+	border-color: #cdcdcd;
+}
+
+/* Header Style */
+#header .menu > li.current_page_item > a {
+	background-color: transparent;
+	color: #1eaaf1;
+	border-bottom: 3px solid #1EAAF1;
+}
+#header .menu > li > a:hover {
+	background-color: transparent;
+	color: #1EAAF1;
+}
+#header-search .search {
+	outline: none;
+	width: 180px;
+}
+#header-search .fa-search {
+	color: #1EAAF1;
+}
+
+/* Page Intro Style */
+#intro {
+	border-bottom: 3px solid #1EAAF1;
+	padding: 50px 0px;
+}
+#intro #breadcrumbs-core {
+	background-color: rgba(250,250,250,0.1);
+	padding: 8px 15px;
+}
+#intro .page-title {
+	margin-top: 10px;
+	background-color: rgba(0,0,0,0.25);
+	display: inline-block;
+	padding: 25px 30px;
+}
+#intro .page-title:after {
+	display: none;
+}
+
+/* Features Style */
+#section-home .services-builder {
+	text-align: center;
+}
+.services-builder.style1 {
+	padding: 0px;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	-ms-border-radius: 0;
+	-o-border-radius: 0;
+	border-radius: 0;
+	border-bottom: 3px solid #e2e2e2;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	-ms-box-shadow: none;
+	-o-box-shadow: none;
+	box-shadow: none;
+}
+.services-builder.style1 h3 {
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 17px;
+	font-weight: 700;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.services-builder.style1 p {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.services-builder.style1 p.iconurl {
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+/* Posts Style */
+.blog-article .entry-meta > span {
+	background-color: #1EAAF1;
+	display: inline-block;
+	text-align: center;
+	padding: 6px 10px;
+	color: #ffffff;
+	font-size: 14px;
+	border: none;
+}
+.blog-article .entry-meta a:hover {
+	color: rgba(250,250,250,0.75);
+}
+.blog-article .entry-meta > span:after {
+	display: none;
+}
+.blog-article .more-link a {
+	padding: 5px 10px;
+}
+.themebutton {
+	transition: all 0.3s;
+	background-color: transparent;
+	color: #1EAAF1!important;
+	text-transform: uppercase;
+	border-bottom: 3px solid #1EAAF1;
+}
+.themebutton:hover {
+	background-color: #1eaaf1;
+	color: #ffffff!important;
+}
+.blog-style1-layout2 .blog-article .blog-title {
+	height: 60px;
+	top: -67px;
+}
+.blog-article .blog-title a {
+	color: #fff;
+	font-size: 20px;
+	font-weight: 700;
+}
+
+/* Single Post Style */
+.single .post-title {
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+.single .entry-meta > span {
+	background-color: #1EAAF1;
+	display: inline-block;
+	text-align: center;
+	padding: 6px 10px;
+	color: #ffffff;
+	font-size: 14px;
+	border: none;
+}
+.single .entry-meta a:hover {
+	color: rgba(250,250,250,0.75);
+}
+
+/* Post Navigation */
+.nav-previous a, .nav-next a {
+	border: none;
+	height: 38px;
+}
+.nav-previous a .meta-icon, .nav-next a .meta-icon {
+	float: left;
+	display: inline-block;
+	background-color: #1EAAF1;
+	top: 0;
+	width: 38px;
+	height: 38px;
+	line-height: 38px;
+	color: #fff;
+}
+.nav-next a, .nav-next a {
+	border: none;
+	height: 38px;
+}
+.nav-next a .meta-icon, .nav-next a .meta-icon {
+	float: right;
+	display: inline-block;
+	background-color: #1EAAF1;
+	top: 0;
+	width: 38px;
+	height: 38px;
+	line-height: 38px;
+	color: #fff;
+}
+
+/* Side Bar Style */
+#sidebar input[type=text],
+#sidebar input[type=email],
+#sidebar input[type=password],
+#sidebar input[type=search],
+#sidebar select,
+#sidebar textarea {
+	background: #fff;
+	outline: none;
+}
+#sidebar h3.widget-title {
+	background-color: #1EAAF1;
+	margin-left: -20px;
+	margin-right: -20px;
+	margin-top: -20px;
+	border-bottom: none;
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	color: #fff;
+	font-weight: 900;
+	letter-spacing: 0.5px;
+}
+.widget li a::before {
+	content: '>';
+	font-size: 14px;
+	background-color: #1EAAF1;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	line-height: 20px;
+	color: #fff;
+	margin-right: 10px;
+}
+.widget li a:hover::before {
+	color: #fff;
+}
+#sidebar .widget {
+	border-bottom: 3px solid #E2E2E2;
+}
+
+/*Footer Style */
+#footer {
+	border-top: 3px solid #1eaaf1;
+}
+#footer-core h3 {
+	font-size: 17px;
+	letter-spacing: 1px;
+	border-bottom: none;
+	position: relative;
+	margin-bottom: 25px;
+}
+#footer-core h3::after {
+	content: '';
+	width: 45px;
+	height: 3px;
+	background-color: #1EAAF1;
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
